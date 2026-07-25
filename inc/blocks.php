@@ -42,49 +42,14 @@ add_filter( 'render_block_core/code', function ( $html, $block ) {
 }, 10, 2 );
 
 /**
- * Anchor Blocks (the companion plugin) styles its blocks against its own
- * --ab-* tokens. Map them onto the theme's tokens so the blocks follow the
- * light/dark scheme instead of staying locked to the light palette.
+ * Anchor Blocks compatibility.
  *
- * Only runs when the plugin is active, and only sets variables the plugin
- * already consumes — no plugin file is modified.
+ * No bridge is needed: from v1.8.0 the plugin's own tokens read the theme's
+ * variables first (`--ab-surface: var(--surface, #fff)`), so the blocks pick
+ * up this theme's palette and light/dark switching on their own.
+ *
+ * An earlier version of this file mapped --ab-* here instead. That was wrong —
+ * it retinted the blocks' text without touching their hardcoded white card
+ * backgrounds, which made headings invisible in dark mode. The fix belongs in
+ * the plugin, where the backgrounds are.
  */
-add_action( 'wp_enqueue_scripts', function () {
-	if ( ! wp_style_is( 'anchor-blocks', 'enqueued' ) && ! wp_style_is( 'anchor-blocks', 'registered' ) ) {
-		return;
-	}
-
-	wp_add_inline_style( 'anchor-blocks', anchor_blocks_token_bridge() );
-}, 30 );
-
-add_action( 'enqueue_block_assets', function () {
-	if ( ! is_admin() ) {
-		return;
-	}
-
-	foreach ( [ 'anchor-blocks-editor', 'anchor-blocks' ] as $handle ) {
-		if ( wp_style_is( $handle, 'enqueued' ) || wp_style_is( $handle, 'registered' ) ) {
-			wp_add_inline_style( $handle, anchor_blocks_token_bridge() );
-			break;
-		}
-	}
-}, 30 );
-
-/**
- * The --ab-* → theme token bridge.
- */
-function anchor_blocks_token_bridge() {
-	return <<<'CSS'
-:root {
-	--ab-mono: var(--font-mono);
-	--ab-border: var(--border);
-	--ab-muted: var(--text-3);
-	--ab-text: var(--text);
-	--ab-anchor: var(--navy);
-	--ab-anchor-dark: var(--surface-3);
-	--ab-shadow: 0 1px 2px var(--shadow);
-	--ab-surface: var(--surface);
-	--ab-surface-2: var(--surface-2);
-}
-CSS;
-}
