@@ -1,0 +1,124 @@
+/* ==========================================================================
+   Anchor Theme — block editor styles.
+   Mirrors the front-end prose column so the editor previews honestly.
+   ========================================================================== */
+
+.editor-styles-wrapper {
+	--bg: #F6F5F2;
+	--surface: #FFFFFF;
+	--surface-2: #FBFAF7;
+	--surface-3: #F1EFEA;
+	--border: #E6E3DC;
+	--border-strong: #D5D1C8;
+	--text: #15181D;
+	--text-2: #565C66;
+	--text-3: #8B9099;
+	--navy: #123E8C;
+	--navy-hover: #0D2F6E;
+	--on-navy: #FFFFFF;
+	--navy-soft: #EAF0FB;
+	--good: #1C8A55;
+	--warn: #B0761B;
+	--bad: #BF3B2E;
+	--shadow: rgba(18, 25, 40, .07);
+	--shadow-lg: rgba(18, 25, 40, .10);
+	--chip: #FFFFFF;
+	--ill-ink: #1B2430;
+
+	--font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+	--font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+	--radius: 14px;
+
+	background: var(--bg);
+	color: var(--text);
+	font-family: var(--font-sans);
+}
+
+.editor-styles-wrapper p {
+	font-size: 18px;
+	line-height: 1.75;
+	color: var(--text-2);
+}
+
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4 {
+	color: var(--text);
+	font-weight: 800;
+	letter-spacing: -.025em;
+}
+
+.editor-styles-wrapper h1 { font-size: 34px; line-height: 1.1; }
+.editor-styles-wrapper h2 { font-size: 26px; line-height: 1.2; }
+.editor-styles-wrapper h3 { font-size: 21px; line-height: 1.25; font-weight: 700; }
+.editor-styles-wrapper h4 { font-size: 18px; font-weight: 700; }
+
+.editor-styles-wrapper a {
+	color: var(--navy);
+}
+
+.editor-styles-wrapper ul,
+.editor-styles-wrapper ol {
+	font-size: 18px;
+	line-height: 1.75;
+	color: var(--text-2);
+}
+
+.editor-styles-wrapper blockquote {
+	padding: 22px 26px;
+	background: var(--surface-2);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	font-size: 19px;
+	line-height: 1.55;
+	font-weight: 600;
+	color: var(--text);
+}
+
+.editor-styles-wrapper pre,
+.editor-styles-wrapper .wp-block-code {
+	padding: 20px 22px;
+	background: var(--surface-2);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	font-family: var(--font-mono);
+	font-size: 13.5px;
+	line-height: 1.7;
+	color: var(--text-2);
+}
+
+.editor-styles-wrapper code {
+	font-family: var(--font-mono);
+	font-size: .88em;
+	background: var(--surface-3);
+	border: 1px solid var(--border);
+	border-radius: 5px;
+	padding: .12em .38em;
+}
+
+.editor-styles-wrapper .wp-block-image img {
+	border-radius: var(--radius);
+}
+
+.editor-styles-wrapper figcaption {
+	font-size: 13.5px;
+	color: var(--text-3);
+	text-align: center;
+}
+
+.editor-styles-wrapper table {
+	border-collapse: collapse;
+	font-size: 15px;
+}
+
+.editor-styles-wrapper th,
+.editor-styles-wrapper td {
+	border: 1px solid var(--border);
+	padding: 10px 14px;
+}
+
+.editor-styles-wrapper th {
+	background: var(--surface-2);
+	font-weight: 700;
+}

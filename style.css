@@ -1,0 +1,20 @@
+/*
+Theme Name: Anchor Theme
+Theme URI: https://github.com/anchorhost/anchor-theme
+Author: Austin Ginder
+Author URI: https://anchor.host
+Description: The Anchor Hosting marketing and blog theme. Light/dark design tokens, a command palette, a live plan calculator and a dashboard preview console — built for a one-person managed WordPress host.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.9.4
+Requires PHP: 8.0
+License: MIT
+License URI: https://opensource.org/licenses/MIT
+Text Domain: anchor-theme
+Tags: blog, one-column, custom-menu, custom-logo, featured-images, block-styles, wide-blocks, dark-mode
+*/
+
+/*
+ * Styles live in assets/css/theme.css — this file carries the theme header only.
+ * WordPress requires style.css to exist; it is intentionally not enqueued.
+ */
