@@ -35,19 +35,35 @@ function anchor_icon( $name, $size = 16, $stroke = 1.9 ) {
 }
 
 /**
- * The brand mark — custom logo if one is set, otherwise the anchor glyph.
+ * The brand lockup.
+ *
+ * A custom logo is rendered on its own — dropping an arbitrary image inside
+ * the navy tile squashes it and usually collides with the tile's colour. The
+ * default is the design's navy tile + anchor glyph + site name.
  */
-function anchor_brand_mark( $size = 34 ) {
+function anchor_brand( $size = 34 ) {
 	$logo_id = get_theme_mod( 'custom_logo' );
 
 	if ( $logo_id ) {
 		$src = wp_get_attachment_image_url( $logo_id, 'full' );
+
 		if ( $src ) {
-			return '<img src="' . esc_url( $src ) . '" alt="" width="' . (int) ( $size * 0.58 ) . '" height="' . (int) ( $size * 0.58 ) . '" />';
+			printf(
+				'<img class="brand__logo" src="%s" alt="%s" style="height:%dpx" />',
+				esc_url( $src ),
+				esc_attr( get_bloginfo( 'name' ) ),
+				(int) $size
+			);
+			return;
 		}
 	}
 
-	return '<span style="color:var(--on-navy);display:grid;place-items:center">' . anchor_icon( 'anchor', (int) ( $size * 0.56 ) ) . '</span>';
+	printf(
+		'<span class="brand__mark" style="width:%1$dpx;height:%1$dpx">%2$s</span><span class="brand__name">%3$s</span>',
+		(int) $size,
+		anchor_icon( 'anchor', (int) round( $size * 0.56 ) ), // phpcs:ignore WordPress.Security.EscapeOutput
+		esc_html( get_bloginfo( 'name' ) )
+	);
 }
 
 /**

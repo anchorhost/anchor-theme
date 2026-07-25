@@ -17,9 +17,8 @@ $company = anchor_company();
 		<div class="site-footer__inner">
 
 			<div class="footer-brand">
-				<a class="footer-brand__row" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<span class="footer-brand__mark"><?php echo anchor_brand_mark( 30 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-					<span class="footer-brand__name"><?php bloginfo( 'name' ); ?></span>
+				<a class="footer-brand__row brand brand--footer" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+					<?php anchor_brand( 30 ); ?>
 				</a>
 				<p class="footer-brand__address"><?php echo wp_kses( $company['address'], [ 'br' => [] ] ); ?></p>
 				<p class="footer-brand__note">

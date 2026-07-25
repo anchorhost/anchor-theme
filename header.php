@@ -30,8 +30,7 @@ $company = anchor_company();
 		<div class="site-header__inner">
 
 			<a class="brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-				<span class="brand__mark"><?php echo anchor_brand_mark( 34 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-				<span class="brand__name"><?php bloginfo( 'name' ); ?></span>
+				<?php anchor_brand( 34 ); ?>
 			</a>
 
 			<nav class="main-nav" id="main-nav" aria-label="<?php esc_attr_e( 'Primary', 'anchor-theme' ); ?>">
