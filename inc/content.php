@@ -184,12 +184,19 @@ function anchor_fleet_rows() {
 	] );
 }
 
-function anchor_fleet_labels() {
-	return apply_filters( 'anchor_fleet_labels', [
-		[ 'label' => 'unassigned 27',   'tone' => 'default' ],
-		[ 'label' => 'down 1',          'tone' => 'bad' ],
-		[ 'label' => 'moved 1',         'tone' => 'default' ],
-		[ 'label' => 'not-wordpress 1', 'tone' => 'default' ],
+/**
+ * Dashboard preview — the fleet filter bar. Mirrors the real console's
+ * facet pills: slice the whole fleet by plugin (at a version and status),
+ * core, host — then act on the slice.
+ */
+function anchor_fleet_filters() {
+	return apply_filters( 'anchor_fleet_filters', [
+		'search' => 'Filter sites…',
+		'chips'  => [
+			'Plugin: woocommerce · active',
+			'Version: < 10.2',
+		],
+		'count'  => '214 of 2,921 sites',
 	] );
 }
 

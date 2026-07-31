@@ -47,11 +47,15 @@ $first_tab = reset( $tab_keys );
 
 		<!-- Fleet -->
 		<div class="console__pane" data-console-pane="fleet" id="console-pane-fleet" role="tabpanel" aria-labelledby="console-tab-fleet">
-			<div class="console__labels">
-				<span class="console__labels-title"><?php esc_html_e( 'Labels:', 'anchor-theme' ); ?></span>
-				<?php foreach ( anchor_fleet_labels() as $label ) : ?>
-					<span class="tag<?php echo ( 'bad' === $label['tone'] ) ? ' tag--bad' : ''; ?>"><?php echo esc_html( $label['label'] ); ?></span>
+			<?php $filters = anchor_fleet_filters(); ?>
+			<div class="console__filters" aria-hidden="true">
+				<span class="fleet-search"><?php echo anchor_icon( 'search', 13 ); // phpcs:ignore WordPress.Security.EscapeOutput ?><?php echo esc_html( $filters['search'] ); ?></span>
+				<?php foreach ( $filters['chips'] as $chip ) : ?>
+					<span class="filter-chip"><?php echo esc_html( $chip ); ?><span class="filter-chip__x">✕</span></span>
 				<?php endforeach; ?>
+				<span class="filter-chip filter-chip--add"><?php esc_html_e( '+ Filter', 'anchor-theme' ); ?></span>
+				<div class="header-spacer"></div>
+				<span class="fleet-count"><?php echo esc_html( $filters['count'] ); ?></span>
 			</div>
 
 			<div class="fleet__head">
