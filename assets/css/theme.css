@@ -804,6 +804,10 @@ input[type="range"] {
 	color: var(--text-3);
 }
 
+.hero__flag > span:last-child {
+	white-space: nowrap;
+}
+
 .hero__dot {
 	width: 7px;
 	height: 7px;
