@@ -83,14 +83,22 @@ function anchor_illustration( $file, $alt = '', $extra_style = '' ) {
 /**
  * Estimated reading time, matching the design's "9 min" format.
  */
-function anchor_reading_time( $post = null ) {
+function anchor_reading_minutes( $post = null ) {
 	$post = get_post( $post );
 	if ( ! $post ) {
-		return '';
+		return 0;
 	}
 
-	$words   = str_word_count( wp_strip_all_tags( strip_shortcodes( $post->post_content ) ) );
-	$minutes = max( 1, (int) round( $words / 220 ) );
+	$words = str_word_count( wp_strip_all_tags( strip_shortcodes( $post->post_content ) ) );
+
+	return max( 1, (int) round( $words / 220 ) );
+}
+
+function anchor_reading_time( $post = null ) {
+	$minutes = anchor_reading_minutes( $post );
+	if ( ! $minutes ) {
+		return '';
+	}
 
 	/* translators: %d: reading time in minutes. */
 	return sprintf( __( '%d min', 'anchor-theme' ), $minutes );

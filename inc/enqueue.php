@@ -43,6 +43,16 @@ add_action( 'wp_enqueue_scripts', function () {
 		],
 	] );
 
+	if ( is_singular( 'post' ) ) {
+		wp_enqueue_script(
+			'anchor-outline',
+			ANCHOR_THEME_URI . '/assets/js/outline.js',
+			[],
+			ANCHOR_THEME_VERSION,
+			true
+		);
+	}
+
 	if ( anchor_is_plans_page() ) {
 		wp_enqueue_script(
 			'anchor-calculator',

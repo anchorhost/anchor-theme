@@ -2146,6 +2146,202 @@ input[type="range"] {
 	background: var(--surface-3) center / cover no-repeat;
 }
 
+/* --- Post outline sidebar --- */
+
+/* Hidden until the viewport has a real gutter beside the 720px prose column;
+   the script also keeps it hidden for posts with fewer than two headings. */
+.post-outline {
+	display: none;
+}
+
+@media (min-width: 1200px) {
+	.post-body {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 720px minmax(0, 1fr);
+		column-gap: 28px;
+		align-items: start;
+	}
+
+	.post-body > .prose {
+		grid-column: 2;
+		margin: 0;
+	}
+
+	.post-outline:not([hidden]) {
+		display: block;
+		grid-column: 1;
+		grid-row: 1;
+		position: sticky;
+		top: 96px;
+		padding-top: 46px;
+		transform: translateZ(0);
+	}
+}
+
+/* Collapsed, the outline is a column of tick marks (one per heading, short
+   for h3). The labels fade in on hover or keyboard focus. The aside keeps a
+   fixed width so revealing them never reflows the article. */
+
+.post-outline__head {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	margin-bottom: 14px;
+}
+
+.post-outline__kicker {
+	font-size: 11.5px;
+	font-weight: 700;
+	letter-spacing: .12em;
+	text-transform: uppercase;
+	color: var(--text-3);
+	opacity: 0;
+	transition: opacity .18s ease;
+}
+
+.post-outline__estimate {
+	font-family: var(--font-mono);
+	font-size: 11.5px;
+	color: var(--text-3);
+	transition: color .18s ease;
+}
+
+.post-outline:hover .post-outline__kicker,
+.post-outline:has(:focus-visible) .post-outline__kicker {
+	opacity: 1;
+}
+
+.post-outline:hover .post-outline__estimate,
+.post-outline:has(:focus-visible) .post-outline__estimate {
+	color: var(--text-2);
+}
+
+.post-outline__list {
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+	max-height: calc(100vh - 260px);
+	overflow-y: auto;
+	scrollbar-width: none;
+}
+
+.post-outline__list::-webkit-scrollbar {
+	display: none;
+}
+
+.post-outline__link {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 4px 0;
+	border-radius: 7px;
+	color: var(--text-3);
+	font-size: 12.5px;
+	font-weight: 500;
+	line-height: 1.3;
+}
+
+/* Expanded, rows align to the tick so a two-line label reads as one block. */
+.post-outline:hover .post-outline__link,
+.post-outline:has(:focus-visible) .post-outline__link {
+	align-items: flex-start;
+}
+
+.post-outline:hover .post-outline__tick,
+.post-outline:has(:focus-visible) .post-outline__tick {
+	margin-top: 7px;
+}
+
+.post-outline__tick {
+	flex: none;
+	height: 2px;
+	width: 22px;
+	border-radius: 999px;
+	background: var(--border-strong);
+	transition: width .18s ease, background-color .18s ease;
+}
+
+.post-outline__link--sub .post-outline__tick {
+	width: 12px;
+	margin-left: 10px;
+}
+
+/* Sections already scrolled past read as "done" rather than upcoming. */
+.post-outline__link.is-read .post-outline__tick {
+	background: var(--navy);
+	opacity: .45;
+}
+
+.post-outline__link.is-active .post-outline__tick {
+	width: 32px;
+	background: var(--navy);
+}
+
+.post-outline__link--sub.is-active .post-outline__tick {
+	width: 22px;
+}
+
+.post-outline__link:hover .post-outline__tick {
+	background: var(--navy);
+}
+
+.post-outline__label {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	opacity: 0;
+	transform: translateX(-4px);
+	transition: opacity .18s ease, transform .18s ease, color .18s ease;
+}
+
+/* The gutter is narrow, so a revealed label wraps to two lines rather than
+   ellipsing a heading down to a few words. */
+.post-outline:hover .post-outline__label,
+.post-outline:has(:focus-visible) .post-outline__label {
+	opacity: 1;
+	transform: none;
+	white-space: normal;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+}
+
+.post-outline__link:hover .post-outline__label,
+.post-outline__link:focus-visible .post-outline__label {
+	color: var(--text);
+}
+
+.post-outline__link.is-active .post-outline__label {
+	color: var(--navy);
+	font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.post-outline__tick,
+	.post-outline__label,
+	.post-outline__kicker,
+	.post-outline__estimate {
+		transition: none;
+	}
+}
+
+.prose h2,
+.prose h3 {
+	scroll-margin-top: 96px;
+}
+
+.outline-ping {
+	animation: outlinePing 1.4s ease both;
+	border-radius: 6px;
+}
+
+@keyframes outlinePing {
+	0% { background: var(--navy-soft); box-shadow: 0 0 0 8px var(--navy-soft); }
+	100% { background: transparent; box-shadow: 0 0 0 8px transparent; }
+}
+
 /* --- Prose --- */
 
 .prose {
