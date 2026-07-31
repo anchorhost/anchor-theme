@@ -13,6 +13,9 @@ Initial release.
 
 - Light/dark design token system with an explicit toggle that beats the OS
   setting, applied before first paint so there is no flash.
+- Gravity Forms (legacy markup) styling mapped to the theme tokens — inputs,
+  labels, radios, sections, validation states and the submit button follow
+  the light/dark scheme on the subscribe and contact forms.
 - Command palette (`⌘K` / `/`) with static navigation, dashboard preview,
   account link, snippet and action commands, plus live post/page search over
   the `anchor/v1/palette` REST route.

@@ -3254,6 +3254,192 @@ input[type="range"] {
 }
 
 /* ==========================================================================
+   12b. Gravity Forms (legacy markup) — retint the plugin's legacy CSS with
+   theme tokens so forms follow the light/dark scheme.
+   ========================================================================== */
+
+.gform_wrapper.gform_legacy_markup_wrapper {
+	margin: 10px 0 28px;
+}
+
+/* --- Labels --- */
+
+.gform_wrapper .gfield_label,
+.gform_wrapper .gsection_title {
+	font-weight: 600;
+	font-size: 14.5px;
+	color: var(--text);
+}
+
+.gform_wrapper .gfield_required,
+.gform_wrapper.gform_legacy_markup_wrapper .gfield_required {
+	color: var(--bad);
+}
+
+.gform_wrapper .ginput_complex label,
+.gform_wrapper .gfield_description:not(.validation_message) {
+	font-size: 12.5px;
+	color: var(--text-3);
+}
+
+.gform_wrapper .gsection,
+.gform_wrapper.gform_legacy_markup_wrapper .gsection {
+	border-bottom: 1px solid var(--border);
+}
+
+/* --- Inputs --- */
+
+.gform_wrapper input[type="text"],
+.gform_wrapper input[type="email"],
+.gform_wrapper input[type="tel"],
+.gform_wrapper input[type="url"],
+.gform_wrapper input[type="number"],
+.gform_wrapper input[type="password"],
+.gform_wrapper textarea,
+.gform_wrapper select {
+	padding: 10px 14px;
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-sm);
+	background: var(--surface);
+	color: var(--text);
+	font-family: var(--font-sans);
+	font-size: 14.5px;
+	line-height: 1.4;
+	transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.gform_wrapper input:focus,
+.gform_wrapper textarea:focus,
+.gform_wrapper select:focus {
+	outline: none;
+	border-color: var(--navy);
+	box-shadow: 0 0 0 3px var(--navy-soft);
+}
+
+.gform_wrapper input::placeholder,
+.gform_wrapper textarea::placeholder {
+	color: var(--text-3);
+	opacity: 1;
+}
+
+.gform_wrapper input[type="radio"],
+.gform_wrapper input[type="checkbox"] {
+	accent-color: var(--navy);
+}
+
+.gform_wrapper .gfield_radio label,
+.gform_wrapper .gfield_checkbox label {
+	font-size: 14.5px;
+	font-weight: 500;
+	color: var(--text);
+}
+
+.gform_wrapper .ginput_product_price,
+.gform_wrapper .ginput_total {
+	color: var(--good);
+	font-weight: 600;
+}
+
+/* --- Validation --- */
+
+.gform_wrapper .gform_validation_errors,
+.gform_wrapper.gform_legacy_markup_wrapper .gform_validation_errors {
+	background: var(--surface);
+	border: 1px solid var(--bad);
+	border-radius: var(--radius);
+	box-shadow: 0 10px 30px -18px var(--shadow-lg);
+	padding: 14px 18px;
+}
+
+.gform_wrapper .gform_validation_errors > h2,
+.gform_wrapper.gform_legacy_markup_wrapper .gform_validation_errors > h2,
+.gform_wrapper .gform_submission_error,
+.gform_wrapper.gform_legacy_markup_wrapper h2.gform_submission_error {
+	color: var(--bad);
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.gform_wrapper .gform_validation_errors > h2 .gform-icon,
+.gform_wrapper.gform_legacy_markup_wrapper .gform_validation_errors > h2 .gform-icon {
+	color: var(--bad);
+}
+
+/* Kill the legacy CSS's grey error slab; the message + input border carry it.
+   The extra .gform_legacy_markup_wrapper class out-specifies the plugin's
+   stylesheet, which loads after this one. */
+.gform_wrapper.gform_legacy_markup_wrapper li.gfield.gfield_error,
+.gform_wrapper.gform_legacy_markup_wrapper li.gfield.gfield_error.gfield_contains_required.gfield_creditcard_warning {
+	background: transparent;
+	border: 0;
+	padding: 0;
+	margin-right: 0;
+	margin-bottom: 16px !important; /* legacy CSS uses !important here */
+	max-width: 100%;
+}
+
+.gform_wrapper.gform_legacy_markup_wrapper li.gfield_error input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]),
+.gform_wrapper.gform_legacy_markup_wrapper li.gfield_error textarea,
+.gform_wrapper.gform_legacy_markup_wrapper li.gfield_error select {
+	border-color: var(--bad);
+}
+
+.gform_wrapper.gform_legacy_markup_wrapper li.gfield_error .gfield_label,
+.gform_wrapper.gform_legacy_markup_wrapper li.gfield_error ul.gfield_checkbox,
+.gform_wrapper.gform_legacy_markup_wrapper li.gfield_error ul.gfield_radio {
+	color: var(--text);
+}
+
+.gform_wrapper.gform_legacy_markup_wrapper li.gfield_error div.ginput_complex.ginput_container label {
+	color: var(--text-3);
+}
+
+.gform_wrapper.gform_legacy_markup_wrapper .validation_message,
+.gform_wrapper.gform_legacy_markup_wrapper li.gfield_error .gfield_description.validation_message {
+	color: var(--bad);
+	font-size: 12.5px;
+	font-weight: 500;
+	padding-top: 6px;
+}
+
+/* --- Submit + confirmation --- */
+
+.gform_wrapper .gform_footer input[type="submit"],
+.gform_wrapper .gform_page_footer input[type="submit"] {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-family: var(--font-sans);
+	font-size: 15.5px;
+	font-weight: 700;
+	padding: 14px 26px;
+	border-radius: 12px;
+	border: none;
+	cursor: pointer;
+	white-space: nowrap;
+	background: var(--navy);
+	color: var(--on-navy);
+	transition: transform .15s ease, background .15s ease;
+}
+
+.gform_wrapper .gform_footer input[type="submit"]:hover,
+.gform_wrapper .gform_page_footer input[type="submit"]:hover {
+	background: var(--navy-hover);
+	transform: translateY(-1px);
+}
+
+.gform_confirmation_message {
+	display: block;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-left: 3px solid var(--good);
+	border-radius: var(--radius);
+	padding: 18px 22px;
+	font-size: 15px;
+	color: var(--text);
+}
+
+/* ==========================================================================
    13. Utility pages
    ========================================================================== */
 
