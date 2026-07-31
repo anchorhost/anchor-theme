@@ -98,6 +98,19 @@
 
 	var reduced = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
 
+	/**
+	 * How far below the viewport top a heading should land. Reads the admin
+	 * bar's height from the CSS token so a logged-in reader gets the same
+	 * result as everyone else.
+	 */
+	function topOffset() {
+		var bar = parseInt(
+			getComputedStyle( document.body ).getPropertyValue( '--admin-bar-h' ),
+			10
+		);
+		return 96 + ( isNaN( bar ) ? 0 : bar );
+	}
+
 	list.addEventListener( 'click', function ( e ) {
 		var a = e.target.closest( 'a' );
 		if ( ! a ) {
@@ -119,7 +132,7 @@
 
 		history.replaceState( null, '', a.getAttribute( 'href' ) );
 		window.scrollTo( {
-			top: target.getBoundingClientRect().top + window.scrollY - 96,
+			top: target.getBoundingClientRect().top + window.scrollY - topOffset(),
 			behavior: reduced ? 'auto' : 'smooth',
 		} );
 
@@ -227,7 +240,7 @@
 	function update() {
 		ticking = false;
 
-		var spyLine = window.scrollY + 110;
+		var spyLine = window.scrollY + topOffset() + 14;
 		var active  = -1;
 
 		for ( var i = 0; i < headings.length; i++ ) {

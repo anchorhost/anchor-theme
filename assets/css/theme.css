@@ -46,6 +46,11 @@
 	--font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
 	--font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
+	/* Height of the WP admin bar when it is fixed over the page. Overridden
+	   on body.admin-bar below; everything that sticks to the top offsets by
+	   it so the header never slides underneath. */
+	--admin-bar-h: 0px;
+
 	--wrap: 1180px;
 	--gutter: 24px;
 	--radius-sm: 10px;
@@ -462,9 +467,28 @@ input[type="range"] {
    5. Header & navigation
    ========================================================================== */
 
+/* Admin bar offsets, matching WordPress's own breakpoints: the bar is 32px
+   wide-screen, 46px on tablet, and below 600px it turns position:absolute
+   and scrolls away, so no offset is wanted there. */
+body.admin-bar {
+	--admin-bar-h: 32px;
+}
+
+@media screen and (max-width: 782px) {
+	body.admin-bar {
+		--admin-bar-h: 46px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	body.admin-bar {
+		--admin-bar-h: 0px;
+	}
+}
+
 .site-header {
 	position: sticky;
-	top: 0;
+	top: var(--admin-bar-h);
 	z-index: 60;
 	background: color-mix(in srgb, var(--bg) 88%, transparent);
 	backdrop-filter: blur(14px);
@@ -2290,7 +2314,7 @@ input[type="range"] {
 		grid-column: 1;
 		grid-row: 1;
 		position: sticky;
-		top: 96px;
+		top: calc(96px + var(--admin-bar-h));
 		padding-top: 46px;
 		/* Sticky makes this a stacking context, which traps the label chip's
 		   z-index inside it. Without a level here the chip loses to later
@@ -2431,7 +2455,7 @@ input[type="range"] {
 
 .prose h2,
 .prose h3 {
-	scroll-margin-top: 96px;
+	scroll-margin-top: calc(96px + var(--admin-bar-h));
 }
 
 .outline-ping {
