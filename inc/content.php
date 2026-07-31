@@ -269,7 +269,7 @@ function anchor_quotes() {
 			'url'    => 'https://mattbru.me',
 		],
 		[
-			'text' => 'Anchor hosting is the only hosting company I recommend. I have my website there, along with several of my clients. Austin is responsive and results-oriented.',
+			'text' => 'Anchor Hosting is the only hosting company I recommend. I have my website there, along with several of my clients. Austin is responsive and results-oriented.',
 			'name'   => 'Justin Quinn',
 			'role'   => '★★★★★ · Google review',
 			'avatar' => get_theme_file_uri( 'assets/img/quotes/justin-quinn.png' ),
