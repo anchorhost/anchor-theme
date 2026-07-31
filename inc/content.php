@@ -170,16 +170,17 @@ function anchor_arrangement_cards() {
 }
 
 /**
- * Dashboard preview — fleet table rows.
+ * Dashboard preview — fleet table rows. Fictional sites and agencies; the
+ * real dashboard shows real customers, the marketing preview must not.
  */
 function anchor_fleet_rows() {
 	return apply_filters( 'anchor_fleet_rows', [
-		[ 'site' => 'bakerstreetbistro.com',           'owner' => 'bakerstreetbistro.com',              'envs' => [ 'Staging', 'Prod' ], 'core' => '7.0.2', 'visits' => '302,874' ],
-		[ 'site' => 'blueheronfarm.org',         'owner' => 'Harborlight Studio',            'envs' => [ 'Prod' ],            'core' => '7.0.2', 'visits' => '46,675' ],
-		[ 'site' => 'cedarcreekdental.com', 'owner' => 'North & Main Creative',   'envs' => [ 'Prod' ],            'core' => '7.0.2', 'visits' => '1,327' ],
-		[ 'site' => 'driftwoodgallery.com',        'owner' => 'Signal Hill Design',        'envs' => [ 'Staging', 'Prod' ], 'core' => '7.0.2', 'visits' => '1,897' ],
-		[ 'site' => 'fairviewpediatrics.com',           'owner' => 'Brightworks Agency',    'envs' => [ 'Prod', 'Staging' ], 'core' => '7.0.2', 'visits' => '102,282' ],
-		[ 'site' => 'graniteledgebuilders.com', 'owner' => 'Copperline Media',              'envs' => [ 'Prod', 'Staging' ], 'core' => '7.0.2', 'visits' => '202,872' ],
+		[ 'site' => 'bakerstreetbistro.com',    'owner' => 'bakerstreetbistro.com',  'envs' => [ 'Staging', 'Prod' ], 'core' => '7.0.2', 'visits' => '302,874' ],
+		[ 'site' => 'blueheronfarm.org',        'owner' => 'Harborlight Studio',     'envs' => [ 'Prod' ],            'core' => '7.0.2', 'visits' => '46,675' ],
+		[ 'site' => 'cedarcreekdental.com',     'owner' => 'North & Main Creative',  'envs' => [ 'Prod' ],            'core' => '7.0.2', 'visits' => '1,327' ],
+		[ 'site' => 'driftwoodgallery.com',     'owner' => 'Signal Hill Design',     'envs' => [ 'Staging', 'Prod' ], 'core' => '7.0.2', 'visits' => '1,897' ],
+		[ 'site' => 'fairviewpediatrics.com',   'owner' => 'Brightworks Agency',     'envs' => [ 'Prod', 'Staging' ], 'core' => '7.0.2', 'visits' => '102,282' ],
+		[ 'site' => 'graniteledgebuilders.com', 'owner' => 'Copperline Media',       'envs' => [ 'Prod', 'Staging' ], 'core' => '7.0.2', 'visits' => '202,872' ],
 	] );
 }
 
