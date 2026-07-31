@@ -70,10 +70,10 @@ function anchor_plan_includes() {
  */
 function anchor_hero() {
 	return apply_filters( 'anchor_hero', [
-		'flag'     => 'Hassle-free hosting for agencies',
+		'flag'     => 'Hassle-free hosting for WordPress professionals',
 		'since'    => 'since 2014',
 		'title'    => 'Hand it off.<br />It gets done.',
-		'lede'     => "Managed hosting for the people who manage everyone else's sites. DNS, migrations, updates, security and backups, handled by a real person and surfaced in one dashboard.",
+		'lede'     => "Managed hosting for the people who manage everyone else's WordPress sites. DNS, migrations, updates, security and backups, handled by a real person and surfaced in one dashboard.",
 		'facts'    => [
 			'2,900+ sites under management',
 			'800+ customers',
