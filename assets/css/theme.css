@@ -2189,26 +2189,11 @@ input[type="range"] {
 	margin-bottom: 14px;
 }
 
-.post-outline__kicker {
-	font-size: 11.5px;
-	font-weight: 700;
-	letter-spacing: .12em;
-	text-transform: uppercase;
-	color: var(--text-3);
-	opacity: 0;
-	transition: opacity .18s ease;
-}
-
 .post-outline__estimate {
 	font-family: var(--font-mono);
 	font-size: 11.5px;
 	color: var(--text-3);
 	transition: color .18s ease;
-}
-
-.post-outline:hover .post-outline__kicker,
-.post-outline:has(:focus-visible) .post-outline__kicker {
-	opacity: 1;
 }
 
 .post-outline:hover .post-outline__estimate,
@@ -2241,15 +2226,8 @@ input[type="range"] {
 	line-height: 1.3;
 }
 
-/* Expanded, rows align to the tick so a two-line label reads as one block. */
-.post-outline:hover .post-outline__link,
-.post-outline:has(:focus-visible) .post-outline__link {
-	align-items: flex-start;
-}
-
-.post-outline:hover .post-outline__tick,
-.post-outline:has(:focus-visible) .post-outline__tick {
-	margin-top: 7px;
+.post-outline__link {
+	position: relative;
 }
 
 .post-outline__tick {
@@ -2281,36 +2259,40 @@ input[type="range"] {
 	width: 22px;
 }
 
-.post-outline__link:hover .post-outline__tick {
+.post-outline__link:hover .post-outline__tick,
+.post-outline__link.is-near .post-outline__tick {
 	background: var(--navy);
-}
-
-.post-outline__label {
-	min-width: 0;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	opacity: 0;
-	transform: translateX(-4px);
-	transition: opacity .18s ease, transform .18s ease, color .18s ease;
-}
-
-/* The gutter is narrow, so a revealed label wraps to two lines rather than
-   ellipsing a heading down to a few words. */
-.post-outline:hover .post-outline__label,
-.post-outline:has(:focus-visible) .post-outline__label {
 	opacity: 1;
-	transform: none;
-	white-space: normal;
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 2;
-	line-clamp: 2;
 }
 
-.post-outline__link:hover .post-outline__label,
-.post-outline__link:focus-visible .post-outline__label {
+/* The label floats out of flow so revealing one never moves the ticks below
+   it. Only the heading nearest the cursor gets one (.is-near, set in JS). */
+.post-outline__label {
+	position: absolute;
+	left: 42px;
+	top: 50%;
+	z-index: 2;
+	/* Stays inside the gutter plus the grid gap, so it never sits on the
+	   article text. */
+	max-width: 226px;
+	padding: 5px 9px;
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	background: var(--surface);
+	box-shadow: 0 10px 24px -14px var(--shadow-lg);
 	color: var(--text);
+	/* Sized to the full heading. The chip is out of flow, so a tall one
+	   costs nothing; clamping it only ever cut text mid-line. */
+	line-height: 1.4;
+	opacity: 0;
+	pointer-events: none;
+	transform: translate(-4px, -50%);
+	transition: opacity .16s ease, transform .16s ease;
+}
+
+.post-outline__link.is-near .post-outline__label {
+	opacity: 1;
+	transform: translate(0, -50%);
 }
 
 .post-outline__link.is-active .post-outline__label {
@@ -2321,7 +2303,6 @@ input[type="range"] {
 @media (prefers-reduced-motion: reduce) {
 	.post-outline__tick,
 	.post-outline__label,
-	.post-outline__kicker,
 	.post-outline__estimate {
 		transition: none;
 	}

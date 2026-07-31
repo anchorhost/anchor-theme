@@ -50,7 +50,6 @@ while ( have_posts() ) :
 				data-left-template="<?php esc_attr_e( '≈ %d min left', 'anchor-theme' ); ?>"
 				data-done-label="<?php esc_attr_e( 'Finished', 'anchor-theme' ); ?>">
 				<div class="post-outline__head">
-					<span class="post-outline__kicker"><?php esc_html_e( 'On this page', 'anchor-theme' ); ?></span>
 					<span class="post-outline__estimate" id="post-outline-estimate"></span>
 				</div>
 				<nav class="post-outline__list" id="post-outline-list"></nav>

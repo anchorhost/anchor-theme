@@ -53,10 +53,11 @@
 
 		var text = h.textContent.trim();
 
+		// No title attribute: the label chip is the tooltip, and the native
+		// one would render a second, overlapping copy on hover.
 		var a = document.createElement( 'a' );
 		a.className = 'post-outline__link' + ( 'H3' === h.tagName ? ' post-outline__link--sub' : '' );
 		a.href      = '#' + h.id;
-		a.title     = text;
 
 		var tick = document.createElement( 'span' );
 		tick.className = 'post-outline__tick';
@@ -99,6 +100,56 @@
 		setTimeout( function () {
 			target.classList.remove( 'outline-ping' );
 		}, 1400 );
+	} );
+
+	/**
+	 * Only the heading nearest the cursor shows its label, so the rail stays
+	 * a quiet column of ticks while still being readable on approach.
+	 */
+	var near = null;
+
+	function setNear( link ) {
+		if ( near === link ) {
+			return;
+		}
+		if ( near ) {
+			near.classList.remove( 'is-near' );
+		}
+		near = link;
+		if ( near ) {
+			near.classList.add( 'is-near' );
+		}
+	}
+
+	outline.addEventListener( 'mousemove', function ( e ) {
+		var closest  = null;
+		var shortest = Infinity;
+
+		links.forEach( function ( a ) {
+			var box  = a.getBoundingClientRect();
+			var dist = Math.abs( e.clientY - ( box.top + box.height / 2 ) );
+			if ( dist < shortest ) {
+				shortest = dist;
+				closest  = a;
+			}
+		} );
+
+		setNear( closest );
+	} );
+
+	outline.addEventListener( 'mouseleave', function () {
+		setNear( null );
+	} );
+
+	list.addEventListener( 'focusin', function ( e ) {
+		var a = e.target.closest( '.post-outline__link' );
+		if ( a ) {
+			setNear( a );
+		}
+	} );
+
+	list.addEventListener( 'focusout', function () {
+		setNear( null );
 	} );
 
 	var estimate  = document.getElementById( 'post-outline-estimate' );
