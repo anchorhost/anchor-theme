@@ -241,19 +241,25 @@ function anchor_infrastructure() {
 }
 
 /**
- * Customer quotes. Replace the placeholders before launch.
+ * Customer quotes — verbatim excerpts from public Google reviews of
+ * Anchor Hosting. Trim by dropping whole sentences, never by rewording.
  */
 function anchor_quotes() {
 	return apply_filters( 'anchor_quotes', [
 		[
-			'text' => 'We stopped staffing a maintenance day. Updates, backups and security just happen, and when something is weird I email one person who already knows the site.',
-			'name' => 'Placeholder name',
-			'role' => 'Agency owner · replace with a real quote',
+			'text' => "We feel very confident in setting up our client's websites on Anchor's platform. A truly stress free hosting solution for agency owners looking to give their clients a great experience.",
+			'name' => 'Caleb Towers',
+			'role' => '★★★★★ · Google review',
 		],
 		[
-			'text' => 'The migration was the easiest part. Eighteen sites moved over a weekend and I did not touch a single DNS record.',
-			'name' => 'Placeholder name',
-			'role' => 'Web designer · replace with a real quote',
+			'text' => 'Anchor hosting is the only hosting company I recommend. I have my website there, along with several of my clients. Austin is responsive and results-oriented.',
+			'name' => 'Justin Quinn',
+			'role' => '★★★★★ · Google review',
+		],
+		[
+			'text' => 'Migrating our sites to Anchor Hosting was a breeze, off to great start. And the dashboard is super simple and user friendly! Highly recommend Austin.',
+			'name' => 'Michael Leone',
+			'role' => '★★★★★ · Google review',
 		],
 	] );
 }
