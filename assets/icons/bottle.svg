@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
+<g fill="none" stroke="#000" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+	<g transform="rotate(-20 75 78)">
+		<!-- bottle body with open neck -->
+		<path d="M66 44 L66 52 Q53 56 53 66 L53 102 Q53 112 63 112 L87 112 Q97 112 97 102 L97 66 Q97 56 84 52 L84 44" />
+		<!-- cork -->
+		<rect x="62" y="32" width="26" height="11" rx="3" />
+		<!-- letter inside -->
+		<rect x="61" y="72" width="28" height="21" rx="2" />
+		<path d="M62.5 74.5 L75 84 L87.5 74.5" />
+	</g>
+	<!-- water -->
+	<path d="M18 121 q8 -8 16 0 t16 0 t16 0 t16 0 t16 0 t16 0" />
+	<path d="M40 134 q8 -7 16 0 t16 0 t16 0 t16 0" />
+	<!-- sparkles -->
+	<path d="M28 34 v13 M21.5 40.5 h13" />
+	<path d="M124 52 v11 M118.5 57.5 h11" />
+	<!-- bubbles -->
+	<circle cx="115" cy="88" r="4.5" />
+	<circle cx="30" cy="94" r="3" />
+</g>
+</svg>

@@ -46,6 +46,8 @@ $content = trim( get_the_content() );
 			</div>
 
 		</div>
+
+		<?php anchor_illustration( 'bottle.svg', __( 'Message in a bottle', 'anchor-theme' ), 'max-width:280px;height:250px;margin-top:40px' ); ?>
 	</div>
 
 	<?php if ( $content ) : ?>
