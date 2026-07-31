@@ -631,7 +631,7 @@ function anchor_company() {
 	return apply_filters( 'anchor_company', [
 		'name'     => 'Anchor Hosting',
 		'address'  => "342 N Queen St, Warehouse D<br />Lancaster, PA 17603",
-		'account'  => 'https://anchor.host/account/',
+		'account'  => home_url( '/account/' ),
 		'status'   => 'https://anchorhost.statuspage.io/',
 		'github'   => 'https://github.com/anchorhost/',
 		'x'        => 'https://x.com/anchorhost',

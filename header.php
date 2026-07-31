@@ -9,7 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$company = anchor_company();
+$company      = anchor_company();
+$signin_label = is_user_logged_in() ? __( 'Dashboard', 'anchor-theme' ) : __( 'Sign in', 'anchor-theme' );
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -35,7 +36,7 @@ $company = anchor_company();
 
 			<nav class="main-nav" id="main-nav" aria-label="<?php esc_attr_e( 'Primary', 'anchor-theme' ); ?>">
 				<?php anchor_primary_nav(); ?>
-				<a class="main-nav__signin" href="<?php echo esc_url( $company['account'] ); ?>"><?php esc_html_e( 'Sign in →', 'anchor-theme' ); ?></a>
+				<a class="main-nav__signin" href="<?php echo esc_url( $company['account'] ); ?>"><?php echo esc_html( $signin_label . ' →' ); ?></a>
 			</nav>
 
 			<div class="header-spacer"></div>
@@ -55,7 +56,7 @@ $company = anchor_company();
 					<?php echo anchor_icon( 'moon', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				</button>
 
-				<a class="header-cta" href="<?php echo esc_url( $company['account'] ); ?>"><?php esc_html_e( 'Sign in', 'anchor-theme' ); ?></a>
+				<a class="header-cta" href="<?php echo esc_url( $company['account'] ); ?>"><?php echo esc_html( $signin_label ); ?></a>
 
 			</div>
 		</div>
