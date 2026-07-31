@@ -46,7 +46,28 @@
 	}
 
 	var list = document.getElementById( 'post-outline-list' );
-	var links = headings.map( function ( h ) {
+
+	// First entry: back to the top of the page. Labelled with the post title
+	// so the chip reads as "the beginning", not as another section.
+	var postTitle = document.querySelector( '.post-header__title' );
+	var topLink   = document.createElement( 'a' );
+	topLink.className = 'post-outline__link';
+	topLink.href      = '#';
+	topLink.setAttribute( 'data-outline-top', '' );
+
+	var topTick = document.createElement( 'span' );
+	topTick.className = 'post-outline__tick';
+	topTick.setAttribute( 'aria-hidden', 'true' );
+
+	var topLabel = document.createElement( 'span' );
+	topLabel.className   = 'post-outline__label';
+	topLabel.textContent = ( postTitle && postTitle.textContent.trim() ) || 'Top';
+
+	topLink.appendChild( topTick );
+	topLink.appendChild( topLabel );
+	list.appendChild( topLink );
+
+	var headingLinks = headings.map( function ( h ) {
 		if ( ! h.id ) {
 			h.id = slugify( h.textContent );
 		}
@@ -73,6 +94,8 @@
 		return a;
 	} );
 
+	var links = [ topLink ].concat( headingLinks );
+
 	var reduced = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
 
 	list.addEventListener( 'click', function ( e ) {
@@ -82,6 +105,12 @@
 		}
 
 		e.preventDefault();
+
+		if ( a.hasAttribute( 'data-outline-top' ) ) {
+			history.replaceState( null, '', window.location.pathname + window.location.search );
+			window.scrollTo( { top: 0, behavior: reduced ? 'auto' : 'smooth' } );
+			return;
+		}
 
 		var target = document.getElementById( a.getAttribute( 'href' ).slice( 1 ) );
 		if ( ! target ) {
@@ -207,9 +236,11 @@
 			}
 		}
 
+		// links[0] is the top entry, so heading i lives at links[i + 1];
+		// with no heading passed (active === -1) the top entry is current.
 		links.forEach( function ( a, i ) {
-			a.classList.toggle( 'is-active', i === active );
-			a.classList.toggle( 'is-read', i < active );
+			a.classList.toggle( 'is-active', i === active + 1 );
+			a.classList.toggle( 'is-read', i < active + 1 );
 		} );
 
 		// The rail is sticky, but it still travels before it pins.
