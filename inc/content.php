@@ -84,27 +84,44 @@ function anchor_hero() {
 
 /**
  * The "Needs attention" dashboard panel in the hero.
+ *
+ * Mirrors the CaptainCore v3 home screen's all-clear state: on a normal
+ * morning the feed is empty — that IS the product. Rows with `clear` are
+ * the empty-state row and don't count toward the badge.
  */
 function anchor_attention_rows() {
 	return apply_filters( 'anchor_attention_rows', [
 		[
-			'tone'   => 'bad',
-			'label'  => '20 security threats across 2,921 sites',
-			'meta'   => 'Patched automatically · 20 critical',
-			'action' => 'Review →',
-		],
-		[
-			'tone'   => 'warn',
-			'label'  => '822 components have updates pending',
-			'meta'   => 'Update queue · built 7h ago',
-			'action' => 'Update →',
-		],
-		[
-			'tone'        => 'muted',
-			'label'       => 'Nightly backups verified',
-			'meta'        => '6.9 TB to redundant storage · 02:14',
-			'action'      => 'Clear',
+			'clear'       => true,
+			'tone'        => 'good',
+			'label'       => 'All clear, nothing needs attention',
+			'meta'        => '2,921 sites under management',
+			'action'      => 'View sites',
 			'action_tone' => 'good',
+		],
+	] );
+}
+
+/**
+ * The "Handled for you" feed under the all-clear row — the same numbers the
+ * old to-do rows carried, recast as work that already happened.
+ */
+function anchor_handled_rows() {
+	return apply_filters( 'anchor_handled_rows', [
+		[
+			'label' => '20 security threats patched',
+			'meta'  => 'Fleet-wide, before anyone asked · 20 critical',
+			'time'  => '2h',
+		],
+		[
+			'label' => '822 components updated',
+			'meta'  => 'Plugins, themes and core, on schedule',
+			'time'  => '7h',
+		],
+		[
+			'label' => 'Nightly backups verified',
+			'meta'  => '6.9 TB to redundant storage',
+			'time'  => '02:14',
 		],
 	] );
 }

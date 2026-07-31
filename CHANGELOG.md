@@ -16,7 +16,9 @@ Initial release.
 - Command palette (`⌘K` / `/`) with static navigation, dashboard preview,
   account link, snippet and action commands, plus live post/page search over
   the `anchor/v1/palette` REST route.
-- Front page: hero with the "Needs attention" dashboard panel, headline stat
+- Front page: hero with the "Needs attention" dashboard panel in its all-clear
+  state plus a "Handled for you" activity feed (mirroring the CaptainCore v3
+  home screen — hands-off means the to-do list reads zero), headline stat
   band, the three arrangement cards, a tabbed dashboard preview console
   (fleet / security / terminal), infrastructure partners, quotes and a closing
   call to action.
