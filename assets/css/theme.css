@@ -1159,6 +1159,27 @@ input[type="range"] {
 	font-size: 12.5px;
 	color: var(--text-3);
 	min-width: 150px;
+	cursor: text;
+}
+
+.fleet-search:focus-within {
+	border-color: var(--border-strong);
+	color: var(--text-2);
+}
+
+.fleet-search input {
+	border: 0;
+	outline: 0;
+	background: transparent;
+	font: inherit;
+	color: var(--text);
+	width: 120px;
+	padding: 0;
+}
+
+.fleet-search input::placeholder {
+	color: var(--text-3);
+	opacity: 1;
 }
 
 .filter-chip {
@@ -1201,6 +1222,21 @@ input[type="range"] {
 	padding: 13px 18px;
 	border-bottom: 1px solid var(--border);
 	align-items: center;
+}
+
+.fleet__row[hidden] {
+	display: none;
+}
+
+.fleet__empty {
+	padding: 28px 18px;
+	font-size: 13px;
+	color: var(--text-3);
+	text-align: center;
+}
+
+.fleet__empty[hidden] {
+	display: none;
 }
 
 .fleet__head {

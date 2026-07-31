@@ -197,6 +197,7 @@ function anchor_fleet_filters() {
 			'Version: < 10.2',
 		],
 		'count'  => '214 of 2,921 sites',
+		'total'  => '2,921 sites',
 	] );
 }
 

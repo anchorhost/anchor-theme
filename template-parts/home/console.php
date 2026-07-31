@@ -48,14 +48,29 @@ $first_tab = reset( $tab_keys );
 		<!-- Fleet -->
 		<div class="console__pane" data-console-pane="fleet" id="console-pane-fleet" role="tabpanel" aria-labelledby="console-tab-fleet">
 			<?php $filters = anchor_fleet_filters(); ?>
-			<div class="console__filters" aria-hidden="true">
-				<span class="fleet-search"><?php echo anchor_icon( 'search', 13 ); // phpcs:ignore WordPress.Security.EscapeOutput ?><?php echo esc_html( $filters['search'] ); ?></span>
-				<?php foreach ( $filters['chips'] as $chip ) : ?>
-					<span class="filter-chip"><?php echo esc_html( $chip ); ?><span class="filter-chip__x">✕</span></span>
-				<?php endforeach; ?>
-				<span class="filter-chip filter-chip--add"><?php esc_html_e( '+ Filter', 'anchor-theme' ); ?></span>
+			<div class="console__filters">
+				<label class="fleet-search">
+					<?php echo anchor_icon( 'search', 13 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+					<input
+						type="text"
+						data-fleet-filter
+						placeholder="<?php echo esc_attr( $filters['search'] ); ?>"
+						aria-label="<?php esc_attr_e( 'Filter the example sites', 'anchor-theme' ); ?>"
+					/>
+				</label>
+				<span aria-hidden="true">
+					<?php foreach ( $filters['chips'] as $chip ) : ?>
+						<span class="filter-chip"><?php echo esc_html( $chip ); ?><span class="filter-chip__x">✕</span></span>
+					<?php endforeach; ?>
+					<span class="filter-chip filter-chip--add"><?php esc_html_e( '+ Filter', 'anchor-theme' ); ?></span>
+				</span>
 				<div class="header-spacer"></div>
-				<span class="fleet-count"><?php echo esc_html( $filters['count'] ); ?></span>
+				<span
+					class="fleet-count"
+					data-fleet-count
+					data-fleet-default="<?php echo esc_attr( $filters['count'] ); ?>"
+					data-fleet-total="<?php echo esc_attr( $filters['total'] ); ?>"
+				><?php echo esc_html( $filters['count'] ); ?></span>
 			</div>
 
 			<div class="fleet__head">
@@ -66,7 +81,7 @@ $first_tab = reset( $tab_keys );
 			</div>
 
 			<?php foreach ( anchor_fleet_rows() as $row ) : ?>
-				<div class="fleet__row">
+				<div class="fleet__row" data-fleet-site="<?php echo esc_attr( strtolower( $row['site'] . ' ' . $row['owner'] ) ); ?>">
 					<div class="fleet__site">
 						<span class="fleet__thumb" aria-hidden="true"></span>
 						<div style="min-width:0">
@@ -83,6 +98,7 @@ $first_tab = reset( $tab_keys );
 					<span class="fleet__visits"><?php echo esc_html( $row['visits'] ); ?></span>
 				</div>
 			<?php endforeach; ?>
+			<div class="fleet__empty" data-fleet-empty hidden><?php esc_html_e( 'No sites match that filter.', 'anchor-theme' ); ?></div>
 		</div>
 
 		<!-- Security -->

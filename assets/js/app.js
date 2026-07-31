@@ -83,6 +83,41 @@
 	}
 
 	/* ------------------------------------------------------------------
+	 * Fleet demo — live "Filter sites…" over the example rows
+	 * ------------------------------------------------------------------ */
+
+	var fleetFilter = consoleRoot ? consoleRoot.querySelector('[data-fleet-filter]') : null;
+
+	if (fleetFilter) {
+		var fleetRows = consoleRoot.querySelectorAll('[data-fleet-site]');
+		var fleetCount = consoleRoot.querySelector('[data-fleet-count]');
+		var fleetEmpty = consoleRoot.querySelector('[data-fleet-empty]');
+
+		fleetFilter.addEventListener('input', function () {
+			var q = fleetFilter.value.trim().toLowerCase();
+			var shown = 0;
+
+			fleetRows.forEach(function (row) {
+				var match = !q || row.dataset.fleetSite.indexOf(q) !== -1;
+				row.hidden = !match;
+				if (match) {
+					shown++;
+				}
+			});
+
+			if (fleetEmpty) {
+				fleetEmpty.hidden = !q || shown !== 0;
+			}
+
+			if (fleetCount) {
+				fleetCount.textContent = q
+					? shown + ' of ' + fleetCount.dataset.fleetTotal
+					: fleetCount.dataset.fleetDefault;
+			}
+		});
+	}
+
+	/* ------------------------------------------------------------------
 	 * Command palette
 	 * ------------------------------------------------------------------ */
 
