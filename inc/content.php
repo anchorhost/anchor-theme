@@ -248,18 +248,21 @@ function anchor_quotes() {
 	return apply_filters( 'anchor_quotes', [
 		[
 			'text' => "We feel very confident in setting up our client's websites on Anchor's platform. A truly stress free hosting solution for agency owners looking to give their clients a great experience.",
-			'name' => 'Caleb Towers',
-			'role' => '★★★★★ · Google review',
+			'name'   => 'Caleb Towers',
+			'role'   => '★★★★★ · Google review',
+			'avatar' => get_theme_file_uri( 'assets/img/quotes/caleb-towers.png' ),
 		],
 		[
 			'text' => 'Anchor hosting is the only hosting company I recommend. I have my website there, along with several of my clients. Austin is responsive and results-oriented.',
-			'name' => 'Justin Quinn',
-			'role' => '★★★★★ · Google review',
+			'name'   => 'Justin Quinn',
+			'role'   => '★★★★★ · Google review',
+			'avatar' => get_theme_file_uri( 'assets/img/quotes/justin-quinn.png' ),
 		],
 		[
 			'text' => 'Migrating our sites to Anchor Hosting was a breeze, off to great start. And the dashboard is super simple and user friendly! Highly recommend Austin.',
-			'name' => 'Michael Leone',
-			'role' => '★★★★★ · Google review',
+			'name'   => 'Michael Leone',
+			'role'   => '★★★★★ · Google review',
+			'avatar' => get_theme_file_uri( 'assets/img/quotes/michael-leone.jpg' ),
 		],
 	] );
 }
