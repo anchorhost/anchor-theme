@@ -75,7 +75,7 @@ function anchor_hero() {
 		'title'    => 'Hand it off.<br />It gets done.',
 		'lede'     => "Managed hosting for the people who manage everyone else's WordPress sites. DNS, migrations, updates, security and backups, handled by a real person and surfaced in one dashboard.",
 		'facts'    => [
-			'2,900+ sites under management',
+			'3,000 sites under management',
 			'800+ customers',
 			'Free migrations',
 		],
@@ -95,7 +95,7 @@ function anchor_attention_rows() {
 			'clear'       => true,
 			'tone'        => 'good',
 			'label'       => 'All clear, nothing needs attention',
-			'meta'        => '2,921 sites under management',
+			'meta'        => '3,000 sites under management',
 			'action'      => 'View sites',
 			'action_tone' => 'good',
 		],
@@ -120,7 +120,7 @@ function anchor_handled_rows() {
 		],
 		[
 			'label' => 'Nightly backups verified',
-			'meta'  => '6.9 TB to redundant storage',
+			'meta'  => '5 TB to redundant storage',
 			'time'  => '02:14',
 		],
 	] );
@@ -129,14 +129,14 @@ function anchor_handled_rows() {
 function anchor_glance_rows() {
 	return apply_filters( 'anchor_glance_rows', [
 		[ 'label' => 'WP core', 'value' => '97% on 7.0.2' ],
-		[ 'label' => 'Traffic', 'value' => '197.4M visits/wk' ],
-		[ 'label' => 'Storage', 'value' => '6.9 TB' ],
+		[ 'label' => 'Traffic', 'value' => '200M visits/wk' ],
+		[ 'label' => 'Storage', 'value' => '5 TB' ],
 	] );
 }
 
 function anchor_stats() {
 	return apply_filters( 'anchor_stats', [
-		[ 'value' => '2,900+', 'label' => 'Sites under management' ],
+		[ 'value' => '3,000', 'label' => 'Sites under management' ],
 		[ 'value' => '800+',   'label' => 'Customers since 2014' ],
 		[ 'value' => '20+',    'label' => 'Plugin vulnerabilities disclosed' ],
 		[ 'value' => '3+',     'label' => 'Backdoor operations uncovered' ],
@@ -196,8 +196,8 @@ function anchor_fleet_filters() {
 			'Plugin: woocommerce · active',
 			'Version: < 10.2',
 		],
-		'count'  => '214 of 2,921 sites',
-		'total'  => '2,921 sites',
+		'count'  => '214 of 3,000 sites',
+		'total'  => '3,000 sites',
 	] );
 }
 
@@ -218,7 +218,7 @@ function anchor_terminal_lines() {
 	return apply_filters( 'anchor_terminal_lines', [
 		[ 'tone' => 'comment', 'text' => '# run across the whole fleet, in parallel' ],
 		[ 'tone' => 'prompt',  'text' => 'wp plugin update --all --sites=all' ],
-		[ 'tone' => 'out',     'text' => '→ 2,958 sites queued · 24 workers' ],
+		[ 'tone' => 'out',     'text' => '→ 3,000 sites queued · 24 workers' ],
 		[ 'tone' => 'out',     'text' => '✔ bakerstreetbistro.com · 3 plugins updated · 4.2s' ],
 		[ 'tone' => 'out',     'text' => '✔ blueheronfarm.org · 1 plugin updated · 2.8s' ],
 		[ 'tone' => 'out',     'text' => '✔ cavendishbooks.com · up to date · 0.9s' ],
@@ -635,7 +635,7 @@ function anchor_company() {
 		'status'   => 'https://anchorhost.statuspage.io/',
 		'github'   => 'https://github.com/anchorhost/',
 		'x'        => 'https://x.com/anchorhost',
-		'footnote' => '2,900+ WordPress sites · 800+ customers · since 2014',
+		'footnote' => '3,000 WordPress sites · 800+ customers · since 2014',
 	] );
 }
 

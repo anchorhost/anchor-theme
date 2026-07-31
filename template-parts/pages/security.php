@@ -20,7 +20,7 @@ $content = trim( get_the_content() );
 		<?php if ( has_excerpt() ) : ?>
 			<p class="page-hero__text"><?php echo esc_html( get_the_excerpt() ); ?></p>
 		<?php else : ?>
-			<p class="page-hero__text"><?php esc_html_e( 'Vulnerability feeds, file checksums, uptime probes and nightly backups run across all 2,900+ sites, not just the ones you remembered to check. Along the way I have reported 20+ plugin vulnerabilities to their authors and uncovered three backdoor operations hiding in the WordPress plugin repository.', 'anchor-theme' ); ?></p>
+			<p class="page-hero__text"><?php esc_html_e( 'Vulnerability feeds, file checksums, uptime probes and nightly backups run across all 3,000 sites, not just the ones you remembered to check. Along the way I have reported 20+ plugin vulnerabilities to their authors and uncovered three backdoor operations hiding in the WordPress plugin repository.', 'anchor-theme' ); ?></p>
 		<?php endif; ?>
 	</div>
 

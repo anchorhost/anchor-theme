@@ -21,7 +21,7 @@ $content = trim( get_the_content() );
 		<?php if ( has_excerpt() ) : ?>
 			<p class="page-hero__text"><?php echo esc_html( get_the_excerpt() ); ?></p>
 		<?php else : ?>
-			<p class="page-hero__text"><?php esc_html_e( 'How 2,900+ WordPress sites are monitored, hardened, backed up and patched — the actual checks, schedules and tooling, documented.', 'anchor-theme' ); ?></p>
+			<p class="page-hero__text"><?php esc_html_e( 'How 3,000 WordPress sites are monitored, hardened, backed up and patched — the actual checks, schedules and tooling, documented.', 'anchor-theme' ); ?></p>
 		<?php endif; ?>
 	</div>
 
