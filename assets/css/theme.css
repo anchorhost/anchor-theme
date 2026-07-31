@@ -2177,6 +2177,11 @@ input[type="range"] {
 		position: sticky;
 		top: 96px;
 		padding-top: 46px;
+		/* Sticky makes this a stacking context, which traps the label chip's
+		   z-index inside it. Without a level here the chip loses to later
+		   positioned content in the article (lightbox figures). Stays under
+		   the sticky header (60) and the command palette (200). */
+		z-index: 20;
 	}
 }
 
