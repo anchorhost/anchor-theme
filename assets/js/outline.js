@@ -107,10 +107,13 @@
 	 * a quiet column of ticks while still being readable on approach.
 	 */
 	var near = null;
+	var head = outline.querySelector( '.post-outline__head' );
 
 	/**
 	 * The chip is position:fixed, so its coordinates are set here against the
-	 * tick's live viewport rect and clamped to stay fully on screen.
+	 * tick's live viewport rect. It is centred on the tick, then clamped to
+	 * stay on screen and to keep clear of the reading estimate above the rail
+	 * (the first heading's chip would otherwise sit on top of it).
 	 */
 	function positionChip( link ) {
 		var label = link.querySelector( '.post-outline__label' );
@@ -119,11 +122,18 @@
 			return;
 		}
 
-		var r   = tick.getBoundingClientRect();
-		var top = r.top + r.height / 2;
-		var half = label.offsetHeight / 2;
+		var r     = tick.getBoundingClientRect();
+		var half  = label.offsetHeight / 2;
+		var floor = 84;
 
-		top = Math.min( Math.max( top, half + 84 ), window.innerHeight - half - 14 );
+		if ( head ) {
+			floor = Math.max( floor, head.getBoundingClientRect().bottom + 10 );
+		}
+
+		var top = Math.min(
+			Math.max( r.top + r.height / 2, half + floor ),
+			window.innerHeight - half - 14
+		);
 
 		label.style.left = ( r.right + 12 ) + 'px';
 		label.style.top  = top + 'px';
