@@ -40,5 +40,17 @@ if ( empty( $quotes ) ) {
 				</figcaption>
 			</figure>
 		<?php endforeach; ?>
+		<?php $cta = anchor_quotes_cta(); ?>
+		<?php if ( ! empty( $cta['links'] ) ) : ?>
+			<div class="card quote quote--cta">
+				<p class="quote__cta-title"><?php echo esc_html( $cta['title'] ); ?></p>
+				<p class="quote__cta-body"><?php echo esc_html( $cta['body'] ); ?></p>
+				<div class="quote__cta-actions">
+					<?php foreach ( $cta['links'] as $link ) : ?>
+						<a class="btn btn--ghost btn--sm" href="<?php echo esc_url( $link['url'] ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $link['label'] ); ?></a>
+					<?php endforeach; ?>
+				</div>
+			</div>
+		<?php endif; ?>
 	</div>
 </section>

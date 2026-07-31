@@ -1552,6 +1552,37 @@ body.admin-bar {
 	font-weight: 700;
 }
 
+.quote--cta {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	gap: 8px;
+	border-style: dashed;
+	background: transparent;
+	box-shadow: none;
+}
+
+.quote__cta-title {
+	margin: 0;
+	font-size: 17px;
+	font-weight: 700;
+	letter-spacing: -.01em;
+}
+
+.quote__cta-body {
+	margin: 0;
+	font-size: 14px;
+	color: var(--text-3);
+}
+
+.quote__cta-actions {
+	margin-top: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
 .quote__name a {
 	color: inherit;
 	text-decoration: none;

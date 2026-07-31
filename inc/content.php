@@ -290,6 +290,20 @@ function anchor_quotes() {
 	] );
 }
 
+/**
+ * Leave-a-review card rendered in the last cell of the quotes grid.
+ */
+function anchor_quotes_cta() {
+	return apply_filters( 'anchor_quotes_cta', [
+		'title' => 'Hosting with Anchor?',
+		'body'  => 'A short review helps other WordPress folks find us.',
+		'links' => [
+			[ 'label' => 'Review on Google', 'url' => 'https://g.page/r/CV-qWIv9dGpKEBE/review' ],
+			[ 'label' => 'Recommend on LinkedIn', 'url' => 'https://www.linkedin.com/in/austinginder/' ],
+		],
+	] );
+}
+
 function anchor_about_cards() {
 	return apply_filters( 'anchor_about_cards', [
 		[
