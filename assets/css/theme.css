@@ -616,6 +616,11 @@ input[type="range"] {
 	color: var(--on-navy);
 }
 
+/* Only exists for the mobile dropdown — the desktop header shows .header-cta. */
+.main-nav .main-nav__signin {
+	display: none;
+}
+
 .nav-toggle {
 	display: none;
 }
@@ -3645,6 +3650,15 @@ input[type="range"] {
 
 	.main-nav a {
 		padding: 12px 14px;
+	}
+
+	.main-nav .main-nav__signin {
+		display: block;
+		margin-top: 8px;
+		border-top: 1px solid var(--border);
+		padding-top: 14px;
+		font-weight: 700;
+		color: var(--navy);
 	}
 
 	.header-spacer {
