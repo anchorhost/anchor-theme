@@ -108,6 +108,27 @@
 	 */
 	var near = null;
 
+	/**
+	 * The chip is position:fixed, so its coordinates are set here against the
+	 * tick's live viewport rect and clamped to stay fully on screen.
+	 */
+	function positionChip( link ) {
+		var label = link.querySelector( '.post-outline__label' );
+		var tick  = link.querySelector( '.post-outline__tick' );
+		if ( ! label || ! tick ) {
+			return;
+		}
+
+		var r   = tick.getBoundingClientRect();
+		var top = r.top + r.height / 2;
+		var half = label.offsetHeight / 2;
+
+		top = Math.min( Math.max( top, half + 84 ), window.innerHeight - half - 14 );
+
+		label.style.left = ( r.right + 12 ) + 'px';
+		label.style.top  = top + 'px';
+	}
+
 	function setNear( link ) {
 		if ( near === link ) {
 			return;
@@ -118,6 +139,7 @@
 		near = link;
 		if ( near ) {
 			near.classList.add( 'is-near' );
+			positionChip( near );
 		}
 	}
 
@@ -179,6 +201,11 @@
 			a.classList.toggle( 'is-active', i === active );
 			a.classList.toggle( 'is-read', i < active );
 		} );
+
+		// The rail is sticky, but it still travels before it pins.
+		if ( near ) {
+			positionChip( near );
+		}
 
 		var rect  = prose.getBoundingClientRect();
 		var total = rect.height - window.innerHeight * 0.6;

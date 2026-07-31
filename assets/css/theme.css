@@ -2167,6 +2167,9 @@ input[type="range"] {
 		margin: 0;
 	}
 
+	/* No transform here: a transformed ancestor becomes the containing block
+	   for position:fixed descendants, which would trap the label chip inside
+	   this narrow column instead of the viewport. */
 	.post-outline:not([hidden]) {
 		display: block;
 		grid-column: 1;
@@ -2174,7 +2177,6 @@ input[type="range"] {
 		position: sticky;
 		top: 96px;
 		padding-top: 46px;
-		transform: translateZ(0);
 	}
 }
 
@@ -2266,15 +2268,14 @@ input[type="range"] {
 }
 
 /* The label floats out of flow so revealing one never moves the ticks below
-   it. Only the heading nearest the cursor gets one (.is-near, set in JS). */
+   it. Only the heading nearest the cursor gets one (.is-near, set in JS).
+   Position is FIXED and set in JS: the ticks list scrolls, and an absolutely
+   positioned chip gets clipped by that ancestor's overflow. Sits under the
+   sticky header (z-index 60). */
 .post-outline__label {
-	position: absolute;
-	left: 42px;
-	top: 50%;
-	z-index: 2;
-	/* Stays inside the gutter plus the grid gap, so it never sits on the
-	   article text. */
-	max-width: 226px;
+	position: fixed;
+	z-index: 50;
+	max-width: 320px;
 	padding: 5px 9px;
 	border: 1px solid var(--border);
 	border-radius: 8px;
