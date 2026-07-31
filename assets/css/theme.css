@@ -2328,6 +2328,26 @@ input[type="range"] {
 	font-weight: 700;
 }
 
+/* Core's stripes style hardcodes #f0f0f0 for the odd rows and the bottom
+   border, which stays light in dark mode. Re-point both at tokens. */
+.prose .wp-block-table.is-style-stripes {
+	border-bottom-color: var(--border);
+}
+
+.prose .wp-block-table.is-style-stripes tbody tr:nth-child(odd) {
+	background-color: var(--surface-2);
+}
+
+.prose .wp-block-table.is-style-stripes td,
+.prose .wp-block-table.is-style-stripes th {
+	border-color: transparent;
+	color: var(--text-2);
+}
+
+.prose .wp-block-table.is-style-stripes th {
+	color: var(--text);
+}
+
 .prose a {
 	text-decoration: underline;
 	text-underline-offset: 2px;
