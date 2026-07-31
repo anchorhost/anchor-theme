@@ -45,3 +45,10 @@ $content = trim( get_the_content() );
 		</div>
 	<?php endforeach; ?>
 </section>
+
+<?php $docs_page = get_page_by_path( 'security-docs' ); ?>
+<?php if ( $docs_page && 'publish' === $docs_page->post_status ) : ?>
+	<div class="security-docs-link">
+		<a class="btn btn--ghost" href="<?php echo esc_url( get_permalink( $docs_page ) ); ?>"><?php esc_html_e( 'Read the full security documentation →', 'anchor-theme' ); ?></a>
+	</div>
+<?php endif; ?>

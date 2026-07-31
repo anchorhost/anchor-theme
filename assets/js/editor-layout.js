@@ -21,6 +21,7 @@
 		{ label: __('Plans & pricing', 'anchor-theme'), value: 'plans' },
 		{ label: __('About', 'anchor-theme'), value: 'about' },
 		{ label: __('Security', 'anchor-theme'), value: 'security' },
+		{ label: __('Security documentation', 'anchor-theme'), value: 'security-docs' },
 		{ label: __('Contact', 'anchor-theme'), value: 'contact' }
 	];
 

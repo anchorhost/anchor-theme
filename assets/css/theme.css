@@ -2892,6 +2892,135 @@ input[type="range"] {
 	color: var(--text-2);
 }
 
+.security-card__points {
+	margin: 12px 0 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+}
+
+.security-card__points li {
+	position: relative;
+	padding-left: 18px;
+	font-size: 13px;
+	line-height: 1.55;
+	color: var(--text-2);
+}
+
+.security-card__points li::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: .58em;
+	width: 8px;
+	height: 2px;
+	border-radius: 2px;
+	background: var(--navy);
+}
+
+.security-docs-link {
+	max-width: var(--wrap);
+	margin: -56px auto 0;
+	padding: 0 var(--gutter) 96px;
+	text-align: center;
+}
+
+/* --- Security documentation --- */
+
+.docs {
+	max-width: var(--wrap);
+	margin: 0 auto;
+	padding: 8px var(--gutter) 72px;
+}
+
+.docs-section {
+	border-top: 1px solid var(--border);
+	padding-top: 40px;
+	margin-bottom: 56px;
+}
+
+.docs-section__title {
+	margin-top: 10px;
+	font-size: 27px;
+	font-weight: 800;
+	letter-spacing: -.5px;
+}
+
+.docs-section__lede {
+	margin-top: 8px;
+	max-width: 620px;
+	font-size: 15.5px;
+	line-height: 1.6;
+	color: var(--text-2);
+}
+
+.docs-grid {
+	margin-top: 26px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 18px;
+}
+
+.docs-table-wrap {
+	margin-top: 24px;
+	overflow-x: auto;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-lg);
+	background: var(--surface);
+	box-shadow: 0 1px 2px var(--shadow);
+}
+
+.docs-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 14px;
+}
+
+.docs-table th {
+	text-align: left;
+	font-family: var(--font-mono);
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: .08em;
+	color: var(--text-3);
+	padding: 13px 18px;
+	border-bottom: 1px solid var(--border-strong);
+}
+
+.docs-table td {
+	padding: 12px 18px;
+	border-bottom: 1px solid var(--border);
+	vertical-align: top;
+	color: var(--text-2);
+	line-height: 1.5;
+}
+
+.docs-table td:first-child {
+	font-weight: 600;
+	color: var(--text);
+	white-space: nowrap;
+}
+
+.docs-table tr:last-child td {
+	border-bottom: none;
+}
+
+.docs-table__mono {
+	font-family: var(--font-mono);
+	font-size: 12.5px;
+	white-space: nowrap;
+}
+
+.docs-updated {
+	margin-top: 8px;
+	font-family: var(--font-mono);
+	font-size: 12.5px;
+	color: var(--text-3);
+}
+
 /* Contact */
 
 .contact {
@@ -3715,6 +3844,20 @@ input[type="range"] {
 
 	.hero__title {
 		font-size: clamp(2.3rem, 9vw, 2.9rem);
+	}
+
+	/* Let the label column wrap so the table needs far less side-scrolling. */
+	.docs-table td:first-child {
+		white-space: normal;
+	}
+
+	.docs-table th,
+	.docs-table td {
+		padding: 11px 14px;
+	}
+
+	.docs-section__title {
+		font-size: 23px;
 	}
 
 	.statband__inner {

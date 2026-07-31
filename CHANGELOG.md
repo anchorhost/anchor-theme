@@ -16,6 +16,9 @@ Initial release.
 - Gravity Forms (legacy markup) styling mapped to the theme tokens — inputs,
   labels, radios, sections, validation states and the submit button follow
   the light/dark scheme on the subscribe and contact forms.
+- Security documentation layout (`security-docs`): the full defense-in-depth
+  reference as card sections plus alerting and schedule tables, kept in
+  `anchor_security_docs()`. The marketing security page links to it.
 - Command palette (`⌘K` / `/`) with static navigation, dashboard preview,
   account link, snippet and action commands, plus live post/page search over
   the `anchor/v1/palette` REST route.

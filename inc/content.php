@@ -304,6 +304,298 @@ function anchor_security_cards() {
 }
 
 /**
+ * Security documentation — the full defense-in-depth reference behind the
+ * marketing-level security page. Sections render as card grids; `alerts`
+ * and `schedule` render as tables.
+ */
+function anchor_security_docs() {
+	return apply_filters( 'anchor_security_docs', [
+		'sections' => [
+			[
+				'kicker' => 'Continuous monitoring',
+				'title'  => 'Always watching',
+				'lede'   => 'Signals that run around the clock on every managed site.',
+				'items'  => [
+					[
+						'tag'    => 'every quicksave',
+						'title'  => 'Malware scan on code change',
+						'body'   => "When a quicksave detects file changes in plugins, themes or mu-plugins, the changed files are scanned with Wordfence CLI and CaptainCore's own signature database.",
+						'points' => [
+							'Covers .php, .js, .html, .svg, .phtml and .phar files',
+							'Built-in signatures for blockchain C2, self-hiding plugins, remote eval, SEO spam and more',
+							'Findings trigger an immediate alert with site details and matched signatures',
+						],
+					],
+					[
+						'tag'    => 'daily',
+						'title'  => 'WordPress core checksums',
+						'body'   => 'Every site\'s core files are verified against official WordPress.org checksums.',
+						'points' => [
+							'Detects modified core files — potential backdoor injection',
+							'Detects extra files that should not exist in core directories',
+							'Alerts list each file path and modification type',
+						],
+					],
+					[
+						'tag'    => 'daily',
+						'title'  => 'Homepage capture & injection detection',
+						'body'   => 'Homepage captures are diffed for newly injected scripts and stylesheets.',
+						'points' => [
+							'Pattern-matched against a signature database of known malicious and safe domains',
+							'Findings carry a severity: critical, high or medium',
+						],
+					],
+					[
+						'tag'    => 'daily',
+						'title'  => 'Google Web Risk',
+						'body'   => "Every production site's home URL is checked against Google's Web Risk API.",
+						'points' => [
+							'Malware and unwanted-software distribution',
+							'Social engineering, including extended phishing detection',
+						],
+					],
+					[
+						'tag'    => 'every 5 min',
+						'title'  => 'Uptime monitoring',
+						'body'   => 'HTTP health checks against every monitored homepage, with retry logic across system and Cloudflare DNS.',
+						'points' => [
+							'Validates the HTTP status code and HTML integrity',
+							'Escalating alerts: immediate, then 1h, 4h and 24h follow-ups',
+							'Recovery notifications when a site comes back',
+						],
+					],
+				],
+			],
+			[
+				'kicker' => 'Baseline hardening',
+				'title'  => 'Secure by default',
+				'lede'   => 'Every site ships with the CaptainCore Helper must-use plugin, which applies hardening automatically.',
+				'items'  => [
+					[
+						'tag'    => 'always on',
+						'title'  => 'Hardening defaults',
+						'body'   => 'Baseline protections applied to every site with no configuration.',
+						'points' => [
+							'User enumeration blocked: ?author= queries, the REST users endpoint, author sitemaps and oEmbed author URLs',
+							'Generic login errors that never confirm whether a username exists',
+							'WordPress version hidden from HTML and RSS output',
+							'Empty author archives return 404 instead of confirming usernames',
+							'Password reset requests limited by IP geolocation',
+						],
+					],
+					[
+						'tag'    => 'always on',
+						'title'  => 'Security audit log',
+						'body'   => 'A tamper-evident trail of security-critical events on every site, queryable via WP-CLI.',
+						'points' => [
+							'User lifecycle: registrations, deletions, role changes, password resets, super admin grants',
+							'Plugin and theme installs, updates, activations and deletions — admin UI and WP-CLI',
+							'Security-critical options, file-editor access, application passwords and code snippets',
+						],
+					],
+				],
+			],
+			[
+				'kicker' => 'Nightly automation',
+				'title'  => 'While you sleep',
+				'lede'   => 'Backups, versioning and updates run every night — and each quicksave feeds the malware scanner.',
+				'items'  => [
+					[
+						'tag'    => 'daily 12:05 AM',
+						'title'  => 'Nightly backups',
+						'body'   => 'Full-site backups across all sites, 40 in parallel.',
+						'points' => [
+							'All previous backups retained indefinitely on efficient incremental storage',
+							'A clean restore point is always available within 24 hours',
+						],
+					],
+					[
+						'tag'    => 'daily 12:15 AM',
+						'title'  => 'Nightly quicksaves',
+						'body'   => 'Versioned snapshots of all plugins, themes and mu-plugins, 16 in parallel.',
+						'points' => [
+							'Git-based versioning records exactly what changed and when',
+							'Changed files are automatically scanned for malware',
+						],
+					],
+					[
+						'tag'    => 'Wed & Fri 6:15 AM',
+						'title'  => 'Managed updates',
+						'body'   => 'Plugin and theme updates on a staggered schedule for sites with updates enabled.',
+						'points' => [
+							'Staging updates Friday, production the following Wednesday',
+							'The staging window catches issues before they reach production',
+						],
+					],
+					[
+						'tag'    => 'PHP EOL schedule',
+						'title'  => 'PHP lifecycle',
+						'body'   => 'The fleet is kept on actively supported PHP versions, tracked against the official end-of-life schedule.',
+						'points' => [
+							'Theme and plugin compatibility issues fixed before or during each upgrade',
+							'Deprecations, fatals and breaking changes addressed fleet-wide',
+						],
+					],
+				],
+			],
+			[
+				'kicker' => 'Scheduled scans',
+				'title'  => 'Deeper, on a cycle',
+				'lede'   => 'Slower, deeper passes that catch what the continuous monitors might miss.',
+				'items'  => [
+					[
+						'tag'    => '~20 sites/day',
+						'title'  => 'Vulnerability audits',
+						'body'   => 'Installed plugins and themes are audited against the Security Finder vulnerability database on a rolling cycle.',
+						'points' => [
+							'Component versions checked against known CVEs and CVSS scores',
+							'Covers production and staging environments',
+							'Findings filtered to critical and high severity for immediate attention',
+						],
+					],
+					[
+						'tag'    => 'weekly',
+						'title'  => 'PHP error sweep',
+						'body'   => 'The sites with the largest PHP error logs are analyzed and fixed in batches through the week.',
+						'points' => [
+							'Error patterns analyzed and targeted fixes applied',
+							'Every fix logged to the site\'s process log for an audit trail',
+						],
+					],
+				],
+			],
+			[
+				'kicker' => 'Vulnerability response',
+				'title'  => 'When something is found',
+				'lede'   => 'Centralized tracking, targeted alerts, and fleet-wide remediation.',
+				'items'  => [
+					[
+						'tag'    => 'continuous',
+						'title'  => 'Threat tracking',
+						'body'   => 'Security Finder maps vulnerabilities onto the fleet-wide component inventory.',
+						'points' => [
+							'Which sites run a vulnerable component, with direct remediation access',
+							'Status workflow from tracking to investigating to resolved, with timestamped notes',
+							'Resolution actions logged on each affected site',
+						],
+					],
+					[
+						'tag'    => 'as needed',
+						'title'  => 'Fleet-wide patching',
+						'body'   => 'When a critical vulnerability is confirmed, patched builds deploy to every affected site in parallel.',
+						'points' => [
+							'Patched plugin and theme zips stored permanently in cloud storage',
+							'Deployed to up to 20 sites concurrently, each deployment verified and logged',
+							'Affected sites identified automatically from Security Finder data',
+						],
+					],
+					[
+						'tag'    => 'on incident',
+						'title'  => 'Malware cleanup',
+						'body'   => 'Full-stack remediation for compromised sites.',
+						'points' => [
+							'Kills persistence mechanisms and removes malicious files',
+							'Reinstalls WordPress core and resets credentials',
+							'Verification loops run until the site checks out clean',
+						],
+					],
+				],
+			],
+			[
+				'kicker' => 'Incident response toolkit',
+				'title'  => 'On-demand forensics',
+				'lede'   => 'Investigation tooling built from real incident response, runnable per site or fleet-wide.',
+				'items'  => [
+					[
+						'tag'    => 'on demand',
+						'title'  => 'Malware hunt',
+						'body'   => 'A standalone scanner with over 50 detection patterns.',
+						'points' => [
+							'Backdoors and web shells: eval chains, cookie- and IP-gated shells',
+							'PHP hidden in uploads, images and CSS; malicious drop-in files',
+							'Self-hiding and trojanized plugins, C2 domains, blockchain-based resolvers',
+							'Obfuscation: hex encoding, chr() building, goto spaghetti, XOR loops',
+						],
+					],
+					[
+						'tag'    => 'on demand',
+						'title'  => 'Timestamp forensics',
+						'body'   => 'Finds files with forged modification times — a common anti-forensic technique.',
+						'points' => [
+							'Five-pass filtering eliminates migration artifacts and known-benign files',
+							'Content-based backdoor detection on whatever remains',
+						],
+					],
+					[
+						'tag'    => 'on demand',
+						'title'  => 'Role & capability audit',
+						'body'   => 'Audits WordPress roles and users for unauthorized privilege escalation.',
+						'points' => [
+							'Dangerous capabilities on non-administrator roles',
+							'Capabilities injected directly into user meta',
+							'Default registration role and open-registration settings',
+						],
+					],
+					[
+						'tag'    => 'on demand',
+						'title'  => 'Database scan',
+						'body'   => 'Scans options, code snippets and widgets for executable code.',
+						'points' => [
+							'Credit card skimmers, obfuscated eval patterns, fake payment forms',
+							'PHP backdoor functions and superglobal access in stored code',
+						],
+					],
+					[
+						'tag'    => 'every 6 hours',
+						'title'  => 'Third-party script integrity',
+						'body'   => 'Embedded third-party scripts are hash-verified on a schedule.',
+						'points' => [
+							'SHA256 comparison catches upstream supply-chain tampering',
+							'Companion checks for uploads-directory PHP and security-log growth',
+						],
+					],
+				],
+			],
+		],
+		'alerts'   => [
+			'title' => 'Alerting',
+			'lede'  => 'Targeted email alerts for each threat scenario.',
+			'head'  => [ 'Alert', 'Trigger', 'Details included' ],
+			'rows'  => [
+				[ 'Malware detection', 'Signature match on quicksave', 'Filename, signature name, description' ],
+				[ 'Core checksum failure', 'Modified or unexpected core files', 'File paths, modification type' ],
+				[ 'Injection detected', 'New script or stylesheet in homepage capture', 'Page, severity, injected element' ],
+				[ 'Google Web Risk', 'URL flagged by the Web Risk API', 'Threat type, confidence' ],
+				[ 'Uptime failure', 'Site unreachable or invalid HTML', 'HTTP code, error, escalation count' ],
+				[ 'Default role changed', 'Suspicious default user role setting', 'Role name' ],
+			],
+		],
+		'schedule' => [
+			'title' => 'Schedule summary',
+			'lede'  => 'Every check, its cadence, and what it covers.',
+			'head'  => [ 'Check', 'Frequency', 'Scope' ],
+			'rows'  => [
+				[ 'Uptime monitoring', 'every 5 min', 'All monitored sites' ],
+				[ 'Malware scan on code change', 'every quicksave', 'Changed files' ],
+				[ 'Homepage capture & injection detection', 'daily', 'All sites' ],
+				[ 'WordPress core checksums', 'daily', 'All sites' ],
+				[ 'Google Web Risk check', 'daily', 'All production sites' ],
+				[ 'Nightly backups', 'daily 12:05 AM', 'All sites (40 parallel)' ],
+				[ 'Nightly quicksaves + malware scan', 'daily 12:15 AM', 'All sites (16 parallel)' ],
+				[ 'Third-party script integrity', 'every 6 hours', 'Embedded analytics' ],
+				[ 'PHP upgrades & compatibility fixes', 'follows PHP EOL schedule', 'All sites' ],
+				[ 'Managed updates — staging', 'Fri 6:15 AM', 'Staging (updates on)' ],
+				[ 'Managed updates — production', 'Wed 6:15 AM', 'Production (updates on)' ],
+				[ 'Vulnerability audit', '~20 sites/day', 'Rolling fleet coverage' ],
+				[ 'PHP error sweep', 'weekly, 3–4 batches', 'Top error-log sites' ],
+				[ 'Security patch deploy', 'as needed', 'All affected sites' ],
+				[ 'Malware hunt / forensic tools', 'on demand', 'Individual or fleet' ],
+			],
+		],
+	] );
+}
+
+/**
  * Company details used in the footer and on the contact page.
  */
 function anchor_company() {

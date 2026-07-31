@@ -27,6 +27,9 @@ while ( have_posts() ) :
 		case 'security':
 			get_template_part( 'template-parts/pages/security' );
 			break;
+		case 'security-docs':
+			get_template_part( 'template-parts/pages/security-docs' );
+			break;
 		case 'contact':
 			get_template_part( 'template-parts/pages/contact' );
 			break;

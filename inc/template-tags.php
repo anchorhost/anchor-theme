@@ -215,11 +215,13 @@ function anchor_page_layout( $post = null ) {
 	// Fall back to matching by slug so a fresh install works with no config.
 	if ( ! $layout || 'default' === $layout ) {
 		$by_slug = [
-			'plans'    => 'plans',
-			'pricing'  => 'plans',
-			'about'    => 'about',
-			'security' => 'security',
-			'contact'  => 'contact',
+			'plans'                  => 'plans',
+			'pricing'                => 'plans',
+			'about'                  => 'about',
+			'security'               => 'security',
+			'security-docs'          => 'security-docs',
+			'security-documentation' => 'security-docs',
+			'contact'                => 'contact',
 		];
 		if ( isset( $by_slug[ $post->post_name ] ) ) {
 			$layout = $by_slug[ $post->post_name ];
