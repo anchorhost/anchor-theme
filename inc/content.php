@@ -249,8 +249,9 @@ function anchor_infrastructure() {
 }
 
 /**
- * Customer quotes — verbatim excerpts from public Google reviews of
- * Anchor Hosting. Trim by dropping whole sentences, never by rewording.
+ * Customer quotes — verbatim excerpts from public Google reviews and
+ * LinkedIn recommendations of Anchor Hosting. Trim by dropping whole
+ * sentences, never by rewording. `url` (optional) links the name.
  */
 function anchor_quotes() {
 	return apply_filters( 'anchor_quotes', [
@@ -261,10 +262,24 @@ function anchor_quotes() {
 			'avatar' => get_theme_file_uri( 'assets/img/quotes/caleb-towers.png' ),
 		],
 		[
+			'text' => 'I highly recommend Anchor Hosting to my clients and network partners for WordPress web hosting. Owned by Austin Ginder, who is both local and exceptionally knowledgeable, Anchor Hosting has been invaluable for troubleshooting and handling server-side issues.',
+			'name'   => 'Matt Brubaker',
+			'role'   => "WordPress developer & designer\u{00A0}·\u{00A0}LinkedIn",
+			'avatar' => get_theme_file_uri( 'assets/img/quotes/matt-brubaker.jpg' ),
+			'url'    => 'https://mattbru.me',
+		],
+		[
 			'text' => 'Anchor hosting is the only hosting company I recommend. I have my website there, along with several of my clients. Austin is responsive and results-oriented.',
 			'name'   => 'Justin Quinn',
 			'role'   => '★★★★★ · Google review',
 			'avatar' => get_theme_file_uri( 'assets/img/quotes/justin-quinn.png' ),
+		],
+		[
+			'text' => "I can't say enough wonderful things about Austin and Anchor Hosting. I am left completely worry-free when I use Anchor for website hosting, both on my site and for clients' sites. All the back-end techy stuff is handled, particularly plugin management which can be a real pain.",
+			'name'   => 'Susan Harper',
+			'role'   => "Marketing communications partner\u{00A0}·\u{00A0}LinkedIn",
+			'avatar' => get_theme_file_uri( 'assets/img/quotes/susan-harper.jpg' ),
+			'url'    => 'https://sharpernet.com',
 		],
 		[
 			'text' => 'Migrating our sites to Anchor Hosting was a breeze, off to great start. And the dashboard is super simple and user friendly! Highly recommend Austin.',

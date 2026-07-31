@@ -28,7 +28,13 @@ if ( empty( $quotes ) ) {
 						<span class="quote__avatar" aria-hidden="true"></span>
 					<?php endif; ?>
 					<span>
-						<span class="quote__name"><?php echo esc_html( $quote['name'] ); ?></span>
+						<span class="quote__name">
+							<?php if ( ! empty( $quote['url'] ) ) : ?>
+								<a href="<?php echo esc_url( $quote['url'] ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $quote['name'] ); ?></a>
+							<?php else : ?>
+								<?php echo esc_html( $quote['name'] ); ?>
+							<?php endif; ?>
+						</span>
 						<span class="quote__role"><?php echo esc_html( $quote['role'] ); ?></span>
 					</span>
 				</figcaption>
