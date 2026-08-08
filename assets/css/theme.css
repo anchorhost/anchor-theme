@@ -3655,6 +3655,7 @@ button.filter-chip--add:hover {
 .contact__form .ginput_container textarea {
 	resize: vertical;
 	font-family: inherit;
+	height: 160px; /* the designed card wants a compact note box, not GF's 10 rows */
 }
 
 .contact__form .ginput_container input:focus,
@@ -3705,9 +3706,11 @@ button.filter-chip--add:hover {
 	padding: 0;
 }
 
+.contact__form .gform_wrapper .gform_footer input[type="submit"],
+.contact__form .gform_wrapper .gform_footer .gform_button,
 .contact__form .gform_footer input[type="submit"],
 .contact__form .gform_footer .gform_button {
-	width: 100%;
+	width: 100% !important; /* GF's legacy stylesheet pins a px width at higher specificity */
 	font-size: 15px;
 	font-weight: 700;
 	font-family: inherit;
