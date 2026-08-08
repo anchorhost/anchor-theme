@@ -263,8 +263,8 @@ function anchor_primary_nav() {
 		return;
 	}
 
+	// No Home item — the brand lockup is the way home, and Plans leads the row.
 	$items = apply_filters( 'anchor_default_nav', [
-		[ 'label' => 'Home',     'url' => home_url( '/' ) ],
 		[ 'label' => 'Plans',    'url' => home_url( '/plans/' ) ],
 		[ 'label' => 'Blog',     'url' => home_url( '/blog/' ) ],
 		[ 'label' => 'About',    'url' => home_url( '/about/' ) ],
