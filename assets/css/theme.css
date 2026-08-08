@@ -1069,9 +1069,7 @@ body.admin-bar {
 /* A stat is a <div>, or — when it links somewhere or opens the CVE
    dialog — an <a>/<button> sharing the same box. */
 .statband__stat {
-	display: flex;
-	align-items: center;
-	gap: 15px;
+	display: block;
 	padding: 0;
 	border: 0;
 	background: none;
@@ -1085,24 +1083,18 @@ body.admin-bar {
 	cursor: pointer;
 }
 
+/* The icon annotates the number the way a currency symbol would:
+   same line, same ink. */
 .statband__icon {
 	flex: 0 0 auto;
-	display: grid;
-	place-items: center;
-	width: 48px;
-	height: 48px;
-	border-radius: var(--radius-sm);
-	background: var(--navy-soft);
+	display: inline-flex;
 	color: var(--navy);
 }
 
-.statband__figures {
-	display: block;
-	min-width: 0;
-}
-
 .statband__value {
-	display: block;
+	display: flex;
+	align-items: center;
+	gap: 9px;
 	font-family: var(--font-mono);
 	font-size: 27px;
 	font-weight: 600;
@@ -1114,9 +1106,9 @@ body.admin-bar {
 .statband__stat--go .statband__value::after {
 	content: '↗';
 	font-size: 15px;
-	margin-left: 7px;
+	margin-left: -2px;
 	color: var(--text-3);
-	vertical-align: 6px;
+	align-self: flex-start;
 	transition: color .15s ease;
 }
 

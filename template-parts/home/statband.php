@@ -28,13 +28,13 @@ $anchor_cve_reports = anchor_cve_reports();
 			<?php else : ?>
 				<div class="statband__stat">
 			<?php endif; ?>
-				<?php if ( ! empty( $stat['icon'] ) ) : ?>
-					<span class="statband__icon"><?php echo anchor_icon( $stat['icon'], 26 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-				<?php endif; ?>
-				<span class="statband__figures">
-					<span class="statband__value"><?php echo esc_html( $stat['value'] ); ?></span>
-					<span class="statband__label"><?php echo esc_html( $stat['label'] ); ?></span>
+				<span class="statband__value">
+					<?php if ( ! empty( $stat['icon'] ) ) : ?>
+						<span class="statband__icon"><?php echo anchor_icon( $stat['icon'], 20 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+					<?php endif; ?>
+					<?php echo esc_html( $stat['value'] ); ?>
 				</span>
+				<span class="statband__label"><?php echo esc_html( $stat['label'] ); ?></span>
 			<?php if ( $has_url ) : ?>
 				</a>
 			<?php elseif ( $has_modal ) : ?>
