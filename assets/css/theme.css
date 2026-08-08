@@ -3832,6 +3832,19 @@ button.filter-chip--add:hover {
 	color: var(--text);
 }
 
+.footer-col__badge {
+	display: inline-block;
+	margin-left: 8px;
+	padding: 1px 8px;
+	border: 1px solid var(--border-strong);
+	border-radius: 999px;
+	background: var(--surface);
+	font-family: var(--font-mono);
+	font-size: 11px;
+	color: var(--text-3);
+	vertical-align: 1px;
+}
+
 /* ==========================================================================
    12b. Gravity Forms (legacy markup) — retint the plugin's legacy CSS with
    theme tokens so forms follow the light/dark scheme.

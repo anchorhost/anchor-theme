@@ -849,7 +849,11 @@ function anchor_footer_columns() {
 				[ 'label' => 'About',               'href' => home_url( '/about/' ) ],
 				[ 'label' => 'The bus factor plan', 'href' => home_url( '/the-bus-factor-plan/' ) ],
 				[ 'label' => 'Giving back',         'href' => home_url( '/giving-back/' ) ],
-				[ 'label' => 'Blog',                'href' => home_url( '/blog/' ) ],
+				[
+					'label' => 'Blog',
+					'href'  => home_url( '/blog/' ),
+					'badge' => number_format_i18n( (int) wp_count_posts( 'post' )->publish ),
+				],
 			],
 		],
 		'footer-support' => [

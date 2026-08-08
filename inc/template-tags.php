@@ -309,10 +309,12 @@ function anchor_footer_column( $location, $column ) {
 	} else {
 		echo '<ul>';
 		foreach ( $column['links'] as $link ) {
+			$badge = empty( $link['badge'] ) ? '' : sprintf( '<span class="footer-col__badge">%s</span>', esc_html( $link['badge'] ) );
 			printf(
-				'<li><a href="%s">%s</a></li>',
+				'<li><a href="%s">%s%s</a></li>',
 				esc_url( $link['href'] ),
-				esc_html( $link['label'] )
+				esc_html( $link['label'] ),
+				$badge // phpcs:ignore WordPress.Security.EscapeOutput -- escaped above.
 			);
 		}
 		echo '</ul>';
