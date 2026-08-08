@@ -265,7 +265,7 @@ function anchor_fleet_rows() {
 			'envs'    => [ 'Prod', 'Staging' ],
 			'core'    => '7.0.2',
 			'visits'  => '102,282',
-			'theme'   => 'generatepress',
+			'theme'   => 'bricks',
 			'plugins' => [
 				'woocommerce' => [ 'v' => '10.1.4', 's' => 'active' ],
 				'wordfence'   => [ 'v' => '8.1.0', 's' => 'active' ],
@@ -281,6 +281,7 @@ function anchor_fleet_rows() {
 			'theme'   => 'bricks',
 			'plugins' => [
 				'woocommerce' => [ 'v' => '10.0.2', 's' => 'active' ],
+				'wordfence'   => [ 'v' => '8.1.0', 's' => 'active' ],
 				'rank-math'   => [ 'v' => '1.0.230', 's' => 'active' ],
 			],
 		],
@@ -301,26 +302,26 @@ function anchor_fleet_filters() {
 		'search' => 'Filter sites…',
 		'total'  => 3000,
 		'chips'  => [
-			[ 'facet' => 'plugin',  'value' => 'woocommerce', 'qual' => 'active', 'count' => 1238 ],
+			[ 'facet' => 'plugin',  'value' => 'woocommerce', 'qual' => 'active', 'count' => 2861 ],
 			[ 'facet' => 'version', 'value' => '< 10.2',      'count' => 214 ],
 		],
 		'facets' => [
 			'plugin' => [
 				'label'   => 'Plugin',
 				'options' => [
-					[ 'name' => 'woocommerce',         'count' => 1238 ],
-					[ 'name' => 'wordfence',           'count' => 2411 ],
-					[ 'name' => 'gravityforms',        'count' => 964 ],
-					[ 'name' => 'rank-math',           'count' => 1073 ],
-					[ 'name' => 'the-events-calendar', 'count' => 486 ],
+					[ 'name' => 'woocommerce',         'count' => 2861 ],
+					[ 'name' => 'wordfence',           'count' => 1512 ],
+					[ 'name' => 'gravityforms',        'count' => 942 ],
+					[ 'name' => 'rank-math',           'count' => 1038 ],
+					[ 'name' => 'the-events-calendar', 'count' => 517 ],
 				],
 			],
 			'theme' => [
 				'label'   => 'Theme',
 				'options' => [
-					[ 'name' => 'astra',          'count' => 512 ],
-					[ 'name' => 'generatepress',  'count' => 388 ],
-					[ 'name' => 'bricks',         'count' => 204 ],
+					[ 'name' => 'astra',          'count' => 1021 ],
+					[ 'name' => 'generatepress',  'count' => 483 ],
+					[ 'name' => 'bricks',         'count' => 1496 ],
 				],
 			],
 			'core' => [
@@ -333,59 +334,57 @@ function anchor_fleet_filters() {
 			],
 		],
 		// Per-plugin sub-facets, shown once a plugin chip is active —
-		// the shape GET /filters/<name>/versions|statuses returns.
+		// the shape GET /filters/<name>/versions|statuses returns. Counts sum
+		// to the plugin's fleet total so the funnel always adds up.
 		'subs'   => [
 			'woocommerce' => [
 				'versions' => [
+					[ 'name' => '10.2.0', 'count' => 2647 ],
 					[ 'name' => '< 10.2', 'count' => 214 ],
-					[ 'name' => '10.2.0', 'count' => 1024 ],
-					[ 'name' => '10.1.4', 'count' => 141 ],
-					[ 'name' => '10.1.2', 'count' => 48 ],
-					[ 'name' => '10.0.2', 'count' => 25 ],
 				],
 				'statuses' => [
-					[ 'name' => 'active',   'count' => 1180 ],
-					[ 'name' => 'inactive', 'count' => 58 ],
+					[ 'name' => 'active',   'count' => 2804 ],
+					[ 'name' => 'inactive', 'count' => 57 ],
 				],
 			],
 			'wordfence' => [
 				'versions' => [
-					[ 'name' => '8.1.0', 'count' => 2299 ],
-					[ 'name' => '8.0.5', 'count' => 112 ],
+					[ 'name' => '8.1.0', 'count' => 1431 ],
+					[ 'name' => '8.0.5', 'count' => 81 ],
 				],
 				'statuses' => [
-					[ 'name' => 'active',   'count' => 2380 ],
-					[ 'name' => 'inactive', 'count' => 31 ],
+					[ 'name' => 'active',   'count' => 1489 ],
+					[ 'name' => 'inactive', 'count' => 23 ],
 				],
 			],
 			'gravityforms' => [
 				'versions' => [
-					[ 'name' => '2.9.3', 'count' => 871 ],
-					[ 'name' => '2.8.17', 'count' => 93 ],
+					[ 'name' => '2.9.3', 'count' => 878 ],
+					[ 'name' => '2.8.17', 'count' => 64 ],
 				],
 				'statuses' => [
-					[ 'name' => 'active',   'count' => 902 ],
-					[ 'name' => 'inactive', 'count' => 62 ],
+					[ 'name' => 'active',   'count' => 861 ],
+					[ 'name' => 'inactive', 'count' => 81 ],
 				],
 			],
 			'rank-math' => [
 				'versions' => [
-					[ 'name' => '1.0.230', 'count' => 1002 ],
-					[ 'name' => '1.0.229', 'count' => 71 ],
+					[ 'name' => '1.0.230', 'count' => 981 ],
+					[ 'name' => '1.0.229', 'count' => 57 ],
 				],
 				'statuses' => [
-					[ 'name' => 'active',   'count' => 1051 ],
-					[ 'name' => 'inactive', 'count' => 22 ],
+					[ 'name' => 'active',   'count' => 1017 ],
+					[ 'name' => 'inactive', 'count' => 21 ],
 				],
 			],
 			'the-events-calendar' => [
 				'versions' => [
-					[ 'name' => '6.9.1', 'count' => 401 ],
-					[ 'name' => '6.8.2', 'count' => 85 ],
+					[ 'name' => '6.9.1', 'count' => 468 ],
+					[ 'name' => '6.8.2', 'count' => 49 ],
 				],
 				'statuses' => [
-					[ 'name' => 'active',   'count' => 455 ],
-					[ 'name' => 'inactive', 'count' => 31 ],
+					[ 'name' => 'active',   'count' => 495 ],
+					[ 'name' => 'inactive', 'count' => 22 ],
 				],
 			],
 		],
