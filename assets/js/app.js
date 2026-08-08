@@ -114,38 +114,372 @@
 	}
 
 	/* ------------------------------------------------------------------
-	 * Fleet demo — live "Filter sites…" over the example rows
+	 * Fleet demo — a working slice of the real console: search, facet
+	 * chips (removable), a + Filter dropdown with plugin version/status
+	 * sub-facets, and a row context menu. Mirrors core-v3's patterns.
 	 * ------------------------------------------------------------------ */
 
-	var fleetFilter = consoleRoot ? consoleRoot.querySelector('[data-fleet-filter]') : null;
+	var fleetPane = consoleRoot ? consoleRoot.querySelector('[data-console-pane="fleet"]') : null;
+	var fleetConfigEl = fleetPane ? fleetPane.querySelector('[data-fleet-config]') : null;
 
-	if (fleetFilter) {
-		var fleetRows = consoleRoot.querySelectorAll('[data-fleet-site]');
-		var fleetCount = consoleRoot.querySelector('[data-fleet-count]');
-		var fleetEmpty = consoleRoot.querySelector('[data-fleet-empty]');
+	if (fleetPane && fleetConfigEl) {
+		var fleetCfg;
+		try {
+			fleetCfg = JSON.parse(fleetConfigEl.textContent);
+		} catch (e) {
+			fleetCfg = null;
+		}
+	}
 
-		fleetFilter.addEventListener('input', function () {
-			var q = fleetFilter.value.trim().toLowerCase();
+	if (fleetPane && fleetCfg) {
+		var fleet = {
+			chips: (fleetCfg.chips || []).map(function (c) { return Object.assign({}, c); }),
+			q: '',
+			rows: Array.prototype.slice.call(fleetPane.querySelectorAll('.fleet__row')),
+			pinned: [],
+		};
+
+		var chipsWrap = fleetPane.querySelector('[data-fleet-chips]');
+		var addBtn = fleetPane.querySelector('[data-fleet-add]');
+		var countEl = fleetPane.querySelector('[data-fleet-count]');
+		var emptyEl = fleetPane.querySelector('[data-fleet-empty]');
+		var searchEl = fleetPane.querySelector('[data-fleet-filter]');
+
+		fleet.rows.forEach(function (row) {
+			try {
+				row._plugins = JSON.parse(row.dataset.fleetPlugins || '{}');
+			} catch (e) {
+				row._plugins = {};
+			}
+		});
+
+		var fmt = function (n) { return Number(n).toLocaleString(); };
+
+		/* '< 10.2' style ranges against dotted versions. */
+		function versionMatches(rule, version) {
+			if (rule.indexOf('<') !== 0) {
+				return rule === version;
+			}
+			var limit = rule.replace('<', '').trim().split('.');
+			var got = String(version).split('.');
+			for (var i = 0; i < Math.max(limit.length, got.length); i++) {
+				var a = parseInt(got[i] || '0', 10);
+				var b = parseInt(limit[i] || '0', 10);
+				if (a !== b) {
+					return a < b;
+				}
+			}
+			return false;
+		}
+
+		function activePlugin() {
+			var chip = fleet.chips.filter(function (c) { return c.facet === 'plugin'; })[0];
+			return chip ? chip.value : null;
+		}
+
+		function rowMatches(row) {
+			if (fleet.q && row.dataset.fleetSite.indexOf(fleet.q) === -1) {
+				return false;
+			}
+			return fleet.chips.every(function (chip) {
+				var plugin = activePlugin();
+				switch (chip.facet) {
+					case 'plugin':
+						var p = row._plugins[chip.value];
+						return !!p && (!chip.qual || p.s === chip.qual);
+					case 'version':
+						return plugin && row._plugins[plugin] && versionMatches(chip.value, row._plugins[plugin].v);
+					case 'status':
+						return plugin && row._plugins[plugin] && row._plugins[plugin].s === chip.value;
+					case 'theme':
+						return row.dataset.fleetTheme === chip.value;
+					case 'core':
+						return row.dataset.fleetCore === chip.value;
+				}
+				return true;
+			});
+		}
+
+		function chipLabel(chip) {
+			var label = chip.facet.charAt(0).toUpperCase() + chip.facet.slice(1) + ': ' + chip.value;
+			return chip.qual ? label + ' · ' + chip.qual : label;
+		}
+
+		function renderChips() {
+			chipsWrap.querySelectorAll('.filter-chip:not(.filter-chip--add)').forEach(function (el) { el.remove(); });
+			fleet.chips.forEach(function (chip) {
+				var el = document.createElement('button');
+				el.type = 'button';
+				el.className = 'filter-chip';
+				el.setAttribute('aria-label', 'Remove filter ' + chipLabel(chip));
+				el.innerHTML = '';
+				el.appendChild(document.createTextNode(chipLabel(chip)));
+				var x = document.createElement('span');
+				x.className = 'filter-chip__x';
+				x.textContent = '✕';
+				el.appendChild(x);
+				el.addEventListener('click', function () { removeChip(chip); });
+				chipsWrap.insertBefore(el, addBtn);
+			});
+		}
+
+		function removeChip(chip) {
+			fleet.chips = fleet.chips.filter(function (c) { return c !== chip; });
+			if (chip.facet === 'plugin') {
+				// Version/status qualify the plugin — they go with it.
+				fleet.chips = fleet.chips.filter(function (c) { return c.facet !== 'version' && c.facet !== 'status'; });
+			}
+			apply();
+		}
+
+		function setChip(facet, value, count, qual) {
+			fleet.chips = fleet.chips.filter(function (c) { return c.facet !== facet; });
+			if (facet === 'plugin') {
+				fleet.chips = fleet.chips.filter(function (c) { return c.facet !== 'version' && c.facet !== 'status'; });
+			}
+			var chip = { facet: facet, value: value, count: count };
+			if (qual) {
+				chip.qual = qual;
+			}
+			fleet.chips.push(chip);
+			apply();
+		}
+
+		function apply() {
+			var order = fleet.pinned.concat(fleet.rows.filter(function (r) { return fleet.pinned.indexOf(r) === -1; }));
+			var parent = fleet.rows[0].parentNode;
+			var anchorNode = emptyEl;
+			order.forEach(function (row) { parent.insertBefore(row, anchorNode); });
+
 			var shown = 0;
-
-			fleetRows.forEach(function (row) {
-				var match = !q || row.dataset.fleetSite.indexOf(q) !== -1;
+			fleet.rows.forEach(function (row) {
+				var match = rowMatches(row);
 				row.hidden = !match;
+				row.classList.toggle('fleet__row--pinned', fleet.pinned.indexOf(row) !== -1);
 				if (match) {
 					shown++;
 				}
 			});
+			if (emptyEl) {
+				emptyEl.hidden = shown !== 0;
+			}
+			if (countEl) {
+				var counts = fleet.chips.map(function (c) { return c.count || fleetCfg.total; });
+				var n = counts.length ? Math.min.apply(null, counts) : fleetCfg.total;
+				countEl.textContent = counts.length
+					? fmt(n) + ' of ' + fmt(fleetCfg.total) + ' sites'
+					: fmt(fleetCfg.total) + ' sites';
+			}
+			renderChips();
+		}
 
-			if (fleetEmpty) {
-				fleetEmpty.hidden = !q || shown !== 0;
+		if (searchEl) {
+			searchEl.addEventListener('input', function () {
+				fleet.q = searchEl.value.trim().toLowerCase();
+				apply();
+			});
+		}
+
+		/* --- + Filter dropdown (facet list → searchable options) --- */
+
+		var dd = document.createElement('div');
+		dd.className = 'fleet-dd';
+		dd.hidden = true;
+		fleetPane.appendChild(dd);
+
+		function closeDd() {
+			dd.hidden = true;
+		}
+
+		function ddOption(label, badge, onPick, marked) {
+			var b = document.createElement('button');
+			b.type = 'button';
+			b.className = 'fleet-dd__opt' + (marked ? ' is-current' : '');
+			var name = document.createElement('span');
+			name.textContent = (marked ? '✓ ' : '') + label;
+			b.appendChild(name);
+			if (badge) {
+				var bd = document.createElement('span');
+				bd.className = 'fleet-dd__badge';
+				bd.textContent = badge;
+				b.appendChild(bd);
+			}
+			b.addEventListener('click', onPick);
+			return b;
+		}
+
+		function showFacetList() {
+			dd.innerHTML = '';
+			var facets = Object.keys(fleetCfg.facets).map(function (key) {
+				return { key: key, label: fleetCfg.facets[key].label };
+			});
+			var plugin = activePlugin();
+			if (plugin && fleetCfg.subs[plugin]) {
+				facets.push({ key: 'version', label: 'Version — ' + plugin });
+				facets.push({ key: 'status', label: 'Status — ' + plugin });
+			}
+			facets.forEach(function (f) {
+				dd.appendChild(ddOption(f.label, '▸', function (e) {
+					e.stopPropagation();
+					showOptions(f.key);
+				}, false));
+			});
+		}
+
+		function showOptions(facetKey) {
+			dd.innerHTML = '';
+
+			var back = document.createElement('button');
+			back.type = 'button';
+			back.className = 'fleet-dd__back';
+			back.textContent = '‹ Back';
+			back.addEventListener('click', function (e) {
+				e.stopPropagation();
+				showFacetList();
+			});
+			dd.appendChild(back);
+
+			var plugin = activePlugin();
+			var options;
+			if (facetKey === 'version' || facetKey === 'status') {
+				options = (fleetCfg.subs[plugin] || {})[facetKey === 'version' ? 'versions' : 'statuses'] || [];
+			} else {
+				options = fleetCfg.facets[facetKey].options;
 			}
 
-			if (fleetCount) {
-				fleetCount.textContent = q
-					? shown + ' of ' + fleetCount.dataset.fleetTotal
-					: fleetCount.dataset.fleetDefault;
+			var search;
+			if (options.length > 4) {
+				search = document.createElement('input');
+				search.type = 'text';
+				search.placeholder = 'Search…';
+				search.className = 'fleet-dd__search';
+				dd.appendChild(search);
+			}
+
+			var list = document.createElement('div');
+			dd.appendChild(list);
+
+			var current = fleet.chips.filter(function (c) { return c.facet === facetKey; })[0];
+
+			function renderOptions() {
+				list.innerHTML = '';
+				var q = search ? search.value.trim().toLowerCase() : '';
+				options.filter(function (o) {
+					return !q || o.name.toLowerCase().indexOf(q) !== -1;
+				}).forEach(function (o) {
+					list.appendChild(ddOption(o.name, fmt(o.count) + ' sites', function () {
+						setChip(facetKey, o.name, o.count, facetKey === 'plugin' ? 'active' : null);
+						closeDd();
+					}, !!current && current.value === o.name));
+				});
+			}
+
+			if (search) {
+				search.addEventListener('input', renderOptions);
+				search.addEventListener('click', function (e) { e.stopPropagation(); });
+				setTimeout(function () { search.focus(); }, 0);
+			}
+			renderOptions();
+		}
+
+		if (addBtn) {
+			addBtn.addEventListener('click', function (e) {
+				e.stopPropagation();
+				if (!dd.hidden) {
+					closeDd();
+					return;
+				}
+				showFacetList();
+				dd.hidden = false;
+				var rect = addBtn.getBoundingClientRect();
+				var paneRect = fleetPane.getBoundingClientRect();
+				dd.style.left = Math.min(rect.left - paneRect.left, paneRect.width - 280) + 'px';
+				dd.style.top = (rect.bottom - paneRect.top + 7) + 'px';
+			});
+		}
+
+		/* --- Row context menu (the Minn pattern: entries built from the
+		       row so the menu can never drift from it) --- */
+
+		var ctx = document.createElement('div');
+		ctx.className = 'fleet-ctx';
+		ctx.hidden = true;
+		document.body.appendChild(ctx);
+
+		function closeCtx() {
+			ctx.hidden = true;
+		}
+
+		function toast(msg) {
+			var el = document.createElement('div');
+			el.className = 'console-toast';
+			el.textContent = msg;
+			consoleRoot.querySelector('.console').appendChild(el);
+			setTimeout(function () { el.classList.add('is-out'); }, 2200);
+			setTimeout(function () { el.remove(); }, 2600);
+		}
+
+		function openCtx(e, entries) {
+			e.preventDefault();
+			e.stopPropagation();
+			ctx.innerHTML = '';
+			entries.forEach(function (en) {
+				var b = document.createElement('button');
+				b.type = 'button';
+				b.className = 'fleet-ctx__entry';
+				b.textContent = en.label;
+				b.addEventListener('click', function () {
+					closeCtx();
+					en.act();
+				});
+				ctx.appendChild(b);
+			});
+			ctx.hidden = false;
+			var w = 230;
+			var h = 10 + entries.length * 37;
+			ctx.style.left = Math.max(8, Math.min(e.clientX, window.innerWidth - w - 12)) + 'px';
+			ctx.style.top = Math.max(8, Math.min(e.clientY, window.innerHeight - h - 12)) + 'px';
+		}
+
+		fleet.rows.forEach(function (row) {
+			var domain = row.dataset.fleetDomain;
+			var handler = function (e) {
+				var pinned = fleet.pinned.indexOf(row) !== -1;
+				openCtx(e, [
+					{ label: 'Open site', act: function () { toast('Demo data — the real console opens the full site view.'); } },
+					{ label: 'Login to WordPress ↗', act: function () { toast('Demo data — one click on a real site.'); } },
+					{ label: pinned ? 'Unpin' : 'Pin to top', act: function () {
+						if (pinned) {
+							fleet.pinned = fleet.pinned.filter(function (r) { return r !== row; });
+						} else {
+							fleet.pinned.unshift(row);
+						}
+						apply();
+					} },
+					{ label: 'Open terminal', act: function () { showConsoleTab('terminal'); } },
+					{ label: 'Copy domain', act: function () {
+						if (navigator.clipboard) {
+							navigator.clipboard.writeText(domain).then(function () { toast('Copied ' + domain + '.'); }).catch(function () {});
+						}
+					} },
+				]);
+			};
+			row.addEventListener('contextmenu', handler);
+			row.addEventListener('click', handler);
+		});
+
+		document.addEventListener('click', function () {
+			closeDd();
+			closeCtx();
+		});
+		document.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape') {
+				closeDd();
+				closeCtx();
 			}
 		});
+
+		apply();
 	}
 
 	/* ------------------------------------------------------------------

@@ -48,6 +48,7 @@ $first_tab = reset( $tab_keys );
 		<!-- Fleet -->
 		<div class="console__pane" data-console-pane="fleet" id="console-pane-fleet" role="tabpanel" aria-labelledby="console-tab-fleet">
 			<?php $filters = anchor_fleet_filters(); ?>
+			<script type="application/json" data-fleet-config><?php echo wp_json_encode( $filters ); // phpcs:ignore WordPress.Security.EscapeOutput ?></script>
 			<div class="console__filters">
 				<label class="fleet-search">
 					<?php echo anchor_icon( 'search', 13 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
@@ -58,19 +59,14 @@ $first_tab = reset( $tab_keys );
 						aria-label="<?php esc_attr_e( 'Filter the example sites', 'anchor-theme' ); ?>"
 					/>
 				</label>
-				<span aria-hidden="true">
+				<span class="fleet-chips" data-fleet-chips>
 					<?php foreach ( $filters['chips'] as $chip ) : ?>
-						<span class="filter-chip"><?php echo esc_html( $chip ); ?><span class="filter-chip__x">✕</span></span>
+						<span class="filter-chip"><?php echo esc_html( ucfirst( $chip['facet'] ) . ': ' . $chip['value'] . ( isset( $chip['qual'] ) ? ' · ' . $chip['qual'] : '' ) ); ?><span class="filter-chip__x">✕</span></span>
 					<?php endforeach; ?>
-					<span class="filter-chip filter-chip--add"><?php esc_html_e( '+ Filter', 'anchor-theme' ); ?></span>
+					<button type="button" class="filter-chip filter-chip--add" data-fleet-add><?php esc_html_e( '+ Filter', 'anchor-theme' ); ?></button>
 				</span>
 				<div class="header-spacer"></div>
-				<span
-					class="fleet-count"
-					data-fleet-count
-					data-fleet-default="<?php echo esc_attr( $filters['count'] ); ?>"
-					data-fleet-total="<?php echo esc_attr( $filters['total'] ); ?>"
-				><?php echo esc_html( $filters['count'] ); ?></span>
+				<span class="fleet-count" data-fleet-count></span>
 			</div>
 
 			<div class="fleet__head">
@@ -81,7 +77,14 @@ $first_tab = reset( $tab_keys );
 			</div>
 
 			<?php foreach ( anchor_fleet_rows() as $row ) : ?>
-				<div class="fleet__row" data-fleet-site="<?php echo esc_attr( strtolower( $row['site'] . ' ' . $row['owner'] ) ); ?>">
+				<div
+					class="fleet__row"
+					data-fleet-site="<?php echo esc_attr( strtolower( $row['site'] . ' ' . $row['owner'] ) ); ?>"
+					data-fleet-domain="<?php echo esc_attr( $row['site'] ); ?>"
+					data-fleet-theme="<?php echo esc_attr( $row['theme'] ?? '' ); ?>"
+					data-fleet-core="<?php echo esc_attr( $row['core'] ); ?>"
+					data-fleet-plugins="<?php echo esc_attr( wp_json_encode( $row['plugins'] ?? new stdClass() ) ); ?>"
+				>
 					<div class="fleet__site">
 						<span class="fleet__thumb" aria-hidden="true"></span>
 						<div style="min-width:0">

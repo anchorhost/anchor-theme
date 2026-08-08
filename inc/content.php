@@ -211,29 +211,184 @@ function anchor_arrangement_cards() {
  */
 function anchor_fleet_rows() {
 	return apply_filters( 'anchor_fleet_rows', [
-		[ 'site' => 'bakerstreetbistro.com',    'owner' => 'bakerstreetbistro.com',  'envs' => [ 'Staging', 'Prod' ], 'core' => '7.0.2', 'visits' => '302,874' ],
-		[ 'site' => 'blueheronfarm.org',        'owner' => 'Harborlight Studio',     'envs' => [ 'Prod' ],            'core' => '7.0.2', 'visits' => '46,675' ],
-		[ 'site' => 'cedarcreekdental.com',     'owner' => 'North & Main Creative',  'envs' => [ 'Prod' ],            'core' => '7.0.2', 'visits' => '1,327' ],
-		[ 'site' => 'driftwoodgallery.com',     'owner' => 'Signal Hill Design',     'envs' => [ 'Staging', 'Prod' ], 'core' => '7.0.2', 'visits' => '1,897' ],
-		[ 'site' => 'fairviewpediatrics.com',   'owner' => 'Brightworks Agency',     'envs' => [ 'Prod', 'Staging' ], 'core' => '7.0.2', 'visits' => '102,282' ],
-		[ 'site' => 'graniteledgebuilders.com', 'owner' => 'Copperline Media',       'envs' => [ 'Prod', 'Staging' ], 'core' => '7.0.2', 'visits' => '202,872' ],
+		[
+			'site'    => 'bakerstreetbistro.com',
+			'owner'   => 'bakerstreetbistro.com',
+			'envs'    => [ 'Staging', 'Prod' ],
+			'core'    => '7.0.2',
+			'visits'  => '302,874',
+			'theme'   => 'astra',
+			'plugins' => [
+				'woocommerce'  => [ 'v' => '10.1.4', 's' => 'active' ],
+				'gravityforms' => [ 'v' => '2.9.3', 's' => 'active' ],
+			],
+		],
+		[
+			'site'    => 'blueheronfarm.org',
+			'owner'   => 'Harborlight Studio',
+			'envs'    => [ 'Prod' ],
+			'core'    => '7.0.2',
+			'visits'  => '46,675',
+			'theme'   => 'generatepress',
+			'plugins' => [
+				'woocommerce' => [ 'v' => '10.1.4', 's' => 'active' ],
+				'wordfence'   => [ 'v' => '8.1.0', 's' => 'active' ],
+			],
+		],
+		[
+			'site'    => 'cedarcreekdental.com',
+			'owner'   => 'North & Main Creative',
+			'envs'    => [ 'Prod' ],
+			'core'    => '7.0.2',
+			'visits'  => '1,327',
+			'theme'   => 'astra',
+			'plugins' => [
+				'woocommerce'         => [ 'v' => '10.0.2', 's' => 'active' ],
+				'the-events-calendar' => [ 'v' => '6.9.1', 's' => 'active' ],
+			],
+		],
+		[
+			'site'    => 'driftwoodgallery.com',
+			'owner'   => 'Signal Hill Design',
+			'envs'    => [ 'Staging', 'Prod' ],
+			'core'    => '7.0.2',
+			'visits'  => '1,897',
+			'theme'   => 'bricks',
+			'plugins' => [
+				'woocommerce'  => [ 'v' => '10.1.2', 's' => 'active' ],
+				'gravityforms' => [ 'v' => '2.9.3', 's' => 'inactive' ],
+			],
+		],
+		[
+			'site'    => 'fairviewpediatrics.com',
+			'owner'   => 'Brightworks Agency',
+			'envs'    => [ 'Prod', 'Staging' ],
+			'core'    => '7.0.2',
+			'visits'  => '102,282',
+			'theme'   => 'generatepress',
+			'plugins' => [
+				'woocommerce' => [ 'v' => '10.1.4', 's' => 'active' ],
+				'wordfence'   => [ 'v' => '8.1.0', 's' => 'active' ],
+				'rank-math'   => [ 'v' => '1.0.230', 's' => 'active' ],
+			],
+		],
+		[
+			'site'    => 'graniteledgebuilders.com',
+			'owner'   => 'Copperline Media',
+			'envs'    => [ 'Prod', 'Staging' ],
+			'core'    => '7.0.2',
+			'visits'  => '202,872',
+			'theme'   => 'bricks',
+			'plugins' => [
+				'woocommerce' => [ 'v' => '10.0.2', 's' => 'active' ],
+				'rank-math'   => [ 'v' => '1.0.230', 's' => 'active' ],
+			],
+		],
 	] );
 }
 
 /**
- * Dashboard preview — the fleet filter bar. Mirrors the real console's
+ * Dashboard preview — the fleet filter bar, mirroring the real console's
  * facet pills: slice the whole fleet by plugin (at a version and status),
- * core, host — then act on the slice.
+ * theme or core — then act on the slice.
+ *
+ * `chips` seeds the default view. Counts are fleet-scale (the six demo rows
+ * stand in for the whole fleet); the JS shows the smallest active chip's
+ * count, the same funnel the real /filters/sites intersect produces.
  */
 function anchor_fleet_filters() {
 	return apply_filters( 'anchor_fleet_filters', [
 		'search' => 'Filter sites…',
+		'total'  => 3000,
 		'chips'  => [
-			'Plugin: woocommerce · active',
-			'Version: < 10.2',
+			[ 'facet' => 'plugin',  'value' => 'woocommerce', 'qual' => 'active', 'count' => 1238 ],
+			[ 'facet' => 'version', 'value' => '< 10.2',      'count' => 214 ],
 		],
-		'count'  => '214 of 3,000 sites',
-		'total'  => '3,000 sites',
+		'facets' => [
+			'plugin' => [
+				'label'   => 'Plugin',
+				'options' => [
+					[ 'name' => 'woocommerce',         'count' => 1238 ],
+					[ 'name' => 'wordfence',           'count' => 2411 ],
+					[ 'name' => 'gravityforms',        'count' => 964 ],
+					[ 'name' => 'rank-math',           'count' => 1073 ],
+					[ 'name' => 'the-events-calendar', 'count' => 486 ],
+				],
+			],
+			'theme' => [
+				'label'   => 'Theme',
+				'options' => [
+					[ 'name' => 'astra',          'count' => 512 ],
+					[ 'name' => 'generatepress',  'count' => 388 ],
+					[ 'name' => 'bricks',         'count' => 204 ],
+				],
+			],
+			'core' => [
+				'label'   => 'Core',
+				'options' => [
+					[ 'name' => '7.0.2', 'count' => 2915 ],
+					[ 'name' => '7.0.1', 'count' => 61 ],
+					[ 'name' => '6.8.3', 'count' => 24 ],
+				],
+			],
+		],
+		// Per-plugin sub-facets, shown once a plugin chip is active —
+		// the shape GET /filters/<name>/versions|statuses returns.
+		'subs'   => [
+			'woocommerce' => [
+				'versions' => [
+					[ 'name' => '< 10.2', 'count' => 214 ],
+					[ 'name' => '10.2.0', 'count' => 1024 ],
+					[ 'name' => '10.1.4', 'count' => 141 ],
+					[ 'name' => '10.1.2', 'count' => 48 ],
+					[ 'name' => '10.0.2', 'count' => 25 ],
+				],
+				'statuses' => [
+					[ 'name' => 'active',   'count' => 1180 ],
+					[ 'name' => 'inactive', 'count' => 58 ],
+				],
+			],
+			'wordfence' => [
+				'versions' => [
+					[ 'name' => '8.1.0', 'count' => 2299 ],
+					[ 'name' => '8.0.5', 'count' => 112 ],
+				],
+				'statuses' => [
+					[ 'name' => 'active',   'count' => 2380 ],
+					[ 'name' => 'inactive', 'count' => 31 ],
+				],
+			],
+			'gravityforms' => [
+				'versions' => [
+					[ 'name' => '2.9.3', 'count' => 871 ],
+					[ 'name' => '2.8.17', 'count' => 93 ],
+				],
+				'statuses' => [
+					[ 'name' => 'active',   'count' => 902 ],
+					[ 'name' => 'inactive', 'count' => 62 ],
+				],
+			],
+			'rank-math' => [
+				'versions' => [
+					[ 'name' => '1.0.230', 'count' => 1002 ],
+					[ 'name' => '1.0.229', 'count' => 71 ],
+				],
+				'statuses' => [
+					[ 'name' => 'active',   'count' => 1051 ],
+					[ 'name' => 'inactive', 'count' => 22 ],
+				],
+			],
+			'the-events-calendar' => [
+				'versions' => [
+					[ 'name' => '6.9.1', 'count' => 401 ],
+					[ 'name' => '6.8.2', 'count' => 85 ],
+				],
+				'statuses' => [
+					[ 'name' => 'active',   'count' => 455 ],
+					[ 'name' => 'inactive', 'count' => 31 ],
+				],
+			],
+		],
 	] );
 }
 
