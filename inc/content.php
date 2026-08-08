@@ -136,11 +136,47 @@ function anchor_glance_rows() {
 
 function anchor_stats() {
 	return apply_filters( 'anchor_stats', [
-		[ 'value' => '3,000', 'label' => 'Sites under management' ],
-		[ 'value' => '800+',   'label' => 'Customers since 2014' ],
-		[ 'value' => '20+',    'label' => 'Plugin vulnerabilities disclosed' ],
-		[ 'value' => '3+',     'label' => 'Backdoor operations uncovered' ],
+		[ 'value' => '3,000', 'label' => 'Sites under management', 'icon' => 'wheel' ],
+		[ 'value' => '800+',   'label' => 'Customers since 2014', 'icon' => 'buoy' ],
+		[ 'value' => '20+',    'label' => 'Plugin vulnerabilities disclosed', 'icon' => 'shield', 'modal' => 'cve-modal' ],
+		[ 'value' => '3+',     'label' => 'Backdoor operations uncovered', 'icon' => 'bug', 'url' => home_url( '/tag/security-research/' ) ],
 	] );
+}
+
+/**
+ * Published CVE reports, from the same JSON feed austinginder.com renders.
+ *
+ * Cached in a transient for 12 hours; returns an empty array (and the
+ * stat degrades to plain text) if the feed is unreachable.
+ *
+ * @return array{cves: array, total: int, wordfence_researcher_url: string, patchstack_researcher_url: string}|array
+ */
+function anchor_cve_reports() {
+	$feed_url = apply_filters(
+		'anchor_cve_reports_url',
+		'https://austinginder.com/content/1/themes/austinginder-v2/assets/data/cve-reports.json'
+	);
+
+	$cached = get_transient( 'anchor_cve_reports' );
+	if ( is_array( $cached ) ) {
+		return $cached;
+	}
+
+	$response = wp_remote_get( $feed_url, [ 'timeout' => 5 ] );
+	if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+		// Cache the miss briefly so a dead feed doesn't slow every pageload.
+		set_transient( 'anchor_cve_reports', [], 15 * MINUTE_IN_SECONDS );
+		return [];
+	}
+
+	$data = json_decode( wp_remote_retrieve_body( $response ), true );
+	if ( empty( $data['cves'] ) || ! is_array( $data['cves'] ) ) {
+		set_transient( 'anchor_cve_reports', [], 15 * MINUTE_IN_SECONDS );
+		return [];
+	}
+
+	set_transient( 'anchor_cve_reports', $data, 12 * HOUR_IN_SECONDS );
+	return $data;
 }
 
 /**

@@ -46,6 +46,37 @@
 	}
 
 	/* ------------------------------------------------------------------
+	 * Dialogs (stat band → CVE reports)
+	 *
+	 * Native <dialog>: showModal() gives us the focus trap and Esc for
+	 * free; we add backdrop-click to close.
+	 * ------------------------------------------------------------------ */
+
+	document.querySelectorAll('[data-modal-open]').forEach(function (btn) {
+		var dialog = document.getElementById(btn.dataset.modalOpen);
+		if (!dialog || typeof dialog.showModal !== 'function') {
+			return;
+		}
+		btn.addEventListener('click', function () {
+			dialog.showModal();
+		});
+	});
+
+	document.querySelectorAll('dialog').forEach(function (dialog) {
+		dialog.querySelectorAll('[data-modal-close]').forEach(function (btn) {
+			btn.addEventListener('click', function () {
+				dialog.close();
+			});
+		});
+		dialog.addEventListener('click', function (e) {
+			// A click on the backdrop targets the dialog element itself.
+			if (e.target === dialog) {
+				dialog.close();
+			}
+		});
+	});
+
+	/* ------------------------------------------------------------------
 	 * Dashboard console tabs
 	 * ------------------------------------------------------------------ */
 
