@@ -212,8 +212,8 @@ function anchor_arrangement_cards() {
 function anchor_fleet_rows() {
 	return apply_filters( 'anchor_fleet_rows', [
 		[
-			'site'    => 'bakerstreetbistro.com',
-			'owner'   => 'bakerstreetbistro.com',
+			'site'    => 'saltmarshbistro.com',
+			'owner'   => 'saltmarshbistro.com',
 			'envs'    => [ 'Staging', 'Prod' ],
 			'core'    => '7.0.2',
 			'visits'  => '302,874',
@@ -224,7 +224,7 @@ function anchor_fleet_rows() {
 			],
 		],
 		[
-			'site'    => 'blueheronfarm.org',
+			'site'    => 'blueheronhollow.org',
 			'owner'   => 'Harborlight Studio',
 			'envs'    => [ 'Prod' ],
 			'core'    => '7.0.2',
@@ -236,7 +236,7 @@ function anchor_fleet_rows() {
 			],
 		],
 		[
-			'site'    => 'cedarcreekdental.com',
+			'site'    => 'cedarknolldental.com',
 			'owner'   => 'North & Main Creative',
 			'envs'    => [ 'Prod' ],
 			'core'    => '7.0.2',
@@ -248,7 +248,7 @@ function anchor_fleet_rows() {
 			],
 		],
 		[
-			'site'    => 'driftwoodgallery.com',
+			'site'    => 'driftlinegallery.com',
 			'owner'   => 'Signal Hill Design',
 			'envs'    => [ 'Staging', 'Prod' ],
 			'core'    => '7.0.2',
@@ -260,7 +260,7 @@ function anchor_fleet_rows() {
 			],
 		],
 		[
-			'site'    => 'fairviewpediatrics.com',
+			'site'    => 'fernbrookpediatrics.com',
 			'owner'   => 'Brightworks Agency',
 			'envs'    => [ 'Prod', 'Staging' ],
 			'core'    => '7.0.2',
@@ -410,10 +410,10 @@ function anchor_terminal_lines() {
 		[ 'tone' => 'comment', 'text' => '# run across the whole fleet, in parallel' ],
 		[ 'tone' => 'prompt',  'text' => 'wp plugin update --all --sites=all' ],
 		[ 'tone' => 'out',     'text' => '→ 3,000 sites queued · 24 workers' ],
-		[ 'tone' => 'out',     'text' => '✔ bakerstreetbistro.com · 3 plugins updated · 4.2s' ],
-		[ 'tone' => 'out',     'text' => '✔ blueheronfarm.org · 1 plugin updated · 2.8s' ],
+		[ 'tone' => 'out',     'text' => '✔ saltmarshbistro.com · 3 plugins updated · 4.2s' ],
+		[ 'tone' => 'out',     'text' => '✔ blueheronhollow.org · 1 plugin updated · 2.8s' ],
 		[ 'tone' => 'out',     'text' => '✔ cavendishbooks.com · up to date · 0.9s' ],
-		[ 'tone' => 'out',     'text' => '✔ cedarcreekdental.com · 5 plugins updated · 6.1s' ],
+		[ 'tone' => 'out',     'text' => '✔ cedarknolldental.com · 5 plugins updated · 6.1s' ],
 		[ 'tone' => 'done',    'text' => '✔ 822 components updated', 'suffix' => '· 0 failures · 3m 41s' ],
 		[ 'tone' => 'cursor',  'text' => '' ],
 	] );
