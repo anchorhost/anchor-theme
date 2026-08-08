@@ -3763,7 +3763,7 @@ button.filter-chip--add:hover {
 .site-footer__inner {
 	max-width: var(--wrap);
 	margin: 0 auto;
-	padding: 52px var(--gutter) 40px;
+	padding: 52px var(--gutter) 72px;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
 	gap: 36px;
