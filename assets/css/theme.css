@@ -490,7 +490,10 @@ body.admin-bar {
 	position: sticky;
 	top: var(--admin-bar-h);
 	z-index: 60;
-	background: color-mix(in srgb, var(--bg) 88%, transparent);
+	/* The header is a surface, not the page ground — white over the grey body
+	   in light, slightly lifted in dark. Kept translucent so the blur still
+	   reads as content scrolls beneath it. */
+	background: color-mix(in srgb, var(--surface) 88%, transparent);
 	backdrop-filter: blur(14px);
 	border-bottom: 1px solid var(--border);
 }
