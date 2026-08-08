@@ -30,7 +30,7 @@ $anchor_cve_reports = anchor_cve_reports();
 			<?php endif; ?>
 				<span class="statband__value">
 					<?php if ( ! empty( $stat['icon'] ) ) : ?>
-						<span class="statband__icon"><?php echo anchor_icon( $stat['icon'], 20 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+						<span class="statband__icon"><?php echo anchor_icon( $stat['icon'], 26, 1.7 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 					<?php endif; ?>
 					<?php echo esc_html( $stat['value'] ); ?>
 				</span>
