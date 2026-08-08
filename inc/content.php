@@ -825,7 +825,6 @@ function anchor_company() {
 		'status'   => 'https://anchorhost.statuspage.io/',
 		'github'   => 'https://github.com/anchorhost/',
 		'x'        => 'https://x.com/anchorhost',
-		'footnote' => '3,000 WordPress sites · 800+ customers · since 2014',
 	] );
 }
 

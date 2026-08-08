@@ -40,12 +40,6 @@ $company = anchor_company();
 
 		</div>
 
-		<div class="site-footer__bar">
-			<div class="site-footer__bar-inner">
-				<span><?php echo esc_html( get_bloginfo( 'name' ) ); ?></span>
-				<span class="mono"><?php echo esc_html( $company['footnote'] ); ?></span>
-			</div>
-		</div>
 	</footer>
 
 </div><!-- .site -->
