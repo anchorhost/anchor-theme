@@ -40,8 +40,14 @@ $content = trim( get_the_content() );
 			<div>
 				<div class="contact__kicker"><?php esc_html_e( 'Elsewhere', 'anchor-theme' ); ?></div>
 				<div class="contact__links">
-					<a href="<?php echo esc_url( $company['github'] ); ?>" rel="noopener"><?php echo esc_html( preg_replace( '#^https?://#', '', untrailingslashit( $company['github'] ) ) ); ?></a>
-					<a href="<?php echo esc_url( $company['x'] ); ?>" rel="noopener">@anchorhost</a>
+					<a href="<?php echo esc_url( $company['github'] ); ?>" rel="noopener">
+						<?php echo anchor_icon( 'github', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						<?php echo esc_html( preg_replace( '#^https?://#', '', untrailingslashit( $company['github'] ) ) ); ?>
+					</a>
+					<a href="<?php echo esc_url( $company['x'] ); ?>" rel="noopener">
+						<?php echo anchor_icon( 'x', 14 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						@anchorhost
+					</a>
 				</div>
 			</div>
 

@@ -3534,6 +3534,12 @@ button.filter-chip--add:hover {
 	font-size: 15px;
 }
 
+.contact__links a {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+}
+
 .contact__form {
 	background: var(--surface);
 	border: 1px solid var(--border);
