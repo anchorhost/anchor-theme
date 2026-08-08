@@ -1079,8 +1079,19 @@ body.admin-bar {
 	text-decoration: none;
 }
 
+/* Interactive stats get a hover pill; negative margin keeps the resting
+   layout identical to the plain stats. */
 .statband__stat--go {
 	cursor: pointer;
+	margin: -10px -14px;
+	padding: 10px 14px;
+	border-radius: var(--radius);
+	transition: background .15s ease;
+}
+
+.statband__stat--go:hover,
+.statband__stat--go:focus-visible {
+	background: var(--navy-soft);
 }
 
 /* The icon annotates the number the way a currency symbol would:
