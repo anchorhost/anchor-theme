@@ -79,7 +79,8 @@ function anchor_brand( $size = 34 ) {
  * A mask-based SVG illustration that recolours with the theme.
  */
 function anchor_illustration( $file, $alt = '', $extra_style = '' ) {
-	$url = ANCHOR_THEME_URI . '/assets/icons/' . ltrim( $file, '/' );
+	// Version param matches the enqueued assets so illustrations bust cache on release too.
+	$url = ANCHOR_THEME_URI . '/assets/icons/' . ltrim( $file, '/' ) . '?ver=' . ANCHOR_THEME_VERSION;
 
 	printf(
 		'<div role="img" aria-label="%1$s" class="illus" style="-webkit-mask-image:url(\'%2$s\');mask-image:url(\'%2$s\');%3$s"></div>',
