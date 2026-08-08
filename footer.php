@@ -42,16 +42,7 @@ $company = anchor_company();
 
 		<div class="site-footer__bar">
 			<div class="site-footer__bar-inner">
-				<span>
-					<?php
-					printf(
-						/* translators: 1: current year, 2: site name. */
-						esc_html__( '© %1$s %2$s', 'anchor-theme' ),
-						esc_html( gmdate( 'Y' ) ),
-						esc_html( get_bloginfo( 'name' ) )
-					);
-					?>
-				</span>
+				<span><?php echo esc_html( get_bloginfo( 'name' ) ); ?></span>
 				<span class="mono"><?php echo esc_html( $company['footnote'] ); ?></span>
 			</div>
 		</div>
