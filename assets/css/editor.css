@@ -4,12 +4,12 @@
    ========================================================================== */
 
 .editor-styles-wrapper {
-	--bg: #F6F5F2;
+	--bg: #F5F7FA;
 	--surface: #FFFFFF;
-	--surface-2: #FBFAF7;
-	--surface-3: #F1EFEA;
-	--border: #E6E3DC;
-	--border-strong: #D5D1C8;
+	--surface-2: #FAFBFD;
+	--surface-3: #EDF0F5;
+	--border: #E3E7EE;
+	--border-strong: #CBD2DE;
 	--text: #15181D;
 	--text-2: #565C66;
 	--text-3: #8B9099;
