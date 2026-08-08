@@ -42,9 +42,10 @@ function anchor_icon( $name, $size = 16, $stroke = 1.9 ) {
 /**
  * The brand lockup.
  *
- * A custom logo is rendered on its own — dropping an arbitrary image inside
- * the navy tile squashes it and usually collides with the tile's colour. The
- * default is the design's navy tile + anchor glyph + site name.
+ * A custom logo is rendered on its own — dropping an arbitrary image beside
+ * the glyph squashes it and usually collides with the mark's colour. The
+ * default is a bare navy anchor glyph + site name (the anchor silhouette is
+ * iconic enough to stand without a tile).
  */
 function anchor_brand( $size = 34 ) {
 	$logo_id = get_theme_mod( 'custom_logo' );
@@ -66,7 +67,7 @@ function anchor_brand( $size = 34 ) {
 	printf(
 		'<span class="brand__mark" style="width:%1$dpx;height:%1$dpx">%2$s</span><span class="brand__name">%3$s</span>',
 		(int) $size,
-		anchor_icon( 'anchor', (int) round( $size * 0.56 ) ), // phpcs:ignore WordPress.Security.EscapeOutput
+		anchor_icon( 'anchor', (int) round( $size * 0.85 ), 2.1 ), // phpcs:ignore WordPress.Security.EscapeOutput
 		esc_html( get_bloginfo( 'name' ) )
 	);
 }

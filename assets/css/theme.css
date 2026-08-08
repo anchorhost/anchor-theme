@@ -520,12 +520,12 @@ body.admin-bar {
 	color: var(--text);
 }
 
+/* Bare navy glyph — no tile. The anchor silhouette carries itself, and the
+   header keeps a single navy block (the Dashboard button). */
 .brand__mark {
-	border-radius: var(--radius-sm);
-	background: var(--navy);
-	color: var(--on-navy);
 	display: grid;
 	place-items: center;
+	color: var(--navy);
 	flex: none;
 }
 
@@ -3767,10 +3767,6 @@ button.filter-chip--add:hover {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
 	gap: 36px;
-}
-
-.brand--footer .brand__mark {
-	border-radius: 9px;
 }
 
 .brand--footer .brand__name {
