@@ -109,28 +109,29 @@ function anchor_attention_rows() {
 function anchor_handled_rows() {
 	return apply_filters( 'anchor_handled_rows', [
 		[
-			'label' => '20 security threats patched',
-			'meta'  => 'Fleet-wide, before anyone asked · 20 critical',
-			'time'  => '2h',
+			'label' => 'Security threats patched',
+			'meta'  => 'Fleet-wide, before anyone asks',
+			'time'  => 'today',
 		],
 		[
-			'label' => '822 components updated',
-			'meta'  => 'Plugins, themes and core, on schedule',
-			'time'  => '7h',
+			'label' => 'Plugins, themes and core updated',
+			'meta'  => 'Every site, on schedule',
+			'time'  => 'daily',
 		],
 		[
-			'label' => 'Nightly backups verified',
-			'meta'  => '5 TB to redundant storage',
-			'time'  => '02:14',
+			'label' => 'Backups verified',
+			'meta'  => 'Offsite, restorable anytime',
+			'time'  => 'nightly',
 		],
 	] );
 }
 
 function anchor_glance_rows() {
 	return apply_filters( 'anchor_glance_rows', [
-		[ 'label' => 'WP core', 'value' => '97% on 7.0.2' ],
-		[ 'label' => 'Traffic', 'value' => '200M visits/wk' ],
-		[ 'label' => 'Storage', 'value' => '5 TB' ],
+		[ 'label' => 'Updates',        'value' => 'automatic' ],
+		[ 'label' => 'Backups',        'value' => 'nightly' ],
+		[ 'label' => 'Security scans', 'value' => 'continuous' ],
+		[ 'label' => 'Migrations',     'value' => 'free' ],
 	] );
 }
 

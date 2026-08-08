@@ -92,7 +92,7 @@ $tone_class = [
 			</div>
 
 			<div class="panel panel--glance">
-				<div class="glance__title"><?php esc_html_e( 'Fleet at a glance', 'anchor-theme' ); ?></div>
+				<div class="glance__title"><?php esc_html_e( 'On every site', 'anchor-theme' ); ?></div>
 				<div class="glance__list">
 					<?php foreach ( $glance as $row ) : ?>
 						<div class="glance__row">
