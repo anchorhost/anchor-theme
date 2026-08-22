@@ -95,7 +95,6 @@ function anchor_attention_rows() {
 			'clear'       => true,
 			'tone'        => 'good',
 			'label'       => 'All clear, nothing needs attention',
-			'meta'        => '3,000 sites under management',
 			'action'      => 'View sites',
 			'action_tone' => 'good',
 		],
@@ -499,7 +498,8 @@ function anchor_about_cards() {
 	return apply_filters( 'anchor_about_cards', [
 		[
 			'title' => 'The bus factor plan',
-			'body'  => 'A one-person host raises a fair question. There is a documented plan, escrowed access and a partner ready to take the helm. Written down, not implied.',
+			'body'  => 'A one-person host raises a fair question. There is a documented plan, escrowed access and a partner ready to take the helm.',
+			'href'  => home_url( '/the-bus-factor-plan/' ),
 		],
 		[
 			'title' => 'Open source',
@@ -642,10 +642,37 @@ function anchor_security_docs() {
 						'tag'    => 'Wed & Fri 6:15 AM',
 						'title'  => 'Managed updates',
 						'body'   => 'Plugin and theme updates on a staggered schedule for sites with updates enabled.',
+			'href'  => 'https://captaincore.io',
 						'points' => [
 							'Staging updates Friday, production the following Wednesday',
 							'The staging window catches issues before they reach production',
 						],
+			'href'  => home_url( '/giving-back/' ),
+		],
+	] );
+}
+
+function anchor_sponsors() {
+	return apply_filters( 'anchor_sponsors', [
+		[
+			'name'   => 'Aaron Jorbin',
+			'handle' => 'aaronjorbin',
+			'blurb'  => 'Independent WordPress core committer. Current priorities: build/test tools, PHP compatibility, minor releases, and security.',
+		],
+		[
+			'name'   => 'Alain Schlesser',
+			'handle' => 'schlessera',
+			'blurb'  => 'Maintainer of WP-CLI, the command-line interface for WordPress, and a WordPress core contributor.',
+		],
+		[
+			'name'   => 'Carl Alexander',
+			'handle' => 'carlalexander',
+			'blurb'  => 'WordPress engineer and educator. Helps keep independent open source work sustainable.',
+		],
+		[
+			'name'   => 'Jonny Harris',
+			'handle' => 'spacedmonkey',
+			'blurb'  => 'WordPress core committer, working on the performance project.',
 					],
 					[
 						'tag'    => 'PHP EOL schedule',
@@ -867,3 +894,5 @@ function anchor_footer_columns() {
 		],
 	] );
 }
+				[ 'label' => 'FAQ',            'href' => home_url( '/#faq' ) ],
+				[ 'label' => 'Privacy',        'href' => home_url( '/privacy/' ) ],

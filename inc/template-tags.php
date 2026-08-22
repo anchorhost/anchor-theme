@@ -25,6 +25,8 @@ function anchor_icon( $name, $size = 16, $stroke = 1.9 ) {
 		'buoy'   => '<circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4"></circle><path d="M12 3v5M12 16v5M3 12h5M16 12h5"></path>',
 		'shield' => '<path d="M12 3l7 2.8V11c0 4.6-3 7.9-7 10-4-2.1-7-5.4-7-10V5.8Z"></path><path d="m9 11.5 2 2 4-4"></path>',
 		'bug'    => '<path d="M9 8h6v5.5a3 3 0 0 1-6 0Z"></path><path d="M10 8a2 2 0 0 1 4 0"></path><path d="M9.5 5.8 8 4.3M14.5 5.8 16 4.3M9 10.5H4.5M15 10.5h4.5M9 13.5l-3.5 2M15 13.5l3.5 2"></path>',
+		'heart'    => '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>',
+		'external' => '<path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>',
 		// Brand marks are filled shapes, so they override the stroke defaults.
 		'github' => '<path fill="currentColor" stroke="none" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>',
 		'x'      => '<path fill="currentColor" stroke="none" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path>',
@@ -308,13 +310,30 @@ function anchor_footer_column( $location, $column ) {
 		] );
 	} else {
 		echo '<ul>';
+/**
+ * True when a URL leaves this site.
+ */
+function anchor_is_external_url( $url ) {
+	$host = wp_parse_url( $url, PHP_URL_HOST );
+	$home = wp_parse_url( home_url(), PHP_URL_HOST );
+	return $host && $home && strcasecmp( $host, $home ) !== 0;
+}
+
 		foreach ( $column['links'] as $link ) {
-			$badge = empty( $link['badge'] ) ? '' : sprintf( '<span class="footer-col__badge">%s</span>', esc_html( $link['badge'] ) );
+			$badge    = empty( $link['badge'] ) ? '' : sprintf( '<span class="footer-col__badge">%s</span>', esc_html( $link['badge'] ) );
+			$external = anchor_is_external_url( $link['href'] );
+			$icon     = $external
+				? '<span class="footer-col__external" aria-hidden="true">' . anchor_icon( 'external', 12, 2.2 ) . '</span>'
+				: '';
+			$atts     = $external
+				? ' target="_blank" rel="noopener" aria-label="' . esc_attr( $link['label'] . ' (opens in a new tab)' ) . '"'
+				: '';
 			printf(
-				'<li><a href="%s">%s%s</a></li>',
+				'<li><a href="%s"%s>%s%s%s</a></li>',
 				esc_url( $link['href'] ),
 				esc_html( $link['label'] ),
-				$badge // phpcs:ignore WordPress.Security.EscapeOutput -- escaped above.
+				$badge, // phpcs:ignore WordPress.Security.EscapeOutput -- escaped above.
+				$icon   // phpcs:ignore WordPress.Security.EscapeOutput -- SVG from anchor_icon().
 			);
 		}
 		echo '</ul>';
@@ -322,3 +341,49 @@ function anchor_footer_column( $location, $column ) {
 
 	echo '</div>';
 }
+				$atts,
+
+/**
+ * GitHub Sponsors Austin currently supports. Rendered on /giving-back/.
+ */
+function anchor_sponsor_cards_markup() {
+	$sponsors = anchor_sponsors();
+	if ( empty( $sponsors ) ) {
+		return '';
+	}
+
+	ob_start();
+	echo '<div class="sponsors">';
+	foreach ( $sponsors as $sponsor ) {
+		$handle  = $sponsor['handle'];
+		$profile = 'https://github.com/' . $handle;
+		$donate  = 'https://github.com/sponsors/' . $handle;
+		$avatar  = 'https://github.com/' . $handle . '.png?size=120';
+		?>
+		<article class="sponsor-card">
+			<img
+				class="sponsor-card__avatar"
+				src="<?php echo esc_url( $avatar ); ?>"
+				alt="<?php echo esc_attr( $sponsor['name'] ); ?>"
+				width="48"
+				height="48"
+				loading="lazy"
+				decoding="async"
+			/>
+			<div class="sponsor-card__body">
+				<a class="sponsor-card__name" href="<?php echo esc_url( $profile ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $sponsor['name'] ); ?></a>
+				<div class="sponsor-card__handle">@<?php echo esc_html( $handle ); ?></div>
+				<p class="sponsor-card__blurb"><?php echo esc_html( $sponsor['blurb'] ); ?></p>
+			</div>
+			<a class="btn btn--sm btn--ghost sponsor-card__btn" href="<?php echo esc_url( $donate ); ?>" target="_blank" rel="noopener">
+				<?php echo anchor_icon( 'heart', 15 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				<?php esc_html_e( 'Sponsor', 'anchor-theme' ); ?>
+			</a>
+		</article>
+		<?php
+	}
+	echo '</div>';
+	return ob_get_clean();
+}
+
+add_shortcode( 'anchor_sponsors', 'anchor_sponsor_cards_markup' );

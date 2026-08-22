@@ -42,9 +42,21 @@ $content = trim( get_the_content() );
 
 <section class="info-grid">
 	<?php foreach ( anchor_about_cards() as $card ) : ?>
-		<div class="info-card">
+		<?php
+		$href     = $card['href'] ?? '';
+		$external = $href && anchor_is_external_url( $href );
+		if ( $href ) {
+			printf(
+				'<a class="info-card" href="%s"%s>',
+				esc_url( $href ),
+				$external ? ' target="_blank" rel="noopener"' : ''
+			);
+		} else {
+			echo '<div class="info-card">';
+		}
+		?>
 			<h3 class="info-card__title"><?php echo esc_html( $card['title'] ); ?></h3>
 			<p class="info-card__text"><?php echo esc_html( $card['body'] ); ?></p>
-		</div>
+		<?php echo $href ? '</a>' : '</div>'; ?>
 	<?php endforeach; ?>
 </section>

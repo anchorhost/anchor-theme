@@ -6,7 +6,7 @@
    4.  Buttons, pills & chips
    5.  Header & navigation
    6.  Command palette
-   7.  Home — hero, stats, cards, console, infrastructure, quotes, CTA
+   7.  Home — hero, stats, cards, console, infrastructure, quotes, FAQ, CTA
    8.  Plans — pricing, calculator, add-ons
    9.  Blog — index, cards, pagination
    10. Single post — article, prose, author, related
@@ -761,6 +761,15 @@ body.admin-bar {
 	font-size: 11px;
 	color: var(--text-3);
 	flex: none;
+}
+
+.palette__kind--external {
+	display: inline-flex;
+	align-items: center;
+}
+
+.palette__kind--external svg {
+	display: block;
 }
 
 .palette__item.is-active .palette__kind {
@@ -1990,6 +1999,102 @@ button.filter-chip--add:hover {
 	color: var(--text-3);
 }
 
+/* --- FAQ (native details/summary, same accordion language as Minn Admin) --- */
+
+.section--faq {
+	padding-top: 92px;
+	padding-bottom: 40px;
+	scroll-margin-top: calc(96px + var(--admin-bar-h));
+}
+
+.faq {
+	max-width: 840px;
+	margin-top: 36px;
+}
+
+.faq__item {
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 13px;
+	margin-bottom: 10px;
+	overflow: hidden;
+	box-shadow: 0 1px 2px var(--shadow);
+}
+
+.faq__q {
+	cursor: pointer;
+	list-style: none;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 17px 20px;
+	font-size: 17px;
+	font-weight: 600;
+	color: var(--text);
+	letter-spacing: -.01em;
+}
+
+.faq__q::-webkit-details-marker {
+	display: none;
+}
+
+.faq__q::before {
+	content: "";
+	flex: none;
+	width: 8px;
+	height: 8px;
+	border-right: 2px solid var(--navy);
+	border-bottom: 2px solid var(--navy);
+	transform: rotate(-45deg);
+	transition: transform .18s ease;
+	margin-left: 2px;
+}
+
+.faq__item[open] .faq__q::before {
+	transform: rotate(45deg);
+}
+
+.faq__item[open] {
+	border-color: var(--border-strong);
+}
+
+.faq__q:focus {
+	outline: none;
+}
+
+.faq__q:focus-visible {
+	outline: 2px solid var(--navy);
+	outline-offset: -2px;
+}
+
+.faq__a {
+	padding: 0 20px 17px 34px;
+}
+
+.faq__a p {
+	margin: 0;
+	font-size: 15.5px;
+	line-height: 1.65;
+	color: var(--text-2);
+}
+
+.faq__a a {
+	color: var(--navy);
+}
+
+.faq__a a:hover {
+	color: var(--navy-hover);
+}
+
+.faq__a code {
+	font-family: var(--font-mono);
+	font-size: .88em;
+	background: var(--surface-3);
+	border: 1px solid var(--border);
+	border-radius: 5px;
+	padding: 1px 5px;
+}
+
 /* --- CTA --- */
 
 .cta {
@@ -2238,7 +2343,6 @@ button.filter-chip--add:hover {
 	margin-top: 26px;
 	display: flex;
 	flex-direction: column;
-	gap: 22px;
 }
 
 .calc__row-head {
@@ -2294,7 +2398,8 @@ button.filter-chip--add:hover {
 	flex-direction: column;
 	gap: 9px;
 	font-family: var(--font-mono);
-	font-size: 13px;
+	font-size: 12px;
+	color: var(--text-3);
 }
 
 .calc__line {
@@ -2321,7 +2426,6 @@ button.filter-chip--add:hover {
 
 .calc__total {
 	font-family: var(--font-mono);
-	font-size: 30px;
 	font-weight: 600;
 	letter-spacing: -.02em;
 }
@@ -2330,7 +2434,9 @@ button.filter-chip--add:hover {
 	font-size: 12.5px;
 	color: var(--text-3);
 	margin-top: 4px;
-	text-align: right;
+	font-size: 13.5px;
+	line-height: 1.55;
+	color: var(--text-2);
 }
 
 /* --- Add-ons & includes --- */
@@ -2343,16 +2449,15 @@ button.filter-chip--add:hover {
 
 .plans-extras__grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-	gap: 20px;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 16px;
 }
 
 .extras-card {
 	background: var(--surface);
 	border: 1px solid var(--border);
 	border-radius: var(--radius-lg);
-	padding: 26px;
-	min-width: 0;
+	padding: 24px;
 }
 
 .extras-card--wide {
@@ -2373,8 +2478,8 @@ button.filter-chip--add:hover {
 
 .addons__row {
 	display: flex;
-	justify-content: space-between;
-	gap: 14px;
+	flex-direction: column;
+	gap: 9px;
 	font-size: 14.5px;
 	color: var(--text-2);
 }
@@ -2776,6 +2881,11 @@ button.filter-chip--add:hover {
 
 .post-outline:hover .post-outline__estimate,
 .post-outline:has(:focus-visible) .post-outline__estimate {
+	padding: 8px 0;
+	border-top: 1px solid var(--border);
+	font-family: var(--font-mono);
+	font-size: 12.5px;
+	color: var(--text);
 	color: var(--text-2);
 }
 
@@ -2801,6 +2911,7 @@ button.filter-chip--add:hover {
 	color: var(--text-3);
 	font-size: 12.5px;
 	font-weight: 500;
+	gap: 3px;
 	line-height: 1.3;
 }
 
@@ -2916,6 +3027,7 @@ button.filter-chip--add:hover {
 }
 
 .prose p {
+	line-height: 1.55;
 	margin-top: 20px;
 	font-size: 18px;
 	line-height: 1.75;
@@ -3319,7 +3431,7 @@ button.filter-chip--add:hover {
 	background: var(--surface);
 	border: 1px solid var(--border);
 	border-radius: var(--radius-lg);
-	padding: 24px;
+	padding: 14px;
 	box-shadow: 0 1px 2px var(--shadow);
 	transition: border-color .2s ease;
 }
@@ -3823,6 +3935,28 @@ button.filter-chip--add:hover {
 	list-style: none;
 }
 
+a.info-card {
+	display: block;
+	color: inherit;
+	text-decoration: none;
+	transition: transform .2s ease, border-color .2s ease;
+}
+
+a.info-card:hover {
+	transform: translateY(-3px);
+	border-color: var(--border-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	a.info-card {
+		transition: none;
+	}
+
+	a.info-card:hover {
+		transform: none;
+	}
+}
+
 .footer-col a {
 	font-size: 14.5px;
 	color: var(--text-2);
@@ -3835,6 +3969,78 @@ button.filter-chip--add:hover {
 .footer-col__badge {
 	display: inline-block;
 	margin-left: 8px;
+/* Sponsor cards (giving-back). Theme-native stand-in for GitHub's iframe widget. */
+
+.sponsors {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-top: 22px;
+}
+
+.sponsor-card {
+	display: flex;
+	align-items: flex-start;
+	gap: 14px;
+	padding: 16px 16px 16px 14px;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	box-shadow: 0 1px 2px var(--shadow);
+}
+
+.prose .sponsor-card img.sponsor-card__avatar {
+	margin: 0;
+	width: 48px;
+	height: 48px;
+	flex-shrink: 0;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 1px solid var(--border);
+	background: var(--surface-3);
+}
+
+.sponsor-card__body {
+	flex: 1;
+	min-width: 0;
+}
+
+.prose a.sponsor-card__name {
+	display: inline-block;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 1.3;
+	letter-spacing: -.015em;
+	color: var(--text);
+	text-decoration: none;
+}
+
+.prose a.sponsor-card__name:hover {
+	color: var(--navy);
+}
+
+.sponsor-card__handle {
+	margin-top: 2px;
+	font-family: var(--font-mono);
+	font-size: 12.5px;
+	font-weight: 500;
+	color: var(--text-3);
+}
+
+.prose .sponsor-card__blurb {
+	margin: 8px 0 0;
+	font-size: 14.5px;
+	line-height: 1.5;
+	color: var(--text-2);
+}
+
+.prose a.sponsor-card__btn {
+	flex-shrink: 0;
+	align-self: center;
+	text-decoration: none;
+	color: var(--text);
+}
+
 	padding: 1px 8px;
 	border: 1px solid var(--border-strong);
 	border-radius: 999px;
@@ -4344,3 +4550,36 @@ button.filter-chip--add:hover {
 		padding: 8vh 12px 12px;
 	}
 }
+.footer-col__external {
+	display: inline-flex;
+	margin-left: 6px;
+	vertical-align: -1px;
+	opacity: .6;
+}
+
+.footer-col a:hover .footer-col__external {
+	opacity: 1;
+}
+
+.footer-col__external svg {
+	display: block;
+}
+
+
+	.faq__q {
+		font-size: 16px;
+		padding: 15px 16px;
+	}
+
+	.faq__a {
+		padding: 0 16px 15px 32px;
+	}
+
+	.sponsor-card {
+		flex-wrap: wrap;
+	}
+
+	.prose a.sponsor-card__btn {
+		width: 100%;
+		margin-top: 2px;
+	}

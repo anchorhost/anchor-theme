@@ -546,6 +546,7 @@
 				lastGroup = cmd.group;
 			}
 
+			var external = isExternalUrl(cmd.url);
 			html +=
 				'<button type="button" role="option" aria-selected="' +
 				(i === cursor ? 'true' : 'false') +
@@ -553,13 +554,15 @@
 				(i === cursor ? ' is-active' : '') +
 				'" data-index="' +
 				i +
-				'">' +
+				'"' +
+				(external ? ' aria-label="' + escapeHtml(cmd.label) + ' (opens in a new tab)"' : '') +
+				'>' +
 				'<span class="palette__label">' +
 				escapeHtml(cmd.label) +
 				'</span>' +
-				'<span class="palette__kind">' +
-				escapeHtml(cmd.kind || '') +
-				'</span>' +
+				(external
+					? '<span class="palette__kind palette__kind--external">' + externalIcon + '</span>'
+					: '<span class="palette__kind">' + escapeHtml(cmd.kind || '') + '</span>') +
 				'</button>';
 		});
 
@@ -570,6 +573,23 @@
 			active.scrollIntoView({ block: 'nearest' });
 		}
 	}
+
+	function isExternalUrl(url) {
+		if (!url) {
+			return false;
+		}
+		try {
+			return new URL(url, window.location.origin).origin !== window.location.origin;
+		} catch (e) {
+			return false;
+		}
+	}
+
+	var externalIcon =
+		'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+		'<path d="M15 3h6v6"></path><path d="M10 14 21 3"></path>' +
+		'<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>' +
+		'</svg>';
 
 	function escapeHtml(str) {
 		return String(str == null ? '' : str).replace(/[&<>"']/g, function (ch) {

@@ -28,6 +28,10 @@ Initial release.
   band, the three arrangement cards, a tabbed dashboard preview console
   (fleet / security / terminal), infrastructure partners, quotes and a closing
   call to action.
+- Homepage FAQ accordion (native `details`/`summary`, no JS) with FAQPage
+  JSON-LD. Copy lives in `anchor_faq()`: email (Fastmail), who answers,
+  infrastructure, free migrations, what's included, agencies vs one site,
+  the bus factor plan, leaving with your sites, updates and backups, pricing.
 - Plans page: pricing cards with a monthly/quarterly/yearly switch, a
   "size it yourself" calculator that picks the cheapest covering plan, add-on
   rates and the plan-includes grid.

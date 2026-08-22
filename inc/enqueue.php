@@ -116,3 +116,49 @@ add_action( 'enqueue_block_assets', function () {
 		null
 	);
 } );
+/**
+ * FAQPage structured data for the homepage #faq section. Generated from
+ * `anchor_faq()` so the visible copy and the JSON-LD cannot drift.
+ */
+add_action( 'wp_head', function () {
+	if ( ! is_front_page() ) {
+		return;
+	}
+
+	$faq = anchor_faq();
+	if ( empty( $faq['items'] ) || ! is_array( $faq['items'] ) ) {
+		return;
+	}
+
+	$entities = [];
+	foreach ( $faq['items'] as $item ) {
+		if ( empty( $item['q'] ) || empty( $item['a'] ) ) {
+			continue;
+		}
+		$entities[] = [
+			'@type'          => 'Question',
+			'name'           => $item['q'],
+			'acceptedAnswer' => [
+				'@type' => 'Answer',
+				'text'  => wp_strip_all_tags( $item['a'] ),
+			],
+		];
+	}
+
+	if ( ! $entities ) {
+		return;
+	}
+
+	printf(
+		'<script type="application/ld+json">%s</script>' . "\n",
+		wp_json_encode(
+			[
+				'@context'   => 'https://schema.org',
+				'@type'      => 'FAQPage',
+				'mainEntity' => $entities,
+			],
+			JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+		)
+	);
+}, 5 );
+

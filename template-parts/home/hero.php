@@ -68,7 +68,9 @@ $tone_class = [
 						<span class="panel__bullet<?php echo esc_attr( $tone_class[ $row['tone'] ] ?? '' ); ?>" aria-hidden="true"></span>
 						<div class="panel__body">
 							<div class="panel__label"><?php echo esc_html( $row['label'] ); ?></div>
-							<div class="panel__meta"><?php echo esc_html( $row['meta'] ); ?></div>
+							<?php if ( ! empty( $row['meta'] ) ) : ?>
+								<div class="panel__meta"><?php echo esc_html( $row['meta'] ); ?></div>
+							<?php endif; ?>
 						</div>
 						<span class="panel__action<?php echo ( ( $row['action_tone'] ?? '' ) === 'good' ) ? ' panel__action--good' : ''; ?>">
 							<?php echo esc_html( $row['action'] ); ?>

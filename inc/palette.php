@@ -21,12 +21,14 @@ function anchor_palette_commands() {
 	$nav = [];
 	foreach ( [
 		[ 'Home',          home_url( '/' ),          'home start' ],
+		[ 'FAQ',           home_url( '/#faq' ),      'faq questions email fastmail' ],
 		[ 'Hosting plans', home_url( '/plans/' ),    'plans pricing cost' ],
 		[ 'Blog',          home_url( '/blog/' ),     'blog posts writing' ],
 		[ 'About',         home_url( '/about/' ),    'about austin story' ],
 		[ 'Security',      home_url( '/security/' ), 'security scanning cve' ],
 		[ 'Contact',       home_url( '/contact/' ),  'contact email migrate' ],
 	] as $item ) {
+		[ 'Privacy',       home_url( '/privacy/' ),  'privacy policy fathom analytics cookies' ],
 		$nav[] = [
 			'group' => __( 'Go to', 'anchor-theme' ),
 			'label' => $item[0],
@@ -35,18 +37,6 @@ function anchor_palette_commands() {
 			'url'   => $item[1],
 		];
 	}
-
-	$demo = [
-		[ 'label' => 'Preview: fleet table',       'keys' => 'sites list dashboard',     'tab' => 'fleet' ],
-		[ 'label' => 'Preview: security scanning', 'keys' => 'cve vulnerability patch',  'tab' => 'security' ],
-		[ 'label' => 'Preview: browser terminal',  'keys' => 'wp-cli ssh console shell', 'tab' => 'terminal' ],
-	];
-	foreach ( $demo as &$d ) {
-		$d['group'] = __( 'Dashboard preview', 'anchor-theme' );
-		$d['kind']  = 'demo';
-		$d['home']  = home_url( '/' );
-	}
-	unset( $d );
 
 	$account = [
 		[ 'label' => 'Open dashboard',        'keys' => 'account login sign in panel',      'url' => $company['account'] ],
@@ -60,17 +50,6 @@ function anchor_palette_commands() {
 		$a['kind']  = 'link';
 	}
 	unset( $a );
-
-	$snippets = [
-		[ 'label' => 'Copy: update every plugin, fleet-wide', 'keys' => 'wp-cli bulk update',        'text' => 'wp plugin update --all --sites=all' ],
-		[ 'label' => 'Copy: restore last night\'s backup',    'keys' => 'wp-cli restore snapshot',   'text' => 'captaincore restore <site> --when=last-night' ],
-		[ 'label' => 'Copy: verify core checksums',           'keys' => 'wp-cli integrity checksum', 'text' => 'wp core verify-checksums --sites=all' ],
-	];
-	foreach ( $snippets as &$s ) {
-		$s['group'] = __( 'Snippets', 'anchor-theme' );
-		$s['kind']  = 'copy';
-	}
-	unset( $s );
 
 	$actions = [
 		[
@@ -91,7 +70,7 @@ function anchor_palette_commands() {
 
 	return apply_filters(
 		'anchor_palette_commands',
-		array_merge( $nav, $demo, $account, $snippets, $actions )
+		array_merge( $nav, $account, $actions )
 	);
 }
 
