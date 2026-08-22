@@ -219,7 +219,11 @@ function anchor_stats() {
 function anchor_cve_reports() {
 	$feed_url = apply_filters(
 		'anchor_cve_reports_url',
-		'https://austinginder.com/content/1/themes/austinginder-v2/assets/data/cve-reports.json'
+		add_query_arg(
+			'v',
+			gmdate( 'Ymd' ),
+			'https://austinginder.com/content/1/themes/austinginder-v2/assets/data/cve-reports.json'
+		)
 	);
 
 	$cached = get_transient( 'anchor_cve_reports' );
