@@ -221,7 +221,7 @@ function anchor_cve_reports() {
 		'anchor_cve_reports_url',
 		add_query_arg(
 			'v',
-			gmdate( 'Ymd' ),
+			gmdate( 'YmdH' ),
 			'https://austinginder.com/content/1/themes/austinginder-v2/assets/data/cve-reports.json'
 		)
 	);
