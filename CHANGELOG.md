@@ -5,11 +5,20 @@ All notable changes to Anchor Theme are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [1.0.0] — Unreleased
+## [1.0.0] — 2026-08-22
 
 Initial release.
 
 ### Added
+
+- Hosting plan calculator layout (`calculator`): pick a base plan, stack
+  add-on steppers, live receipt with billing-cycle switching. Pricing stays
+  sourced from `anchor_plans()` / `anchor_addon_rates()`.
+- Private brand page layout (`brand`): logo previews, downloadable asset kit
+  (marks, tile, outlined lockups, zip), palette documentation, type specimens
+  and usage rules.
+- WooCommerce theme support; Woo pages render through the default prose
+  layout.
 
 - Light/dark design token system with an explicit toggle that beats the OS
   setting, applied before first paint so there is no flash.

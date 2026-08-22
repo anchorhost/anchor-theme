@@ -7,7 +7,7 @@
     "requires": "6.0",
     "tested": "6.9.4",
     "requires_php": "8.0",
-    "last_updated": "2026-07-25",
+    "last_updated": "2026-08-22",
     "homepage": "https://anchor.host",
     "sections": {
         "description": "The Anchor Hosting marketing and blog theme. Light/dark design tokens, a command palette, a live plan calculator and a dashboard preview console."
