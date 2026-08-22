@@ -18,6 +18,10 @@ add_action( 'after_setup_theme', function () {
 	add_theme_support( 'align-wide' );
 	add_theme_support( 'wp-block-styles' );
 
+	// anchor.host runs WooCommerce for accounts/billing; Woo pages render
+	// through the default page layout's prose column.
+	add_theme_support( 'woocommerce' );
+
 	add_theme_support( 'custom-logo', [
 		'height'      => 64,
 		'width'       => 64,
