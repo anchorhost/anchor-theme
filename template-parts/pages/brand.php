@@ -58,6 +58,18 @@ $downloads = [
 		],
 	],
 	[
+		'title'   => __( 'Social avatar', 'anchor-theme' ),
+		'desc'    => __( 'The mark with extra whitespace so circular crops (X, Slack, GitHub) don&#8217;t pinch the arms.', 'anchor-theme' ),
+		'preview' => 'anchor-avatar.svg',
+		'files'   => [
+			[ 'anchor-avatar.svg', 'SVG · white bg' ],
+			[ 'anchor-avatar-1024.png', 'PNG · 1024' ],
+			[ 'anchor-avatar-400.png', 'PNG · 400' ],
+			[ 'anchor-avatar-navy-1024.png', 'PNG · navy' ],
+			[ 'anchor-avatar-transparent-1024.png', 'PNG · transparent' ],
+		],
+	],
+	[
 		'title'   => __( 'Legacy', 'anchor-theme' ),
 		'desc'    => __( 'The 2015 logo, kept for reference. Retired — do not use in new work.', 'anchor-theme' ),
 		'preview' => 'legacy-logo-2015.png',
