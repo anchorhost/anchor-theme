@@ -227,13 +227,17 @@ function anchor_page_layout( $post = null ) {
 	// Fall back to matching by slug so a fresh install works with no config.
 	if ( ! $layout || 'default' === $layout ) {
 		$by_slug = [
-			'plans'                  => 'plans',
-			'pricing'                => 'plans',
-			'about'                  => 'about',
-			'security'               => 'security',
-			'security-docs'          => 'security-docs',
-			'security-documentation' => 'security-docs',
-			'contact'                => 'contact',
+			'plans'                   => 'plans',
+			'pricing'                 => 'plans',
+			'hosting-plan-calculator' => 'calculator',
+			'calculator'              => 'calculator',
+			'brand'                   => 'brand',
+			'branding'                => 'brand',
+			'about'                   => 'about',
+			'security'                => 'security',
+			'security-docs'           => 'security-docs',
+			'security-documentation'  => 'security-docs',
+			'contact'                 => 'contact',
 		];
 		if ( isset( $by_slug[ $post->post_name ] ) ) {
 			$layout = $by_slug[ $post->post_name ];
@@ -248,6 +252,18 @@ function anchor_is_plans_page() {
 		return false;
 	}
 	return 'plans' === anchor_page_layout() || is_page_template( 'templates/plans.php' );
+}
+
+function anchor_is_calculator_page() {
+	return is_page() && 'calculator' === anchor_page_layout();
+}
+
+/**
+ * Title format without the "Private:" prefix, for designed layouts that
+ * live on private pages (the brand page).
+ */
+function anchor_brand_title_format() {
+	return '%s';
 }
 
 /**
@@ -295,6 +311,15 @@ function anchor_current_url() {
 }
 
 /**
+ * True when a URL leaves this site.
+ */
+function anchor_is_external_url( $url ) {
+	$host = wp_parse_url( $url, PHP_URL_HOST );
+	$home = wp_parse_url( home_url(), PHP_URL_HOST );
+	return $host && $home && strcasecmp( $host, $home ) !== 0;
+}
+
+/**
  * Footer column links — assigned menu if present, otherwise the defaults.
  */
 function anchor_footer_column( $location, $column ) {
@@ -310,15 +335,6 @@ function anchor_footer_column( $location, $column ) {
 		] );
 	} else {
 		echo '<ul>';
-/**
- * True when a URL leaves this site.
- */
-function anchor_is_external_url( $url ) {
-	$host = wp_parse_url( $url, PHP_URL_HOST );
-	$home = wp_parse_url( home_url(), PHP_URL_HOST );
-	return $host && $home && strcasecmp( $host, $home ) !== 0;
-}
-
 		foreach ( $column['links'] as $link ) {
 			$badge    = empty( $link['badge'] ) ? '' : sprintf( '<span class="footer-col__badge">%s</span>', esc_html( $link['badge'] ) );
 			$external = anchor_is_external_url( $link['href'] );
@@ -331,6 +347,7 @@ function anchor_is_external_url( $url ) {
 			printf(
 				'<li><a href="%s"%s>%s%s%s</a></li>',
 				esc_url( $link['href'] ),
+				$atts,
 				esc_html( $link['label'] ),
 				$badge, // phpcs:ignore WordPress.Security.EscapeOutput -- escaped above.
 				$icon   // phpcs:ignore WordPress.Security.EscapeOutput -- SVG from anchor_icon().
@@ -341,7 +358,6 @@ function anchor_is_external_url( $url ) {
 
 	echo '</div>';
 }
-				$atts,
 
 /**
  * GitHub Sponsors Austin currently supports. Rendered on /giving-back/.

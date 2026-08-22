@@ -23,12 +23,13 @@ function anchor_palette_commands() {
 		[ 'Home',          home_url( '/' ),          'home start' ],
 		[ 'FAQ',           home_url( '/#faq' ),      'faq questions email fastmail' ],
 		[ 'Hosting plans', home_url( '/plans/' ),    'plans pricing cost' ],
+		[ 'Plan calculator', home_url( '/hosting-plan-calculator/' ), 'calculator build custom plan estimate' ],
 		[ 'Blog',          home_url( '/blog/' ),     'blog posts writing' ],
 		[ 'About',         home_url( '/about/' ),    'about austin story' ],
 		[ 'Security',      home_url( '/security/' ), 'security scanning cve' ],
 		[ 'Contact',       home_url( '/contact/' ),  'contact email migrate' ],
-	] as $item ) {
 		[ 'Privacy',       home_url( '/privacy/' ),  'privacy policy fathom analytics cookies' ],
+	] as $item ) {
 		$nav[] = [
 			'group' => __( 'Go to', 'anchor-theme' ),
 			'label' => $item[0],

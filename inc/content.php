@@ -66,6 +66,71 @@ function anchor_plan_includes() {
 }
 
 /**
+ * Hosting Plan Calculator page copy.
+ */
+function anchor_calculator_copy() {
+	return apply_filters( 'anchor_calculator_copy', [
+		'lede'         => 'Build your own plan: pick a base, stack on extras, and watch the total update as you go.',
+		'plan_note'    => 'Each plan is a bundle of sites, storage and traffic. Start with the one closest to your portfolio.',
+		'extras_note'  => 'Outgrow one dimension without re-platforming — every allowance can be extended on its own.',
+		'summary_note' => 'The receipt updates live. Everything below is included no matter how you configure it.',
+		'footnote'     => 'No setup fees, no contracts — plans can change or cancel at any time.',
+	] );
+}
+
+/**
+ * Brand page — palette documentation, type, usage rules and the asset kit.
+ * Hex values here document the tokens in assets/css/theme.css; if a token
+ * changes there, update it here too.
+ */
+function anchor_brand_kit() {
+	return apply_filters( 'anchor_brand_kit', [
+		'lede'   => 'The mark, wordmark, colour and type that make Anchor Hosting look like Anchor Hosting. Download the assets below — everything else on this page explains how to use them.',
+		'colors' => [
+			'light' => [
+				[ 'name' => 'Navy',       'var' => '--navy',      'hex' => '#123E8C', 'use' => 'The brand colour. Mark, primary buttons, links.' ],
+				[ 'name' => 'Ink',        'var' => '--text',      'hex' => '#15181D', 'use' => 'Headings and body text.' ],
+				[ 'name' => 'Slate',      'var' => '--text-2',    'hex' => '#565C66', 'use' => 'Secondary text.' ],
+				[ 'name' => 'Mist',       'var' => '--bg',        'hex' => '#F5F7FA', 'use' => 'Page background.' ],
+				[ 'name' => 'Surface',    'var' => '--surface',   'hex' => '#FFFFFF', 'use' => 'Cards and panels.' ],
+				[ 'name' => 'Border',     'var' => '--border',    'hex' => '#E3E7EE', 'use' => 'Hairlines and card edges.' ],
+				[ 'name' => 'Good',       'var' => '--good',      'hex' => '#1C8A55', 'use' => 'Positive status.' ],
+				[ 'name' => 'Warn',       'var' => '--warn',      'hex' => '#B0761B', 'use' => 'Caution status.' ],
+				[ 'name' => 'Bad',        'var' => '--bad',       'hex' => '#BF3B2E', 'use' => 'Error status.' ],
+			],
+			'dark' => [
+				[ 'name' => 'Sky',        'var' => '--navy',      'hex' => '#5C97F7', 'use' => 'The mark and actions on dark.' ],
+				[ 'name' => 'Fog',        'var' => '--text',      'hex' => '#E9ECF1', 'use' => 'Headings and body text.' ],
+				[ 'name' => 'Haze',       'var' => '--text-2',    'hex' => '#A3ACB9', 'use' => 'Secondary text.' ],
+				[ 'name' => 'Depth',      'var' => '--bg',        'hex' => '#0B0E13', 'use' => 'Page background.' ],
+				[ 'name' => 'Hull',       'var' => '--surface',   'hex' => '#141922', 'use' => 'Cards and panels.' ],
+				[ 'name' => 'Seam',       'var' => '--border',    'hex' => '#242C39', 'use' => 'Hairlines and card edges.' ],
+				[ 'name' => 'Good',       'var' => '--good',      'hex' => '#3FBE7F', 'use' => 'Positive status.' ],
+				[ 'name' => 'Warn',       'var' => '--warn',      'hex' => '#E0A64A', 'use' => 'Caution status.' ],
+				[ 'name' => 'Bad',        'var' => '--bad',       'hex' => '#EE7264', 'use' => 'Error status.' ],
+			],
+		],
+		'usage'  => [
+			'do'   => [
+				'Use the bare navy mark on light surfaces, the white mark on navy, photos or dark surfaces.',
+				'Scale the mark as a whole — the stroke weight is part of the drawing.',
+				'Keep clearspace of at least half the mark&#8217;s height on every side.',
+				'Set the wordmark in Plus Jakarta Sans Bold with −1% tracking, cap-height aligned to the mark.',
+				'Use the rounded tile only where a square avatar or app icon is required.',
+			],
+			'dont' => [
+				'Don&#8217;t redraw, outline, thicken or thin the anchor glyph.',
+				'Don&#8217;t place the bare mark inside a tile of any other colour.',
+				'Don&#8217;t retype the wordmark in another typeface or weight.',
+				'Don&#8217;t introduce colours outside the palette on this page.',
+				'Don&#8217;t use the mark smaller than 16px, or the lockup smaller than 24px tall.',
+				'Don&#8217;t mix the retired 2015 logo with the current mark.',
+			],
+		],
+	] );
+}
+
+/**
  * Hero copy.
  */
 function anchor_hero() {
@@ -494,6 +559,79 @@ function anchor_quotes_cta() {
 	] );
 }
 
+/**
+ * Homepage FAQ. Answers may contain a small HTML subset (links, emphasis);
+ * the JSON-LD strip is generated from the same strings.
+ *
+ * @return array{eyebrow:string,title:string,lede:string,items:array<int,array{q:string,a:string}>}
+ */
+function anchor_faq() {
+	return apply_filters( 'anchor_faq', [
+		'eyebrow' => 'FAQ',
+		'title'   => 'Fair questions.',
+		'lede'    => 'The ones people actually ask before handing over a fleet.',
+		'items'   => [
+			[
+				'q' => 'Do you provide email hosting?',
+				'a' => 'We don\'t host mailboxes. WordPress hosting and inbox email are different jobs, and mixing them usually makes both worse. We recommend <a href="https://ref.fm/u27290104" target="_blank" rel="noopener sponsored">Fastmail</a> for you@yourdomain.com. See <a href="https://www.fastmail.com/pricing/" target="_blank" rel="noopener">their pricing</a> for current plans. Outbound WordPress mail (form notifications, password resets) is configured with the site.',
+			],
+			[
+				'q' => 'Who answers when I write in?',
+				'a' => 'Austin Ginder. Anchor has been run out of Lancaster, Pennsylvania since 2014. No support tiers, no offshore first line. The person who answers your email is the person who built the platform.',
+			],
+			[
+				'q' => 'Where are the sites actually hosted?',
+				'a' => 'On <a href="https://kinsta.com" target="_blank" rel="noopener">Kinsta</a>, with DNS on <a href="https://constellix.com" target="_blank" rel="noopener">Constellix</a> and long-term backups on <a href="https://www.backblaze.com/cloud-storage" target="_blank" rel="noopener">Backblaze B2</a>. Enterprise providers, chosen and managed for you. No reseller markup games.',
+			],
+			[
+				'q' => 'Will you migrate my existing sites?',
+				'a' => 'Yes, and it\'s free with every plan. I\'ll move the sites, not you. Most agencies are fully moved within a week.',
+			],
+			[
+				'q' => 'What\'s included besides the server?',
+				'a' => 'Automated plugin, theme and core updates. Nightly backups. Continuous security scanning. HTTPS on every domain. Premium plugin and theme licenses. Personal support. The dashboard is included, and the platform behind it (<a href="https://captaincore.io">CaptainCore</a>) is open source.',
+			],
+			[
+				'q' => 'Is this for agencies, or can I host one site?',
+				'a' => 'Both. Plans start at one site. The product is built for people who manage everyone else\'s WordPress: agencies, freelancers, and in-house teams who want the fleet in one place.',
+			],
+			[
+				'q' => 'What happens if something happens to you?',
+				'a' => 'A one-person host raises a fair question. There is a documented plan, escrowed access and a partner ready to take the helm. Written down, not implied. <a href="' . home_url( '/the-bus-factor-plan/' ) . '">Read the bus factor plan</a>.',
+			],
+			[
+				'q' => 'Can I take my sites with me if I leave?',
+				'a' => 'Yes. CaptainCore, the platform behind the dashboard, is open source. Take it with you if you ever leave. Most people do not.',
+			],
+			[
+				'q' => 'How do updates and backups actually run?',
+				'a' => 'Nightly backups go to redundant Backblaze B2 storage and are restorable per file. Plugin, theme and core updates run on a schedule: staging first, then production. When a serious vulnerability lands, the patch deploys to every affected site in parallel, not one support ticket at a time.',
+			],
+			[
+				'q' => 'How is this priced?',
+				'a' => 'By sites, storage and pageviews. Four plans from $20 a month, billed monthly, quarterly or yearly. Extra sites, storage and pageviews are add-ons if you outgrow a plan. The <a href="' . home_url( '/plans/' ) . '">plans page</a> has a calculator.',
+			],
+		],
+	] );
+}
+
+/**
+ * Allowed HTML inside FAQ answers.
+ */
+function anchor_faq_allowed_html() {
+	return [
+		'a'      => [
+			'href'   => true,
+			'target' => true,
+			'rel'    => true,
+		],
+		'em'     => [],
+		'strong' => [],
+		'code'   => [],
+		'br'     => [],
+	];
+}
+
 function anchor_about_cards() {
 	return apply_filters( 'anchor_about_cards', [
 		[
@@ -504,10 +642,37 @@ function anchor_about_cards() {
 		[
 			'title' => 'Open source',
 			'body'  => 'CaptainCore, the platform behind the dashboard, is open source. Take it with you if you ever leave. Most people do not.',
+			'href'  => 'https://captaincore.io',
 		],
 		[
 			'title' => 'Giving back',
 			'body'  => 'A share of revenue goes back to the WordPress ecosystem and to Lancaster nonprofits. Hosting money should stay useful.',
+			'href'  => home_url( '/giving-back/' ),
+		],
+	] );
+}
+
+function anchor_sponsors() {
+	return apply_filters( 'anchor_sponsors', [
+		[
+			'name'   => 'Aaron Jorbin',
+			'handle' => 'aaronjorbin',
+			'blurb'  => 'Independent WordPress core committer. Current priorities: build/test tools, PHP compatibility, minor releases, and security.',
+		],
+		[
+			'name'   => 'Alain Schlesser',
+			'handle' => 'schlessera',
+			'blurb'  => 'Maintainer of WP-CLI, the command-line interface for WordPress, and a WordPress core contributor.',
+		],
+		[
+			'name'   => 'Carl Alexander',
+			'handle' => 'carlalexander',
+			'blurb'  => 'WordPress engineer and educator. Helps keep independent open source work sustainable.',
+		],
+		[
+			'name'   => 'Jonny Harris',
+			'handle' => 'spacedmonkey',
+			'blurb'  => 'WordPress core committer, working on the performance project.',
 		],
 	] );
 }
@@ -642,37 +807,10 @@ function anchor_security_docs() {
 						'tag'    => 'Wed & Fri 6:15 AM',
 						'title'  => 'Managed updates',
 						'body'   => 'Plugin and theme updates on a staggered schedule for sites with updates enabled.',
-			'href'  => 'https://captaincore.io',
 						'points' => [
 							'Staging updates Friday, production the following Wednesday',
 							'The staging window catches issues before they reach production',
 						],
-			'href'  => home_url( '/giving-back/' ),
-		],
-	] );
-}
-
-function anchor_sponsors() {
-	return apply_filters( 'anchor_sponsors', [
-		[
-			'name'   => 'Aaron Jorbin',
-			'handle' => 'aaronjorbin',
-			'blurb'  => 'Independent WordPress core committer. Current priorities: build/test tools, PHP compatibility, minor releases, and security.',
-		],
-		[
-			'name'   => 'Alain Schlesser',
-			'handle' => 'schlessera',
-			'blurb'  => 'Maintainer of WP-CLI, the command-line interface for WordPress, and a WordPress core contributor.',
-		],
-		[
-			'name'   => 'Carl Alexander',
-			'handle' => 'carlalexander',
-			'blurb'  => 'WordPress engineer and educator. Helps keep independent open source work sustainable.',
-		],
-		[
-			'name'   => 'Jonny Harris',
-			'handle' => 'spacedmonkey',
-			'blurb'  => 'WordPress core committer, working on the performance project.',
 					],
 					[
 						'tag'    => 'PHP EOL schedule',
@@ -887,12 +1025,12 @@ function anchor_footer_columns() {
 			'title' => 'Support',
 			'links' => [
 				[ 'label' => 'Contact',        'href' => home_url( '/contact/' ) ],
+				[ 'label' => 'FAQ',            'href' => home_url( '/#faq' ) ],
 				[ 'label' => 'Network status', 'href' => 'https://anchorhost.statuspage.io/' ],
 				[ 'label' => 'Security',       'href' => home_url( '/security/' ) ],
 				[ 'label' => 'Terms',          'href' => home_url( '/terms/' ) ],
+				[ 'label' => 'Privacy',        'href' => home_url( '/privacy/' ) ],
 			],
 		],
 	] );
 }
-				[ 'label' => 'FAQ',            'href' => home_url( '/#faq' ) ],
-				[ 'label' => 'Privacy',        'href' => home_url( '/privacy/' ) ],

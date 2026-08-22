@@ -67,6 +67,21 @@ add_action( 'wp_enqueue_scripts', function () {
 			'addons' => anchor_addon_rates(),
 		] );
 	}
+
+	if ( anchor_is_calculator_page() ) {
+		wp_enqueue_script(
+			'anchor-plan-builder',
+			ANCHOR_THEME_URI . '/assets/js/plan-builder.js',
+			[ 'anchor-theme' ],
+			ANCHOR_THEME_VERSION,
+			true
+		);
+
+		wp_localize_script( 'anchor-plan-builder', 'anchorPlans', [
+			'plans'  => array_values( anchor_plans() ),
+			'addons' => anchor_addon_rates(),
+		] );
+	}
 } );
 
 /**
@@ -101,21 +116,6 @@ add_action( 'wp_head', function () {
 	<?php
 }, 1 );
 
-/**
- * Editor styles need the fonts and the token layer too, otherwise the block
- * editor renders the content in the admin's default typography.
- */
-add_action( 'enqueue_block_assets', function () {
-	if ( ! is_admin() ) {
-		return;
-	}
-	wp_enqueue_style(
-		'anchor-editor-fonts',
-		'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap',
-		[],
-		null
-	);
-} );
 /**
  * FAQPage structured data for the homepage #faq section. Generated from
  * `anchor_faq()` so the visible copy and the JSON-LD cannot drift.
@@ -162,3 +162,18 @@ add_action( 'wp_head', function () {
 	);
 }, 5 );
 
+/**
+ * Editor styles need the fonts and the token layer too, otherwise the block
+ * editor renders the content in the admin's default typography.
+ */
+add_action( 'enqueue_block_assets', function () {
+	if ( ! is_admin() ) {
+		return;
+	}
+	wp_enqueue_style(
+		'anchor-editor-fonts',
+		'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap',
+		[],
+		null
+	);
+} );

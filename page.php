@@ -21,6 +21,12 @@ while ( have_posts() ) :
 		case 'plans':
 			get_template_part( 'template-parts/pages/plans' );
 			break;
+		case 'calculator':
+			get_template_part( 'template-parts/pages/calculator' );
+			break;
+		case 'brand':
+			get_template_part( 'template-parts/pages/brand' );
+			break;
 		case 'about':
 			get_template_part( 'template-parts/pages/about' );
 			break;

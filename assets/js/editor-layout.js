@@ -19,6 +19,8 @@
 	var LAYOUTS = [
 		{ label: __('Default', 'anchor-theme'), value: 'default' },
 		{ label: __('Plans & pricing', 'anchor-theme'), value: 'plans' },
+		{ label: __('Plan calculator', 'anchor-theme'), value: 'calculator' },
+		{ label: __('Brand', 'anchor-theme'), value: 'brand' },
 		{ label: __('About', 'anchor-theme'), value: 'about' },
 		{ label: __('Security', 'anchor-theme'), value: 'security' },
 		{ label: __('Security documentation', 'anchor-theme'), value: 'security-docs' },
