@@ -4361,8 +4361,12 @@ a.info-card:hover {
 
 .contact__form .gform_fields {
 	display: flex;
-	flex-direction: column;
+	flex-wrap: wrap;
 	gap: 16px;
+}
+
+.contact__form .gform_fields > .gfield {
+	width: 100%;
 }
 
 .contact__form .gfield_label {
@@ -4650,6 +4654,41 @@ a.info-card:hover {
 	font-size: 14.5px;
 	line-height: 1.4;
 	transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+/* Fields fill their container — GF's size classes (.medium etc.) would
+   otherwise render odd partial widths inside the designed card. */
+.gform_wrapper.gform_legacy_markup_wrapper .gfield input[type="text"],
+.gform_wrapper.gform_legacy_markup_wrapper .gfield input[type="email"],
+.gform_wrapper.gform_legacy_markup_wrapper .gfield input[type="tel"],
+.gform_wrapper.gform_legacy_markup_wrapper .gfield input[type="url"],
+.gform_wrapper.gform_legacy_markup_wrapper .gfield input[type="number"],
+.gform_wrapper.gform_legacy_markup_wrapper .gfield textarea,
+.gform_wrapper.gform_legacy_markup_wrapper .gfield select {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+/* Ready-class columns: gf_left_half / gf_right_half pair two fields on a
+   row (Name + Email on the contact form); stacks again on small screens.
+   The contact card's field list is a wrapping flexbox, so halves size via
+   width; the inline-block fallback covers non-flex GF embeds elsewhere. */
+@media (min-width: 641px) {
+	.contact__form .gform_fields > .gfield.gf_left_half,
+	.contact__form .gform_fields > .gfield.gf_right_half {
+		width: calc(50% - 8px);
+	}
+
+	.gform_wrapper.gform_legacy_markup_wrapper:not(.contact__form *) li.gfield.gf_left_half,
+	.gform_wrapper.gform_legacy_markup_wrapper:not(.contact__form *) li.gfield.gf_right_half {
+		display: inline-block;
+		vertical-align: top;
+		width: calc(50% - 8px);
+	}
+
+	.gform_wrapper.gform_legacy_markup_wrapper:not(.contact__form *) li.gfield.gf_left_half {
+		margin-right: 12px;
+	}
 }
 
 .gform_wrapper input:focus,

@@ -5,6 +5,14 @@ All notable changes to Anchor Theme are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.1] — 2026-08-22
+
+### Changed
+
+- Contact form: Name + Email pair up on one row via Gravity Forms ready
+  classes (`gf_left_half` / `gf_right_half`); all legacy-markup fields now
+  fill their container instead of GF's partial size widths.
+
 ## [1.0.0] — 2026-08-22
 
 Initial release.
