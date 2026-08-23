@@ -106,11 +106,19 @@ add_action( 'wp_head', function () {
 	<script>
 	(function () {
 		try {
-			var saved = localStorage.getItem('ah-theme');
-			var pref = (saved === 'light' || saved === 'dark' || saved === 'system') ? saved : 'system';
-			document.documentElement.dataset.themePref = pref;
-			if (pref === 'light' || pref === 'dark') {
-				document.documentElement.dataset.theme = pref;
+			var saved = localStorage.getItem('captaincore-theme');
+			if (saved !== 'light' && saved !== 'dark' && saved !== 'system') {
+				saved = localStorage.getItem('ah-theme');
+				if (saved === 'light' || saved === 'dark' || saved === 'system') {
+					localStorage.setItem('captaincore-theme', saved);
+				} else {
+					saved = 'system';
+				}
+			}
+			try { localStorage.removeItem('ah-theme'); } catch (e2) {}
+			document.documentElement.dataset.themePref = saved;
+			if (saved === 'light' || saved === 'dark') {
+				document.documentElement.dataset.theme = saved;
 			}
 		} catch (e) {}
 	})();

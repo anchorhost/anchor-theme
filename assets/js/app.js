@@ -22,8 +22,14 @@
 
 	function themePref() {
 		try {
-			var saved = localStorage.getItem('ah-theme');
+			var saved = localStorage.getItem('captaincore-theme');
 			if (saved === 'light' || saved === 'dark' || saved === 'system') {
+				return saved;
+			}
+			saved = localStorage.getItem('ah-theme');
+			if (saved === 'light' || saved === 'dark' || saved === 'system') {
+				localStorage.setItem('captaincore-theme', saved);
+				localStorage.removeItem('ah-theme');
 				return saved;
 			}
 		} catch (e) {}
@@ -43,7 +49,8 @@
 	function setThemePref(pref) {
 		var p = pref === 'light' || pref === 'dark' ? pref : 'system';
 		try {
-			localStorage.setItem('ah-theme', p);
+			localStorage.setItem('captaincore-theme', p);
+			localStorage.removeItem('ah-theme');
 		} catch (e) {}
 		applyTheme(p);
 		syncToggleChrome();
@@ -122,6 +129,13 @@
 		if (e.key === 'Escape') {
 			closeThemeCtx();
 		}
+	});
+	window.addEventListener('storage', function (e) {
+		if (e.key !== 'captaincore-theme') {
+			return;
+		}
+		applyTheme(themePref());
+		syncToggleChrome();
 	});
 	syncToggleChrome();
 

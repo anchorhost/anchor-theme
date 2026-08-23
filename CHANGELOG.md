@@ -11,7 +11,9 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 
 - Theme toggle: click still switches light and dark only. Right-click
   opens System / Light / Dark, and the button shows a half-filled
-  circle while following the OS.
+  circle while following the OS. Preference is stored in the same
+  `captaincore-theme` key the dashboard uses, so a pick in /account/
+  is the pick on the marketing site (and the other way around).
 
 ## [1.0.3] — 2026-08-23
 
