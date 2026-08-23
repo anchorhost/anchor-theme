@@ -5,6 +5,27 @@ All notable changes to Anchor Theme are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Homepage fleet preview uses Austin's own sites instead of fictional
+  customer domains. Visits are last-7-day Fathom totals (refreshed in the
+  background). Open site (and the domain name) open the live URL in a new tab.
+  Core / theme / plugin meta is staged for the filter demo (five on the
+  latest core, one a version behind) so + Filter stays a clean product
+  preview rather than a dump of live installs. A window-image SVG sits
+  under every screenshot thumb so a missing or 404 image never shows the
+  browser's broken-image glyph. Pinning matches the console: a chip strip
+  (pin icon, name pill, ✕) above the table instead of a 📌 after the domain.
+  The Terminal tab is the Activity dock: idle prompt, @ Select target over
+  the preview sites, Cookbook recipes that fill the input, and Run that
+  streams against the chosen environments (no fake --sites=all). Target and
+  cookbook pickers are position:fixed so they are not clipped by the
+  console card. dismissed.fyi was swapped for wpregistry.io. Network
+  status (footer and command palette) now points at
+  https://status.anchor.host.
+
 ## [1.0.2] — 2026-08-22
 
 ### Added

@@ -114,9 +114,9 @@
 	}
 
 	/* ------------------------------------------------------------------
-	 * Fleet demo — a working slice of the real console: search, facet
-	 * chips (removable), a + Filter dropdown with plugin version/status
-	 * sub-facets, and a row context menu. Mirrors core-v3's patterns.
+	 * Fleet preview — Austin's own sites. Search, facet chips (removable),
+	 * a + Filter dropdown with plugin version/status sub-facets, and a
+	 * row context menu. Open site is a real new-tab link.
 	 * ------------------------------------------------------------------ */
 
 	var fleetPane = consoleRoot ? consoleRoot.querySelector('[data-console-pane="fleet"]') : null;
@@ -150,6 +150,17 @@
 				row._plugins = JSON.parse(row.dataset.fleetPlugins || '{}');
 			} catch (e) {
 				row._plugins = {};
+			}
+			var img = row.querySelector('.fleet__thumb img');
+			if (!img) {
+				return;
+			}
+			function hideBroken() {
+				img.hidden = true;
+			}
+			img.addEventListener('error', hideBroken);
+			if (img.complete && img.naturalWidth === 0) {
+				hideBroken();
 			}
 		});
 
@@ -245,30 +256,81 @@
 			apply();
 		}
 
-		function apply() {
-			var order = fleet.pinned.concat(fleet.rows.filter(function (r) { return fleet.pinned.indexOf(r) === -1; }));
-			var parent = fleet.rows[0].parentNode;
-			var anchorNode = emptyEl;
-			order.forEach(function (row) { parent.insertBefore(row, anchorNode); });
+		function renderPins() {
+			var wrap = fleetPane.querySelector('[data-fleet-pins]');
+			var list = fleetPane.querySelector('[data-fleet-pins-list]');
+			if (!wrap || !list) {
+				return;
+			}
+			list.innerHTML = '';
+			if (!fleet.pinned.length) {
+				wrap.hidden = true;
+				return;
+			}
+			wrap.hidden = false;
+			fleet.pinned.forEach(function (row) {
+				var chip = document.createElement('span');
+				chip.className = 'fleet-pin';
+				chip.setAttribute('role', 'button');
+				chip.tabIndex = 0;
+				var dot = document.createElement('span');
+				dot.className = 'fleet-pin__dot';
+				var name = document.createElement('span');
+				name.className = 'fleet-pin__name';
+				name.textContent = row.dataset.fleetDomain;
+				var x = document.createElement('button');
+				x.type = 'button';
+				x.className = 'fleet-pin__x';
+				x.title = 'Unpin';
+				x.setAttribute('aria-label', 'Unpin ' + row.dataset.fleetDomain);
+				x.textContent = '✕';
+				x.addEventListener('click', function (e) {
+					e.stopPropagation();
+					togglePin(row);
+				});
+				chip.appendChild(dot);
+				chip.appendChild(name);
+				chip.appendChild(x);
+				chip.addEventListener('click', function (e) {
+					e.stopPropagation();
+					var url = row.dataset.fleetUrl || ('https://' + row.dataset.fleetDomain);
+					window.open(url, '_blank', 'noopener,noreferrer');
+				});
+				chip.addEventListener('contextmenu', function (e) {
+					openRowMenu(e, row);
+				});
+				list.appendChild(chip);
+			});
+		}
 
+		function togglePin(row) {
+			var i = fleet.pinned.indexOf(row);
+			if (i === -1) {
+				fleet.pinned.unshift(row);
+			} else {
+				fleet.pinned.splice(i, 1);
+			}
+			apply();
+		}
+
+		function apply() {
 			var shown = 0;
 			fleet.rows.forEach(function (row) {
 				var match = rowMatches(row);
 				row.hidden = !match;
-				row.classList.toggle('fleet__row--pinned', fleet.pinned.indexOf(row) !== -1);
 				if (match) {
 					shown++;
 				}
 			});
+			renderPins();
 			if (emptyEl) {
 				emptyEl.hidden = shown !== 0;
 			}
 			if (countEl) {
-				var counts = fleet.chips.map(function (c) { return c.count || fleetCfg.total; });
-				var n = counts.length ? Math.min.apply(null, counts) : fleetCfg.total;
-				countEl.textContent = counts.length
-					? fmt(n) + ' of ' + fmt(fleetCfg.total) + ' sites'
-					: fmt(fleetCfg.total) + ' sites';
+				var total = fleet.rows.length;
+				countEl.textContent = (fleet.chips.length || fleet.q)
+					? fmt(shown) + ' of ' + fmt(total) + ' sites'
+					: fmt(total) + ' sites';
 			}
 			renderChips();
 		}
@@ -367,7 +429,7 @@
 				options.filter(function (o) {
 					return !q || o.name.toLowerCase().indexOf(q) !== -1;
 				}).forEach(function (o) {
-					list.appendChild(ddOption(o.name, fmt(o.count) + ' sites', function () {
+					list.appendChild(ddOption(o.name, fmt(o.count) + ' site' + (o.count === 1 ? '' : 's'), function () {
 						setChip(facetKey, o.name, o.count, facetKey === 'plugin' ? 'active' : null);
 						closeDd();
 					}, !!current && current.value === o.name));
@@ -441,29 +503,32 @@
 			ctx.style.top = Math.max(8, Math.min(e.clientY, window.innerHeight - h - 12)) + 'px';
 		}
 
-		fleet.rows.forEach(function (row) {
+		function openRowMenu(e, row) {
 			var domain = row.dataset.fleetDomain;
-			var handler = function (e) {
-				var pinned = fleet.pinned.indexOf(row) !== -1;
-				openCtx(e, [
-					{ label: 'Open site', act: function () { toast('Demo data — the real console opens the full site view.'); } },
-					{ label: 'Login to WordPress ↗', act: function () { toast('Demo data — one click on a real site.'); } },
-					{ label: pinned ? 'Unpin' : 'Pin to top', act: function () {
-						if (pinned) {
-							fleet.pinned = fleet.pinned.filter(function (r) { return r !== row; });
-						} else {
-							fleet.pinned.unshift(row);
-						}
-						apply();
-					} },
-					{ label: 'Open terminal', act: function () { showConsoleTab('terminal'); } },
-					{ label: 'Copy domain', act: function () {
-						if (navigator.clipboard) {
-							navigator.clipboard.writeText(domain).then(function () { toast('Copied ' + domain + '.'); }).catch(function () {});
-						}
-					} },
-				]);
-			};
+			var url = row.dataset.fleetUrl || ('https://' + domain);
+			var pinned = fleet.pinned.indexOf(row) !== -1;
+			openCtx(e, [
+				{ label: 'Open site', act: function () { window.open(url, '_blank', 'noopener,noreferrer'); } },
+				{ label: 'Login to WordPress ↗', act: function () { toast('One-click magic login lives in the real console.'); } },
+				{ label: pinned ? 'Unpin' : 'Pin to top', act: function () { togglePin(row); } },
+				{ label: 'Visit site ↗', act: function () { window.open(url, '_blank', 'noopener,noreferrer'); } },
+				{ label: 'Open terminal', act: function () {
+					showConsoleTab('terminal');
+					if (window.anchorTermPrefill) window.anchorTermPrefill(row.dataset.fleetDomain);
+				} },
+				{ label: 'Copy domain', act: function () {
+					if (navigator.clipboard) {
+						navigator.clipboard.writeText(domain).then(function () { toast('Copied ' + domain + '.'); }).catch(function () {});
+					}
+				} },
+			]);
+		}
+
+		fleet.rows.forEach(function (row) {
+			row.querySelectorAll('a').forEach(function (a) {
+				a.addEventListener('click', function (e) { e.stopPropagation(); });
+			});
+			var handler = function (e) { openRowMenu(e, row); };
 			row.addEventListener('contextmenu', handler);
 			row.addEventListener('click', handler);
 		});
@@ -480,6 +545,254 @@
 		});
 
 		apply();
+	}
+
+	/* ------------------------------------------------------------------
+	 * Terminal tab — v3 Activity dock: @ targets, cookbook, run.
+	 * Commands are real WP-CLI; selected environments are the scope.
+	 * ------------------------------------------------------------------ */
+
+	var termPane = consoleRoot ? consoleRoot.querySelector('[data-console-pane="terminal"]') : null;
+	if (termPane) {
+		var termTargets = [];
+		var termRecipes = [];
+		try { termTargets = JSON.parse(termPane.querySelector('[data-term-targets]').textContent) || []; } catch (e) {}
+		try { termRecipes = JSON.parse(termPane.querySelector('[data-term-recipes]').textContent) || []; } catch (e) {}
+
+		var termSel = [];
+		var termLinesEl = termPane.querySelector('[data-term-lines]');
+		var termIdleEl = termPane.querySelector('[data-term-idle]');
+		var termInput = termPane.querySelector('[data-term-input]');
+		var termRunBtn = termPane.querySelector('[data-term-run]');
+		var termTp = termPane.querySelector('[data-term-tp]');
+		var termCook = termPane.querySelector('[data-term-cook]');
+		var termTpBtn = termPane.querySelector('[data-term-tp-btn]');
+		var termCookBtn = termPane.querySelector('[data-term-cook-btn]');
+		var termTpLabel = termPane.querySelector('[data-term-tp-label]');
+		var termTpList = termPane.querySelector('[data-term-tp-list]');
+		var termTpQ = termPane.querySelector('[data-term-tp-q]');
+		var termTpCount = termPane.querySelector('[data-term-tp-count]');
+		var termTpClear = termPane.querySelector('[data-term-tp-clear]');
+		var termCookList = termPane.querySelector('[data-term-cook-list]');
+		var termCookQ = termPane.querySelector('[data-term-cook-q]');
+
+		function selectedTargets() {
+			return termTargets.filter(function (t) { return termSel.indexOf(t.id) !== -1; });
+		}
+
+		function closeTermPops() {
+			if (termTp) termTp.hidden = true;
+			if (termCook) termCook.hidden = true;
+		}
+
+		function placeTermPop(pop, anchor, align) {
+			if (!pop || !anchor) return;
+			if (pop.parentNode !== document.body) {
+				document.body.appendChild(pop);
+			}
+			pop.hidden = false;
+			var r = anchor.getBoundingClientRect();
+			var pw = Math.min(360, window.innerWidth - 24);
+			pop.style.width = pw + 'px';
+			var left = align === 'right' ? r.right - pw : r.left;
+			left = Math.max(12, Math.min(left, window.innerWidth - pw - 12));
+			var h = pop.offsetHeight;
+			var top = r.top - 10 - h;
+			if (top < 12) {
+				top = r.bottom + 10;
+			}
+			pop.style.left = left + 'px';
+			pop.style.top = Math.max(12, top) + 'px';
+		}
+
+		function syncTargetChip() {
+			var n = termSel.length;
+			termTpLabel.textContent = n === 0 ? 'Select target' : n === 1 ? selectedTargets()[0].label : n + ' environments selected';
+			termTpBtn.classList.toggle('is-on', n > 0);
+			termTpCount.textContent = n + ' selected';
+			termTpClear.hidden = n === 0;
+		}
+
+		function syncRun() {
+			termRunBtn.disabled = !(termInput.value || '').trim();
+		}
+
+		function renderTpList() {
+			var q = (termTpQ.value || '').trim().toLowerCase();
+			termTpList.innerHTML = '';
+			termTargets.filter(function (t) {
+				return !q || (t.label + ' ' + t.url).toLowerCase().indexOf(q) !== -1;
+			}).forEach(function (t) {
+				var on = termSel.indexOf(t.id) !== -1;
+				var b = document.createElement('button');
+				b.type = 'button';
+				b.className = 'term__pop-opt' + (on ? ' is-on' : '');
+				b.innerHTML = '<span class="term__pop-mark">' + (on ? '✓' : '') + '</span><span><div class="term__pop-opt-title"></div><div class="term__pop-opt-sub"></div></span>';
+				b.querySelector('.term__pop-opt-title').textContent = t.label;
+				b.querySelector('.term__pop-opt-sub').textContent = t.url;
+				b.addEventListener('click', function (e) {
+					e.stopPropagation();
+					var i = termSel.indexOf(t.id);
+					if (i === -1) termSel.push(t.id); else termSel.splice(i, 1);
+					syncTargetChip();
+					renderTpList();
+					placeTermPop(termTp, termTpBtn, 'left');
+				});
+				termTpList.appendChild(b);
+			});
+		}
+
+		function renderCookList() {
+			var q = (termCookQ.value || '').trim().toLowerCase();
+			termCookList.innerHTML = '';
+			termRecipes.filter(function (r) {
+				return !q || (r.title || '').toLowerCase().indexOf(q) !== -1;
+			}).forEach(function (r) {
+				var b = document.createElement('button');
+				b.type = 'button';
+				b.className = 'term__pop-opt';
+				b.innerHTML = '<span><div class="term__pop-opt-title"></div><div class="term__pop-opt-sub"></div></span>';
+				b.querySelector('.term__pop-opt-title').textContent = r.title;
+				b.querySelector('.term__pop-opt-sub').textContent = r.sub || '';
+				b.addEventListener('click', function (e) {
+					e.stopPropagation();
+					termInput.value = r.content || '';
+					termInput.style.height = 'auto';
+					termInput.style.height = Math.min(termInput.scrollHeight, 160) + 'px';
+					termInput.focus();
+					syncRun();
+					closeTermPops();
+				});
+				termCookList.appendChild(b);
+			});
+		}
+
+		function appendLine(text, cls) {
+			if (termIdleEl) {
+				termIdleEl.remove();
+				termIdleEl = null;
+			}
+			var div = document.createElement('div');
+			div.className = 'term__line' + (cls ? ' ' + cls : '');
+			div.textContent = text;
+			termLinesEl.appendChild(div);
+			termPane.querySelector('.term__scroll').scrollTop = 99999;
+		}
+
+		function fakeOutput(cmd, targets) {
+			appendLine('$ ' + cmd, 'term__line--cmd');
+			targets.forEach(function (t) {
+				if (/plugin list/.test(cmd)) {
+					appendLine(t.label);
+					var plugs = t.plugins || {};
+					var keys = Object.keys(plugs);
+					if (!keys.length) {
+						appendLine('  (no plugins)');
+					} else {
+						keys.forEach(function (slug) {
+							var p = plugs[slug];
+							appendLine('  ' + slug + '\t' + (p.s || 'active') + '\t' + (p.v || ''));
+						});
+					}
+				} else if (/core version/.test(cmd)) {
+					appendLine(t.core || '');
+				} else if (/option get home/.test(cmd)) {
+					appendLine(t.url || '');
+				} else if (/plugin update/.test(cmd)) {
+					appendLine('✔ ' + t.label + ' · plugins updated', 'term__line--ok');
+				} else {
+					appendLine(t.label);
+					appendLine('ok');
+				}
+			});
+		}
+
+		function termRun() {
+			var cmd = (termInput.value || '').trim();
+			if (!cmd) return;
+			var targets = selectedTargets();
+			if (!targets.length) {
+				closeTermPops();
+				renderTpList();
+				placeTermPop(termTp, termTpBtn, 'left');
+				return;
+			}
+			fakeOutput(cmd, targets);
+			termInput.value = '';
+			termInput.style.height = 'auto';
+			syncRun();
+		}
+
+		termTpBtn.addEventListener('click', function (e) {
+			e.stopPropagation();
+			var open = termTp.hidden;
+			closeTermPops();
+			if (open) {
+				renderTpList();
+				placeTermPop(termTp, termTpBtn, 'left');
+				termTpQ.focus();
+			}
+		});
+		termCookBtn.addEventListener('click', function (e) {
+			e.stopPropagation();
+			var open = termCook.hidden;
+			closeTermPops();
+			if (open) {
+				renderCookList();
+				placeTermPop(termCook, termCookBtn, 'left');
+				termCookQ.focus();
+			}
+		});
+		termTp.addEventListener('click', function (e) { e.stopPropagation(); });
+		termCook.addEventListener('click', function (e) { e.stopPropagation(); });
+		termTpQ.addEventListener('input', function () {
+			renderTpList();
+			if (!termTp.hidden) placeTermPop(termTp, termTpBtn, 'left');
+		});
+		termCookQ.addEventListener('input', function () {
+			renderCookList();
+			if (!termCook.hidden) placeTermPop(termCook, termCookBtn, 'left');
+		});
+		window.addEventListener('resize', function () {
+			if (termTp && !termTp.hidden) placeTermPop(termTp, termTpBtn, 'left');
+			if (termCook && !termCook.hidden) placeTermPop(termCook, termCookBtn, 'left');
+		});
+		termTpClear.addEventListener('click', function (e) {
+			e.stopPropagation();
+			termSel = [];
+			syncTargetChip();
+			renderTpList();
+		});
+		termRunBtn.addEventListener('click', function (e) {
+			e.stopPropagation();
+			termRun();
+		});
+		termInput.addEventListener('input', function () {
+			termInput.style.height = 'auto';
+			termInput.style.height = Math.min(termInput.scrollHeight, 160) + 'px';
+			syncRun();
+		});
+		termInput.addEventListener('keydown', function (e) {
+			if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+				e.preventDefault();
+				termRun();
+			}
+		});
+		document.addEventListener('click', closeTermPops);
+		document.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape') closeTermPops();
+		});
+
+		window.anchorTermPrefill = function (domain) {
+			var t = termTargets.filter(function (x) { return x.site === domain && x.env === 'Prod'; })[0]
+				|| termTargets.filter(function (x) { return x.site === domain; })[0];
+			if (!t) return;
+			if (termSel.indexOf(t.id) === -1) termSel = [t.id];
+			syncTargetChip();
+		};
+
+		syncTargetChip();
+		syncRun();
 	}
 
 	/* ------------------------------------------------------------------

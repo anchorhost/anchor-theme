@@ -275,188 +275,352 @@ function anchor_arrangement_cards() {
 }
 
 /**
- * Dashboard preview — fleet table rows. Fictional sites and agencies; the
- * real dashboard shows real customers, the marketing preview must not.
+ * Dashboard preview — Austin's own sites (not customer domains).
+ *
+ * Names, URLs and visits are real. Core / theme / plugins are a staged
+ * filter-demo set so + Filter looks like the product (latest core on
+ * almost every row, one site a version behind, a small plugin/theme
+ * vocabulary) rather than a dump of whatever is actually installed.
+ * Screenshots and environments still overlay from CaptainCore when a
+ * matching site exists. Visits overlay from Fathom (transient, 6h).
  */
-function anchor_fleet_rows() {
-	return apply_filters( 'anchor_fleet_rows', [
+function anchor_fleet_row_defaults() {
+	return [
 		[
-			'site'    => 'saltmarshbistro.com',
-			'owner'   => 'saltmarshbistro.com',
-			'envs'    => [ 'Staging', 'Prod' ],
-			'core'    => '7.0.2',
-			'visits'  => '302,874',
-			'theme'   => 'astra',
-			'plugins' => [
+			'site'      => 'minnadmin.com',
+			'owner'     => 'Minn Admin',
+			'url'       => 'https://minnadmin.com',
+			'envs'      => [ 'Prod' ],
+			'core'      => '7.0.3',
+			'visits_n'  => 1272,
+			'theme'     => 'astra',
+			'fathom_id' => 'QFFNVRHW',
+			'plugins'   => [
 				'woocommerce'  => [ 'v' => '10.1.4', 's' => 'active' ],
 				'gravityforms' => [ 'v' => '2.9.3', 's' => 'active' ],
 			],
 		],
 		[
-			'site'    => 'blueheronhollow.org',
-			'owner'   => 'Harborlight Studio',
-			'envs'    => [ 'Prod' ],
-			'core'    => '7.0.2',
-			'visits'  => '46,675',
-			'theme'   => 'generatepress',
-			'plugins' => [
-				'woocommerce' => [ 'v' => '10.1.4', 's' => 'active' ],
-				'wordfence'   => [ 'v' => '8.1.0', 's' => 'active' ],
-			],
-		],
-		[
-			'site'    => 'cedarknolldental.com',
-			'owner'   => 'North & Main Creative',
-			'envs'    => [ 'Prod' ],
-			'core'    => '7.0.2',
-			'visits'  => '1,327',
-			'theme'   => 'astra',
-			'plugins' => [
+			'site'      => 'disembark.host',
+			'owner'     => 'Disembark',
+			'url'       => 'https://disembark.host',
+			'envs'      => [ 'Prod' ],
+			'core'      => '7.0.3',
+			'visits_n'  => 12,
+			'theme'     => 'astra',
+			'fathom_id' => 'PMKXMQVJ',
+			'plugins'   => [
 				'woocommerce'         => [ 'v' => '10.0.2', 's' => 'active' ],
 				'the-events-calendar' => [ 'v' => '6.9.1', 's' => 'active' ],
 			],
 		],
 		[
-			'site'    => 'driftlinegallery.com',
-			'owner'   => 'Signal Hill Design',
-			'envs'    => [ 'Staging', 'Prod' ],
-			'core'    => '7.0.2',
-			'visits'  => '1,897',
-			'theme'   => 'bricks',
-			'plugins' => [
+			'site'      => 'wpregistry.io',
+			'owner'     => 'WP Registry',
+			'url'       => 'https://wpregistry.io',
+			'envs'      => [ 'Prod' ],
+			'core'      => '7.0.2',
+			'visits_n'  => 0,
+			'theme'     => 'bricks',
+			'fathom_id' => 'QAQDOUCP',
+			'plugins'   => [
 				'woocommerce'  => [ 'v' => '10.1.2', 's' => 'active' ],
 				'gravityforms' => [ 'v' => '2.9.3', 's' => 'inactive' ],
 			],
 		],
 		[
-			'site'    => 'fernbrookpediatrics.com',
-			'owner'   => 'Brightworks Agency',
-			'envs'    => [ 'Prod', 'Staging' ],
-			'core'    => '7.0.2',
-			'visits'  => '102,282',
-			'theme'   => 'bricks',
-			'plugins' => [
+			'site'      => 'captaincore.io',
+			'owner'     => 'CaptainCore',
+			'url'       => 'https://captaincore.io',
+			'envs'      => [ 'Prod', 'Staging' ],
+			'core'      => '7.0.3',
+			'visits_n'  => 48,
+			'theme'     => 'bricks',
+			'fathom_id' => 'WCPXOTGO',
+			'plugins'   => [
 				'woocommerce' => [ 'v' => '10.1.4', 's' => 'active' ],
 				'wordfence'   => [ 'v' => '8.1.0', 's' => 'active' ],
 				'rank-math'   => [ 'v' => '1.0.230', 's' => 'active' ],
 			],
 		],
 		[
-			'site'    => 'graniteledgebuilders.com',
-			'owner'   => 'Copperline Media',
-			'envs'    => [ 'Prod', 'Staging' ],
-			'core'    => '7.0.2',
-			'visits'  => '202,872',
-			'theme'   => 'bricks',
-			'plugins' => [
-				'woocommerce' => [ 'v' => '10.0.2', 's' => 'active' ],
-				'wordfence'   => [ 'v' => '8.1.0', 's' => 'active' ],
-				'rank-math'   => [ 'v' => '1.0.230', 's' => 'active' ],
+			'site'      => 'cove.run',
+			'owner'     => 'Cove',
+			'url'       => 'https://cove.run',
+			'envs'      => [ 'Prod' ],
+			'core'      => '7.0.3',
+			'visits_n'  => 74,
+			'theme'     => 'astra',
+			'fathom_id' => 'RDOTPKPA',
+			'plugins'   => [
+				'woocommerce'  => [ 'v' => '10.1.4', 's' => 'active' ],
+				'gravityforms' => [ 'v' => '2.9.3', 's' => 'active' ],
 			],
 		],
-	] );
+		[
+			'site'      => 'wpbeacon.io',
+			'owner'     => 'WP Beacon',
+			'url'       => 'https://wpbeacon.io',
+			'envs'      => [ 'Prod' ],
+			'core'      => '7.0.3',
+			'visits_n'  => 351,
+			'theme'     => 'generatepress',
+			'fathom_id' => 'AXGGNMQC',
+			'plugins'   => [
+				'woocommerce' => [ 'v' => '10.1.4', 's' => 'active' ],
+				'wordfence'   => [ 'v' => '8.1.0', 's' => 'active' ],
+			],
+		],
+	];
+}
+
+function anchor_fleet_rows() {
+	static $rows = null;
+	if ( null !== $rows ) {
+		return $rows;
+	}
+
+	$live = anchor_fleet_live_overlay();
+	$out  = [];
+	foreach ( anchor_fleet_row_defaults() as $row ) {
+		$key = $row['site'];
+		if ( isset( $live[ $key ] ) && is_array( $live[ $key ] ) ) {
+			$row = array_merge( $row, $live[ $key ] );
+		}
+		$row['visits'] = number_format( (int) ( $row['visits_n'] ?? 0 ) );
+		if ( empty( $row['url'] ) ) {
+			$row['url'] = 'https://' . $row['site'];
+		}
+		$out[] = $row;
+	}
+
+	usort( $out, static function ( $a, $b ) {
+		return strcasecmp( $a['site'], $b['site'] );
+	} );
+
+	$rows = apply_filters( 'anchor_fleet_rows', $out );
+	return $rows;
 }
 
 /**
- * Dashboard preview — the fleet filter bar, mirroring the real console's
- * facet pills: slice the whole fleet by plugin (at a version and status),
- * theme or core — then act on the slice.
+ * Overlay live CaptainCore + Fathom data onto the preview rows.
  *
- * `chips` seeds the default view. Counts are fleet-scale (the six demo rows
- * stand in for the whole fleet); the JS shows the smallest active chip's
- * count, the same funnel the real /filters/sites intersect produces.
+ * CaptainCore reads are local SQL. Fathom visits ride a 6-hour transient;
+ * a miss schedules a refresh and the hardcoded weekly snapshot is used
+ * until it lands, so a cache miss never blocks the homepage.
+ */
+function anchor_fleet_live_overlay() {
+	$overlay = anchor_fleet_captaincore_overlay();
+	$visits  = get_transient( 'anchor_theme_fleet_visits' );
+
+	if ( ! is_array( $visits ) ) {
+		if ( class_exists( '\CaptainCore\Remote\Fathom' ) && ! get_transient( 'anchor_theme_fleet_visits_lock' ) ) {
+			set_transient( 'anchor_theme_fleet_visits_lock', 1, 2 * MINUTE_IN_SECONDS );
+			if ( ! wp_next_scheduled( 'anchor_theme_refresh_fleet_visits' ) ) {
+				wp_schedule_single_event( time(), 'anchor_theme_refresh_fleet_visits' );
+			}
+		}
+		$visits = [];
+	}
+
+	foreach ( $visits as $site => $n ) {
+		if ( ! isset( $overlay[ $site ] ) ) {
+			$overlay[ $site ] = [];
+		}
+		$overlay[ $site ]['visits_n'] = (int) $n;
+	}
+
+	return $overlay;
+}
+
+function anchor_fleet_captaincore_overlay() {
+	$cached = get_transient( 'anchor_theme_fleet_cc' );
+	if ( is_array( $cached ) ) {
+		return $cached;
+	}
+
+	if ( ! class_exists( '\CaptainCore\Sites' ) || ! class_exists( '\CaptainCore\Environments' ) ) {
+		return [];
+	}
+
+	$defaults = anchor_fleet_row_defaults();
+	$names    = array_column( $defaults, 'site' );
+	$sites    = \CaptainCore\Sites::where( [ 'name' => $names ] );
+	if ( empty( $sites ) ) {
+		return [];
+	}
+
+	$by_name = [];
+	$ids     = [];
+	foreach ( $sites as $site ) {
+		$by_name[ $site->name ] = $site;
+		$ids[]                  = $site->site_id;
+	}
+
+	$envs_all = \CaptainCore\Environments::where( [ 'site_id' => $ids ] );
+	$by_site  = [];
+	foreach ( (array) $envs_all as $env ) {
+		$by_site[ $env->site_id ][] = $env;
+	}
+
+	$upload = rtrim( (string) get_option( 'options_remote_upload_uri' ), '/' );
+	$out    = [];
+
+	foreach ( $defaults as $row ) {
+		$site = $by_name[ $row['site'] ] ?? null;
+		if ( ! $site || empty( $by_site[ $site->site_id ] ) ) {
+			continue;
+		}
+
+		$prod     = null;
+		$env_chip = [];
+		foreach ( $by_site[ $site->site_id ] as $env ) {
+			$label = ( 'Production' === $env->environment ) ? 'Prod' : $env->environment;
+			if ( $label ) {
+				$env_chip[] = $label;
+			}
+			if ( 'Production' === $env->environment ) {
+				$prod = $env;
+			}
+		}
+		if ( ! $prod ) {
+			$prod = $by_site[ $site->site_id ][0];
+		}
+
+		$details = json_decode( (string) $prod->details );
+		$base    = ( is_object( $details ) && ! empty( $details->screenshot_base ) ) ? $details->screenshot_base : '';
+		$shot    = ( $base && $upload ) ? "{$upload}/{$site->site}_{$site->site_id}/production/screenshots/{$base}_thumb-100.jpg" : '';
+
+		// Core / theme / plugins stay staged on the row (the filter demo).
+		// Only screenshot + environments come from the live site.
+		$entry = [
+			'envs' => $env_chip ?: $row['envs'],
+		];
+		if ( $shot ) {
+			$entry['screenshot'] = $shot;
+		}
+		$out[ $row['site'] ] = $entry;
+	}
+
+	set_transient( 'anchor_theme_fleet_cc', $out, HOUR_IN_SECONDS );
+	return $out;
+}
+
+function anchor_fleet_refresh_visits() {
+	if ( ! class_exists( '\CaptainCore\Remote\Fathom' ) ) {
+		return;
+	}
+
+	$from = gmdate( 'Y-m-d', strtotime( '-7 days' ) );
+	$to   = gmdate( 'Y-m-d' );
+	$out  = [];
+
+	foreach ( anchor_fleet_row_defaults() as $row ) {
+		if ( empty( $row['fathom_id'] ) ) {
+			continue;
+		}
+		$res = \CaptainCore\Remote\Fathom::get(
+			'aggregations',
+			[
+				'entity'     => 'pageview',
+				'entity_id'  => $row['fathom_id'],
+				'aggregates' => 'visits,uniques,pageviews',
+				'date_from'  => $from,
+				'date_to'    => $to,
+			]
+		);
+		if ( is_array( $res ) && isset( $res[0]->visits ) ) {
+			$out[ $row['site'] ] = (int) $res[0]->visits;
+		}
+	}
+
+	if ( $out ) {
+		set_transient( 'anchor_theme_fleet_visits', $out, 6 * HOUR_IN_SECONDS );
+	}
+	delete_transient( 'anchor_theme_fleet_visits_lock' );
+}
+add_action( 'anchor_theme_refresh_fleet_visits', 'anchor_fleet_refresh_visits' );
+
+/**
+ * Dashboard preview — the fleet filter bar. Facets and counts are derived
+ * from the preview rows so they stay honest as the sites change. No default
+ * chips: the table opens showing every site.
  */
 function anchor_fleet_filters() {
+	$rows = anchor_fleet_rows();
+
+	$plugin_n = [];
+	$theme_n  = [];
+	$core_n   = [];
+	$subs     = [];
+
+	foreach ( $rows as $row ) {
+		$theme = $row['theme'] ?? '';
+		$core  = $row['core'] ?? '';
+		if ( $theme ) {
+			$theme_n[ $theme ] = ( $theme_n[ $theme ] ?? 0 ) + 1;
+		}
+		if ( $core ) {
+			$core_n[ $core ] = ( $core_n[ $core ] ?? 0 ) + 1;
+		}
+		foreach ( ( $row['plugins'] ?? [] ) as $slug => $info ) {
+			$plugin_n[ $slug ] = ( $plugin_n[ $slug ] ?? 0 ) + 1;
+			if ( ! isset( $subs[ $slug ] ) ) {
+				$subs[ $slug ] = [ 'versions' => [], 'statuses' => [] ];
+			}
+			$ver = $info['v'] ?? '';
+			$st  = $info['s'] ?? 'inactive';
+			if ( $ver ) {
+				$subs[ $slug ]['versions'][ $ver ] = ( $subs[ $slug ]['versions'][ $ver ] ?? 0 ) + 1;
+			}
+			$subs[ $slug ]['statuses'][ $st ] = ( $subs[ $slug ]['statuses'][ $st ] ?? 0 ) + 1;
+		}
+	}
+
+	arsort( $plugin_n );
+	$plugin_n = array_slice( $plugin_n, 0, 6, true );
+	arsort( $theme_n );
+	arsort( $core_n );
+
+	$opt = static function ( $map ) {
+		$out = [];
+		foreach ( $map as $name => $count ) {
+			$out[] = [ 'name' => (string) $name, 'count' => (int) $count ];
+		}
+		return $out;
+	};
+
+	$sub_out = [];
+	foreach ( $plugin_n as $slug => $_ ) {
+		if ( empty( $subs[ $slug ] ) ) {
+			continue;
+		}
+		arsort( $subs[ $slug ]['versions'] );
+		$sub_out[ $slug ] = [
+			'versions' => $opt( $subs[ $slug ]['versions'] ),
+			'statuses' => $opt( $subs[ $slug ]['statuses'] ),
+		];
+	}
+
 	return apply_filters( 'anchor_fleet_filters', [
 		'search' => 'Filter sites…',
-		'total'  => 3000,
-		'chips'  => [
-			[ 'facet' => 'plugin',  'value' => 'woocommerce', 'qual' => 'active', 'count' => 2861 ],
-			[ 'facet' => 'version', 'value' => '< 10.2',      'count' => 214 ],
-		],
+		'total'  => count( $rows ),
+		'chips'  => [],
 		'facets' => [
 			'plugin' => [
 				'label'   => 'Plugin',
-				'options' => [
-					[ 'name' => 'woocommerce',         'count' => 2861 ],
-					[ 'name' => 'wordfence',           'count' => 1512 ],
-					[ 'name' => 'gravityforms',        'count' => 942 ],
-					[ 'name' => 'rank-math',           'count' => 1038 ],
-					[ 'name' => 'the-events-calendar', 'count' => 517 ],
-				],
+				'options' => $opt( $plugin_n ),
 			],
-			'theme' => [
+			'theme'  => [
 				'label'   => 'Theme',
-				'options' => [
-					[ 'name' => 'astra',          'count' => 1021 ],
-					[ 'name' => 'generatepress',  'count' => 483 ],
-					[ 'name' => 'bricks',         'count' => 1496 ],
-				],
+				'options' => $opt( $theme_n ),
 			],
-			'core' => [
+			'core'   => [
 				'label'   => 'Core',
-				'options' => [
-					[ 'name' => '7.0.2', 'count' => 2915 ],
-					[ 'name' => '7.0.1', 'count' => 61 ],
-					[ 'name' => '6.8.3', 'count' => 24 ],
-				],
+				'options' => $opt( $core_n ),
 			],
 		],
-		// Per-plugin sub-facets, shown once a plugin chip is active —
-		// the shape GET /filters/<name>/versions|statuses returns. Counts sum
-		// to the plugin's fleet total so the funnel always adds up.
-		'subs'   => [
-			'woocommerce' => [
-				'versions' => [
-					[ 'name' => '10.2.0', 'count' => 2647 ],
-					[ 'name' => '< 10.2', 'count' => 214 ],
-				],
-				'statuses' => [
-					[ 'name' => 'active',   'count' => 2804 ],
-					[ 'name' => 'inactive', 'count' => 57 ],
-				],
-			],
-			'wordfence' => [
-				'versions' => [
-					[ 'name' => '8.1.0', 'count' => 1431 ],
-					[ 'name' => '8.0.5', 'count' => 81 ],
-				],
-				'statuses' => [
-					[ 'name' => 'active',   'count' => 1489 ],
-					[ 'name' => 'inactive', 'count' => 23 ],
-				],
-			],
-			'gravityforms' => [
-				'versions' => [
-					[ 'name' => '2.9.3', 'count' => 878 ],
-					[ 'name' => '2.8.17', 'count' => 64 ],
-				],
-				'statuses' => [
-					[ 'name' => 'active',   'count' => 861 ],
-					[ 'name' => 'inactive', 'count' => 81 ],
-				],
-			],
-			'rank-math' => [
-				'versions' => [
-					[ 'name' => '1.0.230', 'count' => 981 ],
-					[ 'name' => '1.0.229', 'count' => 57 ],
-				],
-				'statuses' => [
-					[ 'name' => 'active',   'count' => 1017 ],
-					[ 'name' => 'inactive', 'count' => 21 ],
-				],
-			],
-			'the-events-calendar' => [
-				'versions' => [
-					[ 'name' => '6.9.1', 'count' => 468 ],
-					[ 'name' => '6.8.2', 'count' => 49 ],
-				],
-				'statuses' => [
-					[ 'name' => 'active',   'count' => 495 ],
-					[ 'name' => 'inactive', 'count' => 22 ],
-				],
-			],
-		],
+		'subs'   => $sub_out,
 	] );
 }
 
@@ -471,19 +635,38 @@ function anchor_threats() {
 }
 
 /**
- * Terminal pane lines. `tone` maps to a .terminal__* class.
+ * Terminal pane — environments the mock @ picker can target, one per
+ * fleet-row env (Prod, and Staging where the row has it).
  */
-function anchor_terminal_lines() {
-	return apply_filters( 'anchor_terminal_lines', [
-		[ 'tone' => 'comment', 'text' => '# run across the whole fleet, in parallel' ],
-		[ 'tone' => 'prompt',  'text' => 'wp plugin update --all --sites=all' ],
-		[ 'tone' => 'out',     'text' => '→ 3,000 sites queued · 24 workers' ],
-		[ 'tone' => 'out',     'text' => '✔ saltmarshbistro.com · 3 plugins updated · 4.2s' ],
-		[ 'tone' => 'out',     'text' => '✔ blueheronhollow.org · 1 plugin updated · 2.8s' ],
-		[ 'tone' => 'out',     'text' => '✔ cavendishbooks.com · up to date · 0.9s' ],
-		[ 'tone' => 'out',     'text' => '✔ cedarknolldental.com · 5 plugins updated · 6.1s' ],
-		[ 'tone' => 'done',    'text' => '✔ 822 components updated', 'suffix' => '· 0 failures · 3m 41s' ],
-		[ 'tone' => 'cursor',  'text' => '' ],
+function anchor_terminal_targets() {
+	$out = [];
+	foreach ( anchor_fleet_rows() as $row ) {
+		foreach ( $row['envs'] as $env ) {
+			$out[] = [
+				'id'      => $row['site'] . ':' . $env,
+				'site'    => $row['site'],
+				'env'     => $env,
+				'label'   => $row['site'] . ' · ' . $env,
+				'url'     => $row['url'] ?? ( 'https://' . $row['site'] ),
+				'core'    => $row['core'],
+				'plugins' => $row['plugins'] ?? [],
+			];
+		}
+	}
+	return apply_filters( 'anchor_terminal_targets', $out );
+}
+
+/**
+ * Cookbook recipes for the mock terminal. Clicking one fills the input
+ * (v3 never auto-runs). Commands are real WP-CLI; the selected targets
+ * are what scopes them, not a fake --sites=all flag.
+ */
+function anchor_terminal_recipes() {
+	return apply_filters( 'anchor_terminal_recipes', [
+		[ 'title' => 'List active plugins', 'content' => 'wp plugin list --status=active', 'sub' => 'public recipe' ],
+		[ 'title' => 'WordPress version',   'content' => 'wp core version',                'sub' => 'public recipe' ],
+		[ 'title' => 'Home URL',            'content' => 'wp option get home',             'sub' => 'public recipe' ],
+		[ 'title' => 'Update all plugins',  'content' => 'wp plugin update --all',         'sub' => 'public recipe' ],
 	] );
 }
 
@@ -992,7 +1175,7 @@ function anchor_company() {
 		'name'     => 'Anchor Hosting',
 		'address'  => "342 N Queen St, Warehouse D<br />Lancaster, PA 17603",
 		'account'  => home_url( '/account/' ),
-		'status'   => 'https://anchorhost.statuspage.io/',
+		'status'   => 'https://status.anchor.host',
 		'github'   => 'https://github.com/anchorhost/',
 		'x'        => 'https://x.com/anchorhost',
 	] );
@@ -1002,6 +1185,7 @@ function anchor_company() {
  * Footer columns. Falls back to these when no footer menu is assigned.
  */
 function anchor_footer_columns() {
+	$status = anchor_company()['status'];
 	return apply_filters( 'anchor_footer_columns', [
 		'footer-hosting' => [
 			'title' => 'Hosting',
@@ -1030,7 +1214,7 @@ function anchor_footer_columns() {
 			'links' => [
 				[ 'label' => 'Contact',        'href' => home_url( '/contact/' ) ],
 				[ 'label' => 'FAQ',            'href' => home_url( '/#faq' ) ],
-				[ 'label' => 'Network status', 'href' => 'https://anchorhost.statuspage.io/' ],
+				[ 'label' => 'Network status', 'href' => $status ],
 				[ 'label' => 'Security',       'href' => home_url( '/security/' ) ],
 				[ 'label' => 'Terms',          'href' => home_url( '/terms/' ) ],
 				[ 'label' => 'Privacy',        'href' => home_url( '/privacy/' ) ],

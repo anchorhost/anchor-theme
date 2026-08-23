@@ -56,7 +56,7 @@ $first_tab = reset( $tab_keys );
 						type="text"
 						data-fleet-filter
 						placeholder="<?php echo esc_attr( $filters['search'] ); ?>"
-						aria-label="<?php esc_attr_e( 'Filter the example sites', 'anchor-theme' ); ?>"
+						aria-label="<?php esc_attr_e( 'Filter sites', 'anchor-theme' ); ?>"
 					/>
 				</label>
 				<span class="fleet-chips" data-fleet-chips>
@@ -69,6 +69,11 @@ $first_tab = reset( $tab_keys );
 				<span class="fleet-count" data-fleet-count></span>
 			</div>
 
+			<div class="fleet-pins" data-fleet-pins hidden>
+				<?php echo anchor_icon( 'pin', 14, 1.8 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				<span class="fleet-pins__list" data-fleet-pins-list></span>
+			</div>
+
 			<div class="fleet__head">
 				<span><?php esc_html_e( 'Site', 'anchor-theme' ); ?></span>
 				<span><?php esc_html_e( 'Environments', 'anchor-theme' ); ?></span>
@@ -77,18 +82,25 @@ $first_tab = reset( $tab_keys );
 			</div>
 
 			<?php foreach ( anchor_fleet_rows() as $row ) : ?>
+				<?php $row_url = ! empty( $row['url'] ) ? $row['url'] : ( 'https://' . $row['site'] ); ?>
 				<div
 					class="fleet__row"
 					data-fleet-site="<?php echo esc_attr( strtolower( $row['site'] . ' ' . $row['owner'] ) ); ?>"
 					data-fleet-domain="<?php echo esc_attr( $row['site'] ); ?>"
+					data-fleet-url="<?php echo esc_url( $row_url ); ?>"
 					data-fleet-theme="<?php echo esc_attr( $row['theme'] ?? '' ); ?>"
 					data-fleet-core="<?php echo esc_attr( $row['core'] ); ?>"
 					data-fleet-plugins="<?php echo esc_attr( wp_json_encode( $row['plugins'] ?? new stdClass() ) ); ?>"
 				>
 					<div class="fleet__site">
-						<span class="fleet__thumb" aria-hidden="true"></span>
+						<span class="fleet__thumb" aria-hidden="true">
+							<?php echo anchor_icon( 'image', 15, 1.8 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+							<?php if ( ! empty( $row['screenshot'] ) ) : ?>
+								<img src="<?php echo esc_url( $row['screenshot'] ); ?>" alt="" width="34" height="26" loading="lazy" decoding="async" onerror="this.hidden=true" />
+							<?php endif; ?>
+						</span>
 						<div style="min-width:0">
-							<div class="fleet__name"><?php echo esc_html( $row['site'] ); ?></div>
+							<a class="fleet__name" href="<?php echo esc_url( $row_url ); ?>" target="_blank" rel="noreferrer noopener"><?php echo esc_html( $row['site'] ); ?></a>
 							<div class="fleet__owner"><?php echo esc_html( $row['owner'] ); ?></div>
 						</div>
 					</div>
@@ -120,21 +132,42 @@ $first_tab = reset( $tab_keys );
 			<div class="threats__note"><?php esc_html_e( 'Checksums verified against WordPress.org for every core, plugin and theme file, nightly.', 'anchor-theme' ); ?></div>
 		</div>
 
-		<!-- Terminal -->
-		<div class="console__pane terminal" data-console-pane="terminal" id="console-pane-terminal" role="tabpanel" aria-labelledby="console-tab-terminal" hidden>
-			<?php foreach ( anchor_terminal_lines() as $line ) : ?>
-				<?php if ( 'comment' === $line['tone'] ) : ?>
-					<div class="terminal__comment"><?php echo esc_html( $line['text'] ); ?></div>
-				<?php elseif ( 'prompt' === $line['tone'] ) : ?>
-					<div><span class="terminal__ok">anchor</span> <span class="terminal__dim">~</span> $ <?php echo esc_html( $line['text'] ); ?></div>
-				<?php elseif ( 'done' === $line['tone'] ) : ?>
-					<div><span class="terminal__ok"><?php echo esc_html( $line['text'] ); ?></span> <span class="terminal__dim"><?php echo esc_html( $line['suffix'] ?? '' ); ?></span></div>
-				<?php elseif ( 'cursor' === $line['tone'] ) : ?>
-					<div><span class="terminal__ok">anchor</span> <span class="terminal__dim">~</span> $ <span class="terminal__cursor" aria-hidden="true"></span></div>
-				<?php else : ?>
-					<div class="terminal__out"><?php echo esc_html( $line['text'] ); ?></div>
-				<?php endif; ?>
-			<?php endforeach; ?>
+		<!-- Terminal — Activity dock chrome: @ targets, cookbook, run -->
+		<div class="console__pane term" data-console-pane="terminal" id="console-pane-terminal" role="tabpanel" aria-labelledby="console-tab-terminal" hidden>
+			<script type="application/json" data-term-targets><?php echo wp_json_encode( anchor_terminal_targets() ); // phpcs:ignore WordPress.Security.EscapeOutput ?></script>
+			<script type="application/json" data-term-recipes><?php echo wp_json_encode( anchor_terminal_recipes() ); // phpcs:ignore WordPress.Security.EscapeOutput ?></script>
+			<div class="term__scroll">
+				<div class="term__fill"></div>
+				<div class="term__lines" data-term-lines>
+					<div class="term__idle" data-term-idle><?php echo esc_html( '$ idle – run Sync or a command from a site to stream output here' ); ?></div>
+				</div>
+			</div>
+			<div class="term__bar">
+				<div class="term__pop" data-term-tp hidden>
+					<input type="text" data-term-tp-q placeholder="<?php esc_attr_e( 'Search targets…', 'anchor-theme' ); ?>" />
+					<div class="term__pop-meta">
+						<span data-term-tp-count>0 selected</span>
+						<button type="button" class="term__pop-clear" data-term-tp-clear hidden><?php esc_html_e( 'Clear', 'anchor-theme' ); ?></button>
+					</div>
+					<div class="term__pop-list" data-term-tp-list></div>
+				</div>
+				<div class="term__pop term__pop--cook" data-term-cook hidden>
+					<input type="text" data-term-cook-q placeholder="<?php esc_attr_e( 'Search cookbook…', 'anchor-theme' ); ?>" />
+					<div class="term__pop-list" data-term-cook-list></div>
+				</div>
+				<div class="term__tools">
+					<button type="button" class="term__chip" data-term-tp-btn title="<?php esc_attr_e( 'Select target environments', 'anchor-theme' ); ?>">
+						<?php echo anchor_icon( 'at', 12, 2 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						<span data-term-tp-label><?php esc_html_e( 'Select target', 'anchor-theme' ); ?></span>
+					</button>
+					<button type="button" class="term__chip term__chip--brand" data-term-cook-btn title="<?php esc_attr_e( 'Cookbook recipes', 'anchor-theme' ); ?>"><?php esc_html_e( 'Cookbook', 'anchor-theme' ); ?></button>
+					<span class="term__keys"><?php echo esc_html( '⌘⏎ run · ⌃` toggle' ); ?></span>
+				</div>
+				<div class="term__composer">
+					<textarea data-term-input rows="1" spellcheck="false" placeholder="<?php esc_attr_e( 'Run a command across the fleet…', 'anchor-theme' ); ?>"></textarea>
+					<button type="button" class="term__run" data-term-run disabled><?php esc_html_e( 'Run', 'anchor-theme' ); ?></button>
+				</div>
+			</div>
 		</div>
 
 	</div>

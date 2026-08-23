@@ -41,7 +41,7 @@ function anchor_palette_commands() {
 
 	$account = [
 		[ 'label' => 'Open dashboard',        'keys' => 'account login sign in panel',      'url' => $company['account'] ],
-		[ 'label' => 'Network status',        'keys' => 'uptime incident statuspage',       'url' => $company['status'] ],
+		[ 'label' => 'Network status',        'keys' => 'uptime incident statuspage status.anchor.host', 'url' => $company['status'] ],
 		[ 'label' => 'Plan calculator',       'keys' => 'pricing estimate sites storage',   'url' => home_url( '/hosting-plan-calculator/' ) ],
 		[ 'label' => 'CaptainCore on GitHub', 'keys' => 'open source repo code',            'url' => $company['github'] ],
 		[ 'label' => 'Subscribe by email',    'keys' => 'newsletter rss follow',            'url' => home_url( '/subscribe/' ) ],
