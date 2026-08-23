@@ -12,24 +12,118 @@
 	 * Colour scheme
 	 * ------------------------------------------------------------------ */
 
-	function currentTheme() {
-		return (
-			document.documentElement.dataset.theme ||
-			(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-		);
+	function osTheme() {
+		try {
+			return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+		} catch (e) {
+			return 'light';
+		}
+	}
+
+	function themePref() {
+		try {
+			var saved = localStorage.getItem('ah-theme');
+			if (saved === 'light' || saved === 'dark' || saved === 'system') {
+				return saved;
+			}
+		} catch (e) {}
+		return 'system';
+	}
+
+	function applyTheme(pref) {
+		var p = pref === 'light' || pref === 'dark' || pref === 'system' ? pref : themePref();
+		document.documentElement.dataset.themePref = p;
+		if (p === 'system') {
+			delete document.documentElement.dataset.theme;
+		} else {
+			document.documentElement.dataset.theme = p;
+		}
+	}
+
+	function setThemePref(pref) {
+		var p = pref === 'light' || pref === 'dark' ? pref : 'system';
+		try {
+			localStorage.setItem('ah-theme', p);
+		} catch (e) {}
+		applyTheme(p);
+		syncToggleChrome();
 	}
 
 	function toggleTheme() {
-		var next = currentTheme() === 'dark' ? 'light' : 'dark';
-		document.documentElement.dataset.theme = next;
-		try {
-			localStorage.setItem('ah-theme', next);
-		} catch (e) {}
+		// Click is light ↔ dark only. System stays a right-click pick. From
+		// System, flip whatever the OS is showing now and lock that.
+		var now = themePref() === 'system' ? osTheme() : themePref();
+		setThemePref(now === 'light' ? 'dark' : 'light');
+	}
+
+	function syncToggleChrome() {
+		var pref = themePref();
+		var labels = { system: 'System', light: 'Light', dark: 'Dark' };
+		var title =
+			'Theme: ' +
+			(labels[pref] || 'System') +
+			' (click to switch light and dark, right-click for options)';
+		document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+			btn.title = title;
+			btn.setAttribute('aria-label', title);
+		});
+	}
+
+	var themeCtx = document.createElement('div');
+	themeCtx.className = 'theme-ctx';
+	themeCtx.hidden = true;
+	themeCtx.setAttribute('role', 'menu');
+	document.body.appendChild(themeCtx);
+
+	function closeThemeCtx() {
+		themeCtx.hidden = true;
+	}
+
+	function openThemeMenu(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		var cur = themePref();
+		var opts = [
+			{ id: 'system', label: 'System' },
+			{ id: 'light', label: 'Light' },
+			{ id: 'dark', label: 'Dark' },
+		];
+		themeCtx.innerHTML = '';
+		opts.forEach(function (opt) {
+			var b = document.createElement('button');
+			b.type = 'button';
+			b.className = 'theme-ctx__entry';
+			b.setAttribute('role', 'menuitem');
+			b.textContent = (cur === opt.id ? '✓ ' : '') + opt.label;
+			b.addEventListener('click', function () {
+				closeThemeCtx();
+				setThemePref(opt.id);
+			});
+			themeCtx.appendChild(b);
+		});
+		themeCtx.hidden = false;
+		var w = 180;
+		var h = 10 + opts.length * 37;
+		var rect = e.currentTarget.getBoundingClientRect();
+		var left = rect.right - w;
+		var top = rect.bottom + 6;
+		themeCtx.style.left =
+			Math.max(8, Math.min(left, window.innerWidth - w - 12)) + 'px';
+		themeCtx.style.top =
+			Math.max(8, Math.min(top, window.innerHeight - h - 12)) + 'px';
 	}
 
 	document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
 		btn.addEventListener('click', toggleTheme);
+		btn.addEventListener('contextmenu', openThemeMenu);
 	});
+	document.addEventListener('click', closeThemeCtx);
+	document.addEventListener('keydown', function (e) {
+		if (e.key === 'Escape') {
+			closeThemeCtx();
+		}
+	});
+	syncToggleChrome();
 
 	/* ------------------------------------------------------------------
 	 * Mobile navigation

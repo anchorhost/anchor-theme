@@ -18,6 +18,8 @@ function anchor_icon( $name, $size = 16, $stroke = 1.9 ) {
 		'anchor' => '<circle cx="12" cy="4.5" r="2"></circle><path d="M12 6.5V21"></path><path d="M7.5 10h9"></path><path d="M4 14.5a8 8 0 0 0 16 0"></path><path d="M4 14.5h2.6M20 14.5h-2.6"></path>',
 		'search' => '<circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path>',
 		'moon'   => '<path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a6.8 6.8 0 0 0 11 11Z"></path>',
+		'sun'    => '<circle cx="12" cy="12" r="4.2"></circle><path d="M12 3v1.6M12 19.4V21M3 12h1.6M19.4 12H21M5.6 5.6l1.1 1.1M17.3 17.3l1.1 1.1M18.4 5.6l-1.1 1.1M6.7 17.3l-1.1 1.1"></path>',
+		'system' => '<circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 000 18z" fill="currentColor" stroke-width="0"></path>',
 		'check'  => '<path d="M20 6 9 17l-5-5"></path>',
 		'menu'   => '<path d="M4 7h16M4 12h16M4 17h16"></path>',
 		'close'  => '<path d="M6 6l12 12M18 6 6 18"></path>',

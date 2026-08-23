@@ -607,6 +607,18 @@ body.admin-bar {
 	color: var(--text);
 }
 
+[data-theme-toggle] [data-theme-icon] {
+	display: none;
+	line-height: 0;
+}
+
+html:not([data-theme-pref]) [data-theme-toggle] [data-theme-icon="system"],
+html[data-theme-pref="system"] [data-theme-toggle] [data-theme-icon="system"],
+html[data-theme-pref="light"] [data-theme-toggle] [data-theme-icon="light"],
+html[data-theme-pref="dark"] [data-theme-toggle] [data-theme-icon="dark"] {
+	display: block;
+}
+
 .search-trigger {
 	display: flex;
 	align-items: center;
@@ -1584,10 +1596,11 @@ button.filter-chip--add:hover {
 
 /* --- Row context menu --- */
 
-.fleet-ctx {
+.fleet-ctx,
+.theme-ctx {
 	position: fixed;
 	z-index: 90;
-	min-width: 230px;
+	min-width: 180px;
 	padding: 5px;
 	border: 1px solid var(--border);
 	border-radius: var(--radius);
@@ -1595,7 +1608,12 @@ button.filter-chip--add:hover {
 	box-shadow: 0 18px 44px var(--shadow-lg);
 }
 
-.fleet-ctx__entry {
+.fleet-ctx {
+	min-width: 230px;
+}
+
+.fleet-ctx__entry,
+.theme-ctx__entry {
 	display: block;
 	width: 100%;
 	padding: 8px 12px;
@@ -1609,7 +1627,8 @@ button.filter-chip--add:hover {
 	cursor: pointer;
 }
 
-.fleet-ctx__entry:hover {
+.fleet-ctx__entry:hover,
+.theme-ctx__entry:hover {
 	background: var(--surface-2);
 }
 

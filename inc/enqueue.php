@@ -107,8 +107,10 @@ add_action( 'wp_head', function () {
 	(function () {
 		try {
 			var saved = localStorage.getItem('ah-theme');
-			if (saved === 'light' || saved === 'dark') {
-				document.documentElement.dataset.theme = saved;
+			var pref = (saved === 'light' || saved === 'dark' || saved === 'system') ? saved : 'system';
+			document.documentElement.dataset.themePref = pref;
+			if (pref === 'light' || pref === 'dark') {
+				document.documentElement.dataset.theme = pref;
 			}
 		} catch (e) {}
 	})();

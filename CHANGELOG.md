@@ -5,6 +5,14 @@ All notable changes to Anchor Theme are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Theme toggle: click still switches light and dark only. Right-click
+  opens System / Light / Dark, and the button shows a half-filled
+  circle while following the OS.
+
 ## [1.0.3] — 2026-08-23
 
 ### Changed

@@ -52,8 +52,10 @@ $signin_label = is_user_logged_in() ? __( 'Dashboard', 'anchor-theme' ) : __( 'S
 					<span class="kbd">⌘K</span>
 				</button>
 
-				<button type="button" class="icon-btn" data-theme-toggle title="<?php esc_attr_e( 'Toggle theme', 'anchor-theme' ); ?>" aria-label="<?php esc_attr_e( 'Toggle light or dark theme', 'anchor-theme' ); ?>">
-					<?php echo anchor_icon( 'moon', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				<button type="button" class="icon-btn" data-theme-toggle title="<?php esc_attr_e( 'Theme: System (click to switch light and dark, right-click for options)', 'anchor-theme' ); ?>" aria-label="<?php esc_attr_e( 'Toggle light or dark theme', 'anchor-theme' ); ?>" aria-haspopup="menu">
+					<span data-theme-icon="system"><?php echo anchor_icon( 'system', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+					<span data-theme-icon="light"><?php echo anchor_icon( 'sun', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+					<span data-theme-icon="dark"><?php echo anchor_icon( 'moon', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 				</button>
 
 				<a class="header-cta" href="<?php echo esc_url( $company['account'] ); ?>"><?php echo esc_html( $signin_label ); ?></a>
