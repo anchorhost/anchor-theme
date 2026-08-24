@@ -5,7 +5,7 @@ All notable changes to Anchor Theme are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.0.4] — 2026-08-24
 
 ### Added
 
@@ -14,6 +14,13 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   circle while following the OS. Preference is stored in the same
   `captaincore-theme` key the dashboard uses, so a pick in /account/
   is the pick on the marketing site (and the other way around).
+
+### Fixed
+
+- Gravity Forms 3.0 renders the submit as a `<button>` element instead
+  of `<input type="submit">`, which left it browser-default styled.
+  The global form-button rules now also target `.gform_button` by
+  class, so both markups get the designed button.
 
 ## [1.0.3] — 2026-08-23
 
