@@ -243,6 +243,9 @@ function anchor_page_layout( $post = null ) {
 			'security-docs'           => 'security-docs',
 			'security-documentation'  => 'security-docs',
 			'contact'                 => 'contact',
+			'why-smaller-is-better'   => 'why-smaller',
+			'why-smaller'             => 'why-smaller',
+			'smaller'                 => 'why-smaller',
 		];
 		if ( isset( $by_slug[ $post->post_name ] ) ) {
 			$layout = $by_slug[ $post->post_name ];

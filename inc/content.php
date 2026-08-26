@@ -876,6 +876,74 @@ function anchor_security_cards() {
 }
 
 /**
+ * "Why smaller is better" — the head-to-head host comparison chart.
+ *
+ * `sites` is the numeric count used to scale the chart bars; `display` is
+ * the label shown at the bar tip; `counts` says what the vendor's number
+ * actually counts, since not everyone reports WordPress installs. Sources
+ * render as footnotes under the chart.
+ */
+function anchor_host_comparison() {
+	return apply_filters( 'anchor_host_comparison', [
+		'eyebrow' => 'Scale',
+		'title'   => 'This chart is to scale.',
+		'lede'    => 'Sites under management, as reported by each host. Anchor is the thin line at the bottom. That\'s the point.',
+		'note'    => 'Each figure is the company\'s own most recent public claim. They don\'t all count the same thing. Bluehost reports WordPress users. SiteGround reports domains. Kinsta reports businesses. GoDaddy\'s WordPress number dates to 2017. Rocket.net and Pressable don\'t publish a count at all. Mine is exact. ',
+		'hosts'   => [
+			[ 'name' => 'Bluehost',       'sites' => 5000000, 'display' => '5,000,000+',     'counts' => 'WordPress users, self-reported',       'source_url' => 'https://www.bluehost.com/about' ],
+			[ 'name' => 'GoDaddy',        'sites' => 4000000, 'display' => '4,000,000+',     'counts' => 'WordPress sites, self-reported in 2017', 'source_url' => 'https://www.prnewswire.com/news-releases/godaddy-launches-pro-managed-wordpress-300537745.html' ],
+			[ 'name' => 'SiteGround',     'sites' => 3000000, 'display' => '3,000,000+',     'counts' => 'domains, self-reported',               'source_url' => 'https://www.siteground.com/company' ],
+			[ 'name' => 'WP Engine',      'sites' => 1500000, 'display' => '1,500,000+',     'counts' => 'websites, self-reported',              'source_url' => 'https://wpengine.com/wordpress/' ],
+			[ 'name' => 'Kinsta',         'sites' => 230000,  'display' => '230,000+',       'counts' => 'businesses, self-reported',            'source_url' => 'https://kinsta.com/' ],
+			[ 'name' => 'Rocket.net',     'sites' => 0,       'display' => 'not published',  'counts' => 'no public site count',                 'unknown' => true ],
+			[ 'name' => 'Pressable',      'sites' => 0,       'display' => 'not published',  'counts' => 'no public site count',                 'unknown' => true ],
+			[ 'name' => 'Anchor Hosting', 'sites' => 3000,    'display' => '3,000',          'counts' => 'WordPress sites, exact',               'us' => true ],
+		],
+	] );
+}
+
+/**
+ * "Why smaller is better" — the infrastructure callout. Smaller does not
+ * mean a rack in a basement: every Anchor site runs on the same enterprise
+ * platforms the big managed hosts sell.
+ */
+function anchor_powered_by() {
+	return apply_filters( 'anchor_powered_by', [
+		'eyebrow'  => 'Infrastructure',
+		'title'    => 'Powered by the big guys.',
+		'lede'     => 'Every Anchor site runs on Kinsta or Rocket.net. That\'s the same enterprise infrastructure the giants advertise, right down to the data centers and CDN. Smaller doesn\'t mean weaker hardware. It means the same hardware, plus a person who actually manages the WordPress running on it.',
+		'partners' => [
+			[ 'kind' => 'Hosting', 'name' => 'Kinsta',     'icon' => 'kinsta.svg',       'url' => 'https://kinsta.com' ],
+			[ 'kind' => 'Hosting', 'name' => 'Rocket.net', 'icon' => 'rocketdotnet.svg', 'url' => 'https://rocket.net' ],
+		],
+	] );
+}
+
+/**
+ * "Why smaller is better" — everything included in management. There is no
+ * opt-out tier: every site gets all of it.
+ */
+function anchor_managed_services() {
+	return apply_filters( 'anchor_managed_services', [
+		'eyebrow' => 'Fully managed',
+		'title'   => 'There is no opt-out.',
+		'lede'    => 'Every site is fully managed. Not as an add-on. Not as an upsell tier. This is what management means here, on all 3,000 sites:',
+		'items'   => [
+			[ 'tag' => 'ongoing',   'title' => 'PHP kept current',            'body' => 'Every site runs a modern, supported PHP version. I schedule and verify the upgrades. That job is never left to you.' ],
+			[ 'tag' => 'as needed', 'title' => 'PHP compatibility fixes',     'body' => 'When a PHP upgrade breaks old plugin or theme code, I fix the code. The upgrade doesn\'t get skipped.' ],
+			[ 'tag' => 'scheduled', 'title' => 'Plugin updates',              'body' => 'Plugins update on schedule across the fleet, with visual checks and rollbacks when an update misbehaves.' ],
+			[ 'tag' => 'as needed', 'title' => 'Abandoned plugins patched',   'body' => 'When an author walks away from a plugin your site depends on, I patch it or fix it in place. It doesn\'t get left to rot.' ],
+			[ 'tag' => 'scheduled', 'title' => 'Core updates',                'body' => 'WordPress core updates roll out to every site. Majors included, not just the security minors.' ],
+			[ 'tag' => 'ahead',     'title' => 'Next-version core checks',    'body' => 'I test upcoming WordPress releases against the fleet before release day. Breaking changes get caught and fixed ahead of time.' ],
+			[ 'tag' => 'day one',   'title' => 'Long-term backups',           'body' => 'Nightly offsite snapshots, retained long-term. Every previous version of your site since your first day is restorable.' ],
+			[ 'tag' => 'as needed', 'title' => 'Security audits & cleanups',  'body' => 'Continuous scanning across the fleet. Hands-on audits when something looks wrong. Full cleanup if a site is ever compromised.' ],
+			[ 'tag' => 'always',    'title' => 'Hardened defaults',           'body' => 'WordPress stops leaking usernames, and logins with known-compromised passwords are blocked. Every site, by default.' ],
+			[ 'tag' => 'upstream',  'title' => 'Ecosystem reporting',         'body' => 'I report bugs to plugin and theme authors, and disclose security vulnerabilities through Wordfence and Patchstack. Fixing the ecosystem protects every WordPress site, not just ours.' ],
+		],
+	] );
+}
+
+/**
  * Security documentation — the full defense-in-depth reference behind the
  * marketing-level security page. Sections render as card grids; `alerts`
  * and `schedule` render as tables.

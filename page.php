@@ -39,6 +39,9 @@ while ( have_posts() ) :
 		case 'contact':
 			get_template_part( 'template-parts/pages/contact' );
 			break;
+		case 'why-smaller':
+			get_template_part( 'template-parts/pages/why-smaller' );
+			break;
 		default:
 			get_template_part( 'template-parts/pages/default' );
 	}
