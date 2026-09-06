@@ -904,6 +904,45 @@
 	}
 
 	/* ------------------------------------------------------------------
+	 * Recommendations — directory filter
+	 * ------------------------------------------------------------------ */
+
+	var recFilter = document.querySelector('[data-rec-filter]');
+	var recGrid = document.querySelector('[data-rec-grid]');
+
+	if (recFilter && recGrid) {
+		var recCards = Array.prototype.slice.call(recGrid.querySelectorAll('[data-rec-tags]'));
+		var recCount = document.querySelector('[data-rec-count]');
+		var recEmpty = document.querySelector('[data-rec-empty]');
+
+		var applyFacet = function (facet) {
+			var shown = 0;
+			recCards.forEach(function (card) {
+				var hit = !facet || (card.getAttribute('data-rec-tags') || '').indexOf(facet) !== -1;
+				card.hidden = !hit;
+				if (hit) { shown++; }
+			});
+			if (recCount) {
+				recCount.textContent = facet ? shown + ' of ' + recCards.length : '';
+			}
+			if (recEmpty) {
+				recEmpty.hidden = shown > 0;
+			}
+		};
+
+		recFilter.addEventListener('click', function (e) {
+			var btn = e.target.closest('[data-facet]');
+			if (!btn) { return; }
+			recFilter.querySelectorAll('[data-facet]').forEach(function (b) {
+				var active = b === btn;
+				b.classList.toggle('is-active', active);
+				b.setAttribute('aria-pressed', active ? 'true' : 'false');
+			});
+			applyFacet(btn.getAttribute('data-facet'));
+		});
+	}
+
+	/* ------------------------------------------------------------------
 	 * Command palette
 	 * ------------------------------------------------------------------ */
 

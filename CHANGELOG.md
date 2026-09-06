@@ -5,6 +5,22 @@ All notable changes to Anchor Theme are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Recommendations page layout (`recommendations`): the old Websites /
+  Plugins / Themes trio folded into one page. A filterable directory of
+  web professionals (logos from the page's ACF `links` repeater, monogram
+  fallback), the premium plugin licenses, theme picks plus independent
+  shops, and a closing CTA. Copy lives in `anchor_recommendations()`,
+  `anchor_recommended_pros()`, `anchor_recommended_plugins()` and
+  `anchor_recommended_themes()`.
+- Legacy redirects: `/hire-a-web-designer/`, `/premium-plugins/` and
+  `/picking-wordpress-themes/` 301 to their section on the new page
+  (`anchor_legacy_redirects()`).
+- Footer: Recommendations link under Hosting.
+
 ## [1.0.4] — 2026-08-24
 
 ### Added

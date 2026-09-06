@@ -246,6 +246,7 @@ function anchor_page_layout( $post = null ) {
 			'why-smaller-is-better'   => 'why-smaller',
 			'why-smaller'             => 'why-smaller',
 			'smaller'                 => 'why-smaller',
+			'recommendations'         => 'recommendations',
 		];
 		if ( isset( $by_slug[ $post->post_name ] ) ) {
 			$layout = $by_slug[ $post->post_name ];

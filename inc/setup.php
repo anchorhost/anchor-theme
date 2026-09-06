@@ -69,6 +69,23 @@ add_action( 'init', function () {
 	] );
 } );
 
+/**
+ * Legacy page URLs (the old Websites / Plugins / Themes trio) 301 to the
+ * recommendations page. Matched on the requested pagename so it holds
+ * whether the old pages are still published, drafted or deleted.
+ */
+add_action( 'template_redirect', function () {
+	$slug = get_query_var( 'pagename' );
+	if ( ! $slug || is_admin() ) {
+		return;
+	}
+	$map = anchor_legacy_redirects();
+	if ( isset( $map[ $slug ] ) ) {
+		wp_safe_redirect( $map[ $slug ], 301 );
+		exit;
+	}
+} );
+
 add_filter( 'excerpt_length', function () {
 	return 28;
 } );

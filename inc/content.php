@@ -875,6 +875,190 @@ function anchor_security_cards() {
 	] );
 }
 
+/* --------------------------------------------------------------------------
+ * Recommendations — one page replacing the old Websites / Plugins / Themes
+ * trio. Section copy, the directory of web professionals, the premium
+ * plugin licenses and the theme picks all live here.
+ * ----------------------------------------------------------------------- */
+
+function anchor_recommendations() {
+	return apply_filters( 'anchor_recommendations', [
+		'eyebrow' => 'Recommendations',
+		'lede'    => 'Anchor\'s focus is hosting. When a project needs someone to design or build the site, or you\'re deciding what to build it with, these are the people and tools I point folks to.',
+		'pros'    => [
+			'id'      => 'web-professionals',
+			'eyebrow' => 'Directory',
+			'title'   => 'Web professionals I trust.',
+			'lede'    => 'Designers, developers, writers and marketers who do good work. Most of them build on Anchor. None of them pay to be listed.',
+		],
+		'plugins' => [
+			'id'      => 'plugins',
+			'eyebrow' => 'Plugins',
+			'title'   => 'Premium plugins, licenses included.',
+			'lede'    => 'I maintain licenses for these premium plugins, which you can use on any site hosted here. Ask and I\'ll set them up.',
+		],
+		'themes'  => [
+			'id'      => 'themes',
+			'eyebrow' => 'Themes',
+			'title'   => 'Buy from independent theme authors.',
+			'lede'    => 'When picking a theme, buy from a reputable independent author. Fewer surprises, better support and updates that keep coming. If you just need a solid theme, start with one of these.',
+			'more'    => 'Need more options? These shops have been around a long time.',
+			'further' => [
+				'label' => 'Kinsta\'s hand-picked list of 100+ WordPress themes',
+				'href'  => 'https://kinsta.com/best-wordpress-themes/',
+			],
+		],
+		'cta'     => [
+			'title'   => 'Want to be listed?',
+			'text'    => 'If you build websites for other people and host them on Anchor, I\'d like to hear from you. Already have someone lined up? Hosting is the easy part.',
+			'primary' => [ 'label' => 'Get in touch', 'href' => home_url( '/contact/' ) ],
+			'ghost'   => [ 'label' => 'See plans',    'href' => home_url( '/plans/' ) ],
+		],
+	] );
+}
+
+/**
+ * Facets for the directory filter. `match` is tested (case-insensitively)
+ * against each pro's tag string, so "Brand" catches both "Branding" and
+ * "Brand Strategy". Facets nobody matches are not rendered.
+ */
+function anchor_recommended_pro_facets() {
+	return apply_filters( 'anchor_recommended_pro_facets', [
+		[ 'label' => 'Web',         'match' => 'web' ],
+		[ 'label' => 'Branding',    'match' => 'brand' ],
+		[ 'label' => 'Marketing',   'match' => 'marketing' ],
+		[ 'label' => 'SEO',         'match' => 'seo' ],
+		[ 'label' => 'Video',       'match' => 'video' ],
+		[ 'label' => 'Print',       'match' => 'print' ],
+		[ 'label' => 'Writing',     'match' => 'writing' ],
+		[ 'label' => 'Maintenance', 'match' => 'maintenance' ],
+	] );
+}
+
+/**
+ * The directory. Each entry: name, url, tags (comma-separated) and an
+ * optional `logo` attachment ID. The defaults below carry no logos; the
+ * ACF "Website Recommendations" repeater on the page itself (the same
+ * `links` field the old theme used) overrides the whole list when present,
+ * so the directory stays editable from the page and logos come from the
+ * media library.
+ */
+function anchor_recommended_pros_defaults() {
+	return apply_filters( 'anchor_recommended_pros_defaults', [
+		[ 'name' => 'Bachleda Studio',           'url' => 'https://bachleda.studio/',      'tags' => 'Branding, Web' ],
+		[ 'name' => 'Cascade WebWorks',          'url' => 'https://cascadewebworks.net/',  'tags' => 'Web, Video' ],
+		[ 'name' => 'Corey Graham',              'url' => 'https://coreygraham.me/',       'tags' => 'Web, Video' ],
+		[ 'name' => 'Corey Salzano',             'url' => 'https://coreysalzano.com/',     'tags' => 'Web Developer' ],
+		[ 'name' => 'Improve & Grow',            'url' => 'https://improveandgrow.com/',   'tags' => 'Marketing & Brand Strategy, Business Development, Web, SEO' ],
+		[ 'name' => 'Kern Co.',                  'url' => 'https://joshkern.co/',          'tags' => 'Web' ],
+		[ 'name' => 'Kinectiv',                  'url' => 'https://getkinectiv.com/',      'tags' => 'Branding, Web, Marketing Strategy, Social Media' ],
+		[ 'name' => 'Kyle Martin',               'url' => 'https://kylemart.in/',          'tags' => 'Web' ],
+		[ 'name' => 'Lancaster Writer',          'url' => 'https://lancasterwriter.com/',  'tags' => 'Web, Writing' ],
+		[ 'name' => 'Matt Brubaker',             'url' => 'http://mattbru.me/',            'tags' => 'Web Developer' ],
+		[ 'name' => 'Rachel Lynn Heisey Design', 'url' => 'https://rachelheisey.com/',     'tags' => 'Branding, Web, Print' ],
+		[ 'name' => 'RedX Web Design',           'url' => 'https://redxwebdesign.com/',    'tags' => 'Web, SEO, Video' ],
+		[ 'name' => 'Sam Shoemaker',             'url' => 'https://samshoe.com/',          'tags' => 'Web' ],
+		[ 'name' => 'Stephen Sabatini',          'url' => 'https://stephensabatini.com/',  'tags' => 'Web Developer, SEO' ],
+		[ 'name' => 'The Infantree',             'url' => 'https://infantree.com/',        'tags' => 'Branding, Web, Print' ],
+		[ 'name' => 'The Sweet Core',            'url' => 'https://thesweetcore.com/',     'tags' => 'Branding, Web, Print, Marketing Strategy, Project Management' ],
+		[ 'name' => 'WP Buffs',                  'url' => 'https://wpbuffs.com/',          'tags' => 'WordPress Maintenance' ],
+		[ 'name' => 'Yoder Design Co.',          'url' => 'https://yoderdesign.co/',       'tags' => 'Branding, Web, Print' ],
+	] );
+}
+
+function anchor_recommended_pros( $post = null ) {
+	$post  = get_post( $post );
+	$rows  = [];
+	$count = $post ? (int) get_post_meta( $post->ID, 'links', true ) : 0;
+
+	for ( $i = 0; $i < $count; $i++ ) {
+		$name = get_post_meta( $post->ID, "links_{$i}_name", true );
+		$url  = get_post_meta( $post->ID, "links_{$i}_link", true );
+		if ( ! $name || ! $url ) {
+			continue;
+		}
+		$rows[] = [
+			'name' => $name,
+			'url'  => $url,
+			'tags' => (string) get_post_meta( $post->ID, "links_{$i}_tags", true ),
+			'logo' => (int) get_post_meta( $post->ID, "links_{$i}_logo", true ),
+		];
+	}
+
+	if ( ! $rows ) {
+		$rows = anchor_recommended_pros_defaults();
+	}
+
+	usort( $rows, function ( $a, $b ) {
+		return strcasecmp( $a['name'], $b['name'] );
+	} );
+
+	return apply_filters( 'anchor_recommended_pros', $rows, $post );
+}
+
+/**
+ * Premium plugin licenses maintained for hosted sites. `kind` is the job
+ * the plugin does; `note` is an optional secondary link.
+ */
+function anchor_recommended_plugins() {
+	return apply_filters( 'anchor_recommended_plugins', [
+		[ 'kind' => 'Admin',           'name' => 'Admin Columns Pro',        'url' => 'https://www.admincolumns.com/' ],
+		[ 'kind' => 'Calendar',        'name' => 'The Events Calendar Pro',  'url' => 'https://theeventscalendar.com/product/wordpress-events-calendar-pro/' ],
+		[ 'kind' => 'Custom fields',   'name' => 'Advanced Custom Fields Pro', 'url' => 'https://www.advancedcustomfields.com/pro/' ],
+		[ 'kind' => 'Events',          'name' => 'Event Espresso',           'url' => 'https://eventespresso.com/' ],
+		[ 'kind' => 'Forms',           'name' => 'Gravity Forms',            'url' => 'https://www.gravityforms.com/', 'note' => [ 'label' => 'Legacy developer license', 'href' => 'https://www.gravityforms.com/gravity-forms-legacy-license-add-ons/' ] ],
+		[ 'kind' => 'Membership',      'name' => 'MemberPress',              'url' => 'https://memberpress.com/' ],
+		[ 'kind' => 'Optimization',    'name' => 'WP Rocket',                'url' => 'https://wp-rocket.me/' ],
+		[ 'kind' => 'Optimization',    'name' => 'WP Smush Pro',             'url' => 'https://wpmudev.com/project/wp-smush-pro/' ],
+		[ 'kind' => 'Page builder',    'name' => 'Beaver Builder Pro',       'url' => 'https://www.wpbeaverbuilder.com/' ],
+		[ 'kind' => 'Page builder',    'name' => 'Brizy Pro',                'url' => 'https://www.brizy.io/' ],
+		[ 'kind' => 'Page builder',    'name' => 'Elementor Pro',            'url' => 'https://elementor.com/' ],
+		[ 'kind' => 'Spam protection', 'name' => 'Akismet',                  'url' => 'https://akismet.com/' ],
+		[ 'kind' => 'Search',          'name' => 'SearchWP',                 'url' => 'https://searchwp.com/' ],
+		[ 'kind' => 'Training',        'name' => 'WP101 Plugin',             'url' => 'https://wp101plugin.com/' ],
+	] );
+}
+
+/**
+ * Theme picks (`picks`, each with its author) and the longer list of
+ * independent theme shops (`shops`).
+ */
+function anchor_recommended_themes() {
+	return apply_filters( 'anchor_recommended_themes', [
+		'picks' => [
+			[ 'name' => 'Astra',         'url' => 'https://wpastra.com/',                  'by' => 'Brainstorm Force', 'by_url' => 'https://www.brainstormforce.com/' ],
+			[ 'name' => 'Blocksy',       'url' => 'https://creativethemes.com/blocksy/',   'by' => 'Creative Themes' ],
+			[ 'name' => 'GeneratePress', 'url' => 'https://generatepress.com/',            'by' => 'Tom Usborne',      'by_url' => 'https://tomusborne.com/' ],
+			[ 'name' => 'Go',            'url' => 'https://wordpress.org/themes/go/',      'by' => 'GoDaddy',          'by_url' => 'https://github.com/godaddy-wordpress' ],
+			[ 'name' => 'Storefront',    'url' => 'https://wordpress.org/themes/storefront/', 'by' => 'WooCommerce',   'by_url' => 'https://woocommerce.com/' ],
+		],
+		'shops' => [
+			[ 'name' => 'Elmastudio',        'url' => 'https://elmastudio.de/en/' ],
+			[ 'name' => 'Graph Paper Press', 'url' => 'https://graphpaperpress.com/' ],
+			[ 'name' => 'Press75',           'url' => 'https://press75.com/' ],
+			[ 'name' => 'ProteusThemes',     'url' => 'https://www.proteusthemes.com/' ],
+			[ 'name' => 'StudioPress',       'url' => 'https://www.studiopress.com/' ],
+			[ 'name' => 'The Theme Foundry', 'url' => 'https://thethemefoundry.com/' ],
+			[ 'name' => 'ThemeBeans',        'url' => 'https://themebeans.com/' ],
+			[ 'name' => 'Theme Hybrid',      'url' => 'https://themehybrid.com/' ],
+			[ 'name' => 'Theme Trust',       'url' => 'https://themetrust.com/' ],
+			[ 'name' => 'Themetry',          'url' => 'https://themetry.com/' ],
+		],
+	] );
+}
+
+/**
+ * Legacy URLs that 301 to the recommendations page. Keyed by the old page
+ * slug; the value is the hash of the section that replaced it.
+ */
+function anchor_legacy_redirects() {
+	return apply_filters( 'anchor_legacy_redirects', [
+		'hire-a-web-designer'     => home_url( '/recommendations/#web-professionals' ),
+		'premium-plugins'         => home_url( '/recommendations/#plugins' ),
+		'picking-wordpress-themes' => home_url( '/recommendations/#themes' ),
+	] );
+}
+
 /**
  * "Why smaller is better" — the head-to-head host comparison chart.
  *
@@ -1261,6 +1445,7 @@ function anchor_footer_columns() {
 				[ 'label' => 'Plans',                  'href' => home_url( '/plans/' ) ],
 				[ 'label' => 'Plan calculator',        'href' => home_url( '/hosting-plan-calculator/' ) ],
 				[ 'label' => 'For web professionals',  'href' => home_url( '/hosting-for-wordpress-professionals/' ) ],
+				[ 'label' => 'Recommendations',        'href' => home_url( '/recommendations/' ) ],
 				[ 'label' => 'Tech stack',             'href' => home_url( '/tech-stack/' ) ],
 			],
 		],
