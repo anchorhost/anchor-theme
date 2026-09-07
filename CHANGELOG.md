@@ -5,6 +5,13 @@ All notable changes to Anchor Theme are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.6] — 2026-09-07
+
+### Changed
+
+- Recommendations: Brian Gardner's block theme pick is now Suede
+  (briangardner.com/suede) instead of Powder, whose domain lapsed.
+
 ## [1.0.5] — 2026-09-07
 
 ### Added
