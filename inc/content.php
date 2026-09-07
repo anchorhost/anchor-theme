@@ -1081,7 +1081,7 @@ function anchor_recommended_themes() {
 		'block' => [
 			[ 'name' => 'Frost',  'url' => 'https://frostwp.com/',      'by' => 'WP Engine',                      'by_url' => 'https://wpengine.com/' ],
 			[ 'name' => 'Ollie',  'url' => 'https://olliewp.com/',      'by' => 'Mike McAlister and Patrick Posner' ],
-			[ 'name' => 'Powder', 'url' => 'https://briangardner.com/', 'by' => 'Brian Gardner' ],
+			[ 'name' => 'Suede',  'url' => 'https://briangardner.com/suede/', 'by' => 'Brian Gardner', 'by_url' => 'https://briangardner.com/' ],
 		],
 		'shops' => [
 			[ 'name' => 'Elmastudio',        'url' => 'https://elmastudio.de/en/' ],
