@@ -5,10 +5,13 @@ All notable changes to Anchor Theme are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.0.5] — 2026-09-07
 
 ### Added
 
+- "Why smaller is better" page layout (`why-smaller`): hero, to-scale
+  host comparison chart, powered-by callout and the no-opt-out
+  management grid.
 - Recommendations page layout (`recommendations`): the old Websites /
   Plugins / Themes trio folded into one page. A filterable directory of
   web professionals (logos from the page's ACF `links` repeater, monogram
