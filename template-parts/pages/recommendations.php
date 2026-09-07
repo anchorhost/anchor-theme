@@ -180,33 +180,45 @@ $sections = [
 		</div>
 	</div>
 
-	<div class="rec-tools">
-		<?php foreach ( $themes['picks'] as $theme ) : ?>
-			<div class="tool-card">
-				<a class="tool-card__main" href="<?php echo esc_url( $theme['url'] ); ?>" target="_blank" rel="noopener">
-					<span class="tool-card__chip" aria-hidden="true"><?php echo esc_html( $anchor_monogram( $theme['name'] ) ); ?></span>
-					<span>
-						<span class="tool-card__kind"><?php esc_html_e( 'Theme', 'anchor-theme' ); ?></span>
-						<span class="tool-card__name"><?php echo esc_html( $theme['name'] ); ?></span>
+	<?php
+	$theme_groups = [
+		[ 'label' => $rec['themes']['classic'], 'items' => $themes['picks'] ],
+		[ 'label' => $rec['themes']['modern'],  'items' => $themes['block'] ?? [] ],
+	];
+	foreach ( $theme_groups as $group ) :
+		if ( empty( $group['items'] ) ) {
+			continue;
+		}
+		?>
+		<h3 class="rec-sub"><?php echo esc_html( $group['label'] ); ?></h3>
+		<div class="rec-tools rec-tools--sub">
+			<?php foreach ( $group['items'] as $theme ) : ?>
+				<div class="tool-card">
+					<a class="tool-card__main" href="<?php echo esc_url( $theme['url'] ); ?>" target="_blank" rel="noopener">
+						<span class="tool-card__chip" aria-hidden="true"><?php echo esc_html( $anchor_monogram( $theme['name'] ) ); ?></span>
+						<span>
+							<span class="tool-card__kind"><?php esc_html_e( 'Theme', 'anchor-theme' ); ?></span>
+							<span class="tool-card__name"><?php echo esc_html( $theme['name'] ); ?></span>
+						</span>
+					</a>
+					<span class="tool-card__note">
+						<?php
+						if ( ! empty( $theme['by_url'] ) ) {
+							printf(
+								/* translators: %s: theme author, linked. */
+								esc_html__( 'by %s', 'anchor-theme' ),
+								'<a href="' . esc_url( $theme['by_url'] ) . '" target="_blank" rel="noopener">' . esc_html( $theme['by'] ) . '</a>'
+							);
+						} else {
+							/* translators: %s: theme author. */
+							printf( esc_html__( 'by %s', 'anchor-theme' ), esc_html( $theme['by'] ) );
+						}
+						?>
 					</span>
-				</a>
-				<span class="tool-card__note">
-					<?php
-					if ( ! empty( $theme['by_url'] ) ) {
-						printf(
-							/* translators: %s: theme author, linked. */
-							esc_html__( 'by %s', 'anchor-theme' ),
-							'<a href="' . esc_url( $theme['by_url'] ) . '" target="_blank" rel="noopener">' . esc_html( $theme['by'] ) . '</a>'
-						);
-					} else {
-						/* translators: %s: theme author. */
-						printf( esc_html__( 'by %s', 'anchor-theme' ), esc_html( $theme['by'] ) );
-					}
-					?>
-				</span>
-			</div>
-		<?php endforeach; ?>
-	</div>
+				</div>
+			<?php endforeach; ?>
+		</div>
+	<?php endforeach; ?>
 
 	<?php if ( ! empty( $themes['shops'] ) ) : ?>
 		<div class="rec-shops">
@@ -220,6 +232,12 @@ $sections = [
 				<p class="rec-shops__further">
 					<?php esc_html_e( 'Still need more?', 'anchor-theme' ); ?>
 					<a href="<?php echo esc_url( $rec['themes']['further']['href'] ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $rec['themes']['further']['label'] ); ?></a>.
+				</p>
+			<?php endif; ?>
+			<?php if ( ! empty( $rec['themes']['note'] ) ) : ?>
+				<p class="rec-shops__further">
+					<?php echo esc_html( $rec['themes']['note']['text'] ); ?>
+					<a href="<?php echo esc_url( $rec['themes']['note']['href'] ); ?>"><?php echo esc_html( $rec['themes']['note']['label'] ); ?> →</a>
 				</p>
 			<?php endif; ?>
 		</div>

@@ -4781,6 +4781,20 @@ a.info-card:hover {
 	color: var(--text-3);
 }
 
+.rec-sub {
+	margin-top: 30px;
+	font-family: var(--font-mono);
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+	color: var(--text-3);
+}
+
+.rec-sub + .rec-tools--sub {
+	margin-top: 12px;
+}
+
 .rec-tools {
 	margin-top: 30px;
 	display: grid;

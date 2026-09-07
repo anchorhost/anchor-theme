@@ -70,6 +70,23 @@ add_action( 'init', function () {
 } );
 
 /**
+ * The ACF "Website Recommendations" repeater is attached to the legacy
+ * designers page by ID. Also show it on any page using the recommendations
+ * layout, so the directory can be edited where it now renders without
+ * touching the field group.
+ */
+add_filter( 'acf/location/rule_match/page', function ( $match, $rule, $screen ) {
+	if ( $match || empty( $screen['post_id'] ) || '==' !== ( $rule['operator'] ?? '' ) ) {
+		return $match;
+	}
+	$target = get_post( (int) ( $rule['value'] ?? 0 ) );
+	if ( ! $target || anchor_legacy_pros_page_slug() !== $target->post_name ) {
+		return $match;
+	}
+	return 'recommendations' === anchor_page_layout( (int) $screen['post_id'] );
+}, 10, 3 );
+
+/**
  * Legacy page URLs (the old Websites / Plugins / Themes trio) 301 to the
  * recommendations page. Matched on the requested pagename so it holds
  * whether the old pages are still published, drafted or deleted.

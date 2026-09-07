@@ -15,7 +15,10 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   fallback), the premium plugin licenses, theme picks plus independent
   shops, and a closing CTA. Copy lives in `anchor_recommendations()`,
   `anchor_recommended_pros()`, `anchor_recommended_plugins()` and
-  `anchor_recommended_themes()`.
+  `anchor_recommended_themes()`. The directory reads the page's own ACF
+  repeater, then the legacy `hire-a-web-designer` page's, then the
+  defaults, so an existing site needs no data migration; the ACF field
+  group is also shown on any page using this layout.
 - Legacy redirects: `/hire-a-web-designer/`, `/premium-plugins/` and
   `/picking-wordpress-themes/` 301 to their section on the new page
   (`anchor_legacy_redirects()`).
