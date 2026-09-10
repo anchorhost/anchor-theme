@@ -3890,13 +3890,6 @@ a.fleet__name:hover {
 	padding: 40px 0 0;
 }
 
-.prose > .post-excerpt {
-	font-size: 21px;
-	line-height: 1.6;
-	letter-spacing: -.012em;
-	color: var(--text);
-}
-
 .prose p {
 	margin-top: 20px;
 	font-size: 18px;
@@ -5883,10 +5876,6 @@ a.tool-card__note:hover {
 
 	.featured-post__body {
 		padding: 26px 24px 28px;
-	}
-
-	.prose > .post-excerpt {
-		font-size: 19px;
 	}
 
 	.prose p,

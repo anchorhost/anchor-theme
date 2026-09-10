@@ -56,10 +56,6 @@ while ( have_posts() ) :
 			</aside>
 
 			<div class="prose">
-				<?php if ( has_excerpt() ) : ?>
-					<p class="post-excerpt"><?php echo esc_html( get_the_excerpt() ); ?></p>
-				<?php endif; ?>
-
 				<?php
 				the_content();
 
