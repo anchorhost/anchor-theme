@@ -5,6 +5,14 @@ All notable changes to Anchor Theme are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.7] — 2026-09-09
+
+### Changed
+
+- Single posts no longer show the excerpt lede above the body. It
+  repeated the opening paragraph. Blog cards and page heroes still
+  use excerpts.
+
 ## [1.0.6] — 2026-09-07
 
 ### Changed
