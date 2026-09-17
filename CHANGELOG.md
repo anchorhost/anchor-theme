@@ -5,6 +5,13 @@ All notable changes to Anchor Theme are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.8] — 2026-09-17
+
+### Changed
+
+- FAQ Fastmail referral now uses join.fastmail.com (the old
+  ref.fm short link no longer resolves).
+
 ## [1.0.7] — 2026-09-09
 
 ### Changed
