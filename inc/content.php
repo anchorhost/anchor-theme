@@ -760,7 +760,7 @@ function anchor_faq() {
 		'items'   => [
 			[
 				'q' => 'Do you provide email hosting?',
-				'a' => 'We don\'t host mailboxes. WordPress hosting and inbox email are different jobs, and mixing them usually makes both worse. We recommend <a href="https://ref.fm/u27290104" target="_blank" rel="noopener sponsored">Fastmail</a> for you@yourdomain.com. See <a href="https://www.fastmail.com/pricing/" target="_blank" rel="noopener">their pricing</a> for current plans. Outbound WordPress mail (form notifications, password resets) is configured with the site.',
+				'a' => 'We don\'t host mailboxes. WordPress hosting and inbox email are different jobs, and mixing them usually makes both worse. We recommend <a href="https://join.fastmail.com/9713c1ff" target="_blank" rel="noopener sponsored">Fastmail</a> for you@yourdomain.com. See <a href="https://www.fastmail.com/pricing/" target="_blank" rel="noopener">their pricing</a> for current plans. Outbound WordPress mail (form notifications, password resets) is configured with the site.',
 			],
 			[
 				'q' => 'Who answers when I write in?',
