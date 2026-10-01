@@ -32,6 +32,11 @@ function anchor_icon( $name, $size = 16, $stroke = 1.9 ) {
 		'image'    => '<rect x="3" y="5" width="18" height="14" rx="2"></rect><circle cx="8.5" cy="10.5" r="1.5"></circle><path d="m21 15-5-5-9 9"></path>',
 		'pin'      => '<path d="M12 17v5M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"></path>',
 		'at'       => '<circle cx="12" cy="12" r="4"></circle><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"></path>',
+		'upload'   => '<path d="M12 15V4"></path><path d="m7 9 5-5 5 5"></path><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"></path>',
+		'file'     => '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"></path><path d="M14 3v5h5"></path>',
+		'globe'    => '<circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18Z"></path>',
+		'card'     => '<rect x="2.5" y="5" width="19" height="14" rx="2"></rect><path d="M2.5 10h19M6.5 15h4"></path>',
+		'sparkle'  => '<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9Z"></path><path d="M19 16v4M17 18h4"></path>',
 		// Brand marks are filled shapes, so they override the stroke defaults.
 		'github' => '<path fill="currentColor" stroke="none" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>',
 		'x'      => '<path fill="currentColor" stroke="none" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path>',
@@ -247,6 +252,7 @@ function anchor_page_layout( $post = null ) {
 			'why-smaller'             => 'why-smaller',
 			'smaller'                 => 'why-smaller',
 			'recommendations'         => 'recommendations',
+			'ai-relay'                => 'ai-relay',
 		];
 		if ( isset( $by_slug[ $post->post_name ] ) ) {
 			$layout = $by_slug[ $post->post_name ];
@@ -265,6 +271,37 @@ function anchor_is_plans_page() {
 
 function anchor_is_calculator_page() {
 	return is_page() && 'calculator' === anchor_page_layout();
+}
+
+function anchor_is_ai_relay_page() {
+	return is_page() && 'ai-relay' === anchor_page_layout();
+}
+
+/**
+ * Which AI Relay panel to show. The intake itself lives in CaptainCore
+ * Manager, so without it the page is explainer-only.
+ *
+ * @return string unavailable | gate | finish | open | form
+ */
+function anchor_ai_relay_view() {
+	if ( ! class_exists( 'CaptainCore\AiRelay' ) ) {
+		return 'unavailable';
+	}
+	if ( ! is_user_logged_in() ) {
+		return anchor_ai_relay_token() && CaptainCore\AiRelay::signup_pending( anchor_ai_relay_token() ) ? 'finish' : 'gate';
+	}
+	if ( CaptainCore\AiRelay::open_project( get_current_user_id() ) ) {
+		return 'open';
+	}
+	return 'form';
+}
+
+/**
+ * The signup token from the emailed link, if it is well formed.
+ */
+function anchor_ai_relay_token() {
+	$token = isset( $_GET['relay_token'] ) ? (string) wp_unslash( $_GET['relay_token'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+	return preg_match( '/^[a-f0-9]{64}$/', $token ) ? $token : '';
 }
 
 /**

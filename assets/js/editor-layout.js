@@ -26,7 +26,8 @@
 		{ label: __('Security documentation', 'anchor-theme'), value: 'security-docs' },
 		{ label: __('Contact', 'anchor-theme'), value: 'contact' },
 		{ label: __('Why smaller is better', 'anchor-theme'), value: 'why-smaller' },
-		{ label: __('Recommendations', 'anchor-theme'), value: 'recommendations' }
+		{ label: __('Recommendations', 'anchor-theme'), value: 'recommendations' },
+		{ label: __('AI Relay', 'anchor-theme'), value: 'ai-relay' }
 	];
 
 	var Panel = compose(

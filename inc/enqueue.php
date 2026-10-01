@@ -68,6 +68,48 @@ add_action( 'wp_enqueue_scripts', function () {
 		] );
 	}
 
+	if ( anchor_is_ai_relay_page() ) {
+		$view  = anchor_ai_relay_view();
+		$relay = anchor_ai_relay();
+		$deps  = [ 'anchor-theme' ];
+		$data  = [
+			'view' => $view,
+			'rest' => esc_url_raw( rest_url( 'captaincore/v1/ai-relay' ) ),
+			'i18n' => $relay['i18n'],
+		];
+
+		if ( 'unavailable' !== $view ) {
+			$config          = CaptainCore\AiRelay::public_config();
+			$data['limits']  = $config['limits'];
+			$data['nonce']   = wp_create_nonce( 'wp_rest' );
+
+			// Stripe.js only where a card can be entered, Turnstile only on signup.
+			if ( 'form' === $view && $config['stripeKey'] ) {
+				wp_enqueue_script( 'stripe-js', 'https://js.stripe.com/v3/', [], null, true );
+				$deps[]            = 'stripe-js';
+				$data['stripeKey'] = $config['stripeKey'];
+			}
+			if ( 'gate' === $view && $config['turnstileKey'] ) {
+				wp_enqueue_script( 'cf-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], null, true );
+			}
+			if ( 'form' === $view ) {
+				$data['staged'] = array_values( array_map( function ( $f ) {
+					return [ 'id' => $f['id'], 'name' => $f['name'], 'size' => (int) $f['size'] ];
+				}, CaptainCore\AiRelay::staged( get_current_user_id() ) ) );
+				$data['email']  = wp_get_current_user()->user_email;
+			}
+		}
+
+		wp_enqueue_script(
+			'anchor-ai-relay',
+			ANCHOR_THEME_URI . '/assets/js/ai-relay.js',
+			$deps,
+			ANCHOR_THEME_VERSION,
+			true
+		);
+		wp_localize_script( 'anchor-ai-relay', 'anchorRelay', $data );
+	}
+
 	if ( anchor_is_calculator_page() ) {
 		wp_enqueue_script(
 			'anchor-plan-builder',
@@ -186,4 +228,19 @@ add_action( 'enqueue_block_assets', function () {
 		[],
 		null
 	);
+} );
+
+/**
+ * Never page-cache the AI Relay page. Its content depends on the visitor
+ * (signed in or not) and the signup link carries a token that renders the
+ * person's email address.
+ */
+add_action( 'template_redirect', function () {
+	if ( ! anchor_is_ai_relay_page() ) {
+		return;
+	}
+	if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+		define( 'DONOTCACHEPAGE', true );
+	}
+	nocache_headers();
 } );

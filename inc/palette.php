@@ -102,6 +102,13 @@ add_action( 'rest_api_init', function () {
 				's'                => $query,
 				'posts_per_page'   => 8,
 				'suppress_filters' => false,
+				// Unlisted pages (e.g. AI Relay while it is in testing) stay
+				// out of search: noindex in Rank Math means "not findable".
+				'meta_query'       => [
+					'relation' => 'OR',
+					[ 'key' => 'rank_math_robots', 'compare' => 'NOT EXISTS' ],
+					[ 'key' => 'rank_math_robots', 'value' => 'noindex', 'compare' => 'NOT LIKE' ],
+				],
 			] );
 
 			$results = [];

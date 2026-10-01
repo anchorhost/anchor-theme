@@ -42,6 +42,9 @@ while ( have_posts() ) :
 		case 'why-smaller':
 			get_template_part( 'template-parts/pages/why-smaller' );
 			break;
+		case 'ai-relay':
+			get_template_part( 'template-parts/pages/ai-relay' );
+			break;
 		case 'recommendations':
 			get_template_part( 'template-parts/pages/recommendations' );
 			break;

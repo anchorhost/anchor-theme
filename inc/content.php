@@ -1524,3 +1524,117 @@ function anchor_footer_columns() {
 		],
 	] );
 }
+
+/**
+ * AI Relay page. A free-to-try AI site build that goes live on a $240/year
+ * hosting plan. Signup, uploads, the card on file and the submission are
+ * handled by CaptainCore Manager (CaptainCore\AiRelay); upload limits come
+ * from there too.
+ */
+function anchor_ai_relay() {
+	return apply_filters( 'anchor_ai_relay', [
+		'eyebrow' => 'AI Relay',
+		'lede'    => 'Hand over whatever you have. An old site, a logo, a menu PDF, a few phone photos, a paragraph about what you do. AI Relay turns it into a real WordPress site hosted on Anchor. Trying it costs nothing.',
+		'price'   => [
+			'amount' => 240,
+			'term'   => 'year',
+			'note'   => 'Launching is a one-year hosting commitment. Nothing beyond that.',
+		],
+		'steps'   => [
+			[
+				'title' => 'Send the pieces.',
+				'text'  => 'Drop in files, photos and documents, or point us at the site you already have. Rough is fine. Messy is fine.',
+			],
+			[
+				'title' => 'AI Relay builds it.',
+				'text'  => 'A complete WordPress site with your content, your pages and a clean theme. Not a locked-down page builder. Real WordPress you own.',
+			],
+			[
+				'title' => 'Keep it or walk away.',
+				'text'  => 'Review the preview. Launch it on a year of Anchor hosting for $240. If you pass, you owe nothing.',
+			],
+		],
+		'modes'   => [
+			'new'  => [
+				'label' => 'Start something new',
+				'hint'  => 'Build from loose files, photos and notes.',
+			],
+			'port' => [
+				'label' => 'Port an existing site',
+				'hint'  => 'Rebuild what you have on modern WordPress.',
+			],
+		],
+		'drop'    => [
+			'title' => 'Drop your files here',
+			'text'  => 'Logos, photos, brochures, menus, price lists, old copy. Anything that describes the site you want.',
+			'types' => 'Images, PDF, Word, text, spreadsheets or a zip',
+		],
+		'card'    => [
+			'title' => 'Card on file',
+			'text'  => 'Required to submit so we can keep the builder free and free of abuse. You are not charged to try it. Launching the site bills one year of hosting.',
+		],
+		'gate'    => [
+			'title'   => 'Sign in to start your build.',
+			'text'    => 'AI Relay is tied to an Anchor account so your files, your card and your new site all live in one place.',
+			'signin'  => 'Already have an account?',
+			'create'  => 'New to Anchor?',
+			'sent'    => 'Check your email. The link to finish creating your account works once and expires in an hour.',
+		],
+		'finish'  => [
+			'title' => 'Choose a password.',
+			'text'  => 'Last step. Then you are signed in and can send over your files.',
+		],
+		'open'    => [
+			'title' => 'Your build is in progress.',
+			'text'  => 'We have your files and will email you when the preview is ready. Add anything new, or reply to us, from your project page.',
+		],
+		'done'    => [
+			'title' => 'Got it. Your build is on its way.',
+			'text'  => 'We will email you when the preview is ready. Your card has not been charged. Add more files or notes any time from your project page.',
+		],
+		'submit'  => 'Create WordPress site with AI Relay',
+		'fine'    => 'Free to build and preview. Launching commits to one year of hosting at $240.',
+		'faq'     => [
+			[
+				'q' => 'What does it cost to try?',
+				'a' => 'Nothing. A card is required to submit, but it is not charged for the build or the preview. Launching the site is a one-year hosting commitment at $240.',
+			],
+			[
+				'q' => 'What does $240 a year include?',
+				'a' => 'Managed WordPress hosting for the one site. Updates, nightly backups, security monitoring and a real person to email when something breaks. Same care every Anchor site gets.',
+			],
+			[
+				'q' => 'Is there a contract?',
+				'a' => 'One year. Launching the site commits you to a year of hosting at $240, paid up front. After that year there is no lock-in. Renew, or take the site and leave.',
+			],
+			[
+				'q' => 'Can it port my existing site?',
+				'a' => 'Yes. Give it the address and AI Relay pulls in your pages, copy and images, then rebuilds them on current WordPress. Works well for dated WordPress sites and for sites on other platforms.',
+			],
+			[
+				'q' => 'Do I own the site?',
+				'a' => 'Yes. It is a standard WordPress install. You can edit everything in wp-admin, and if you ever leave, you take the whole thing with you.',
+			],
+		],
+		'i18n'    => [
+			'remove'      => __( 'Remove', 'anchor-theme' ),
+			'tooMany'     => __( 'That is more files than a single build can take. Extra files were skipped.', 'anchor-theme' ),
+			'tooBig'      => __( 'Uploads are capped at 250 MB in total. Some files were skipped.', 'anchor-theme' ),
+			'fileCount'   => __( '%d files', 'anchor-theme' ),
+			'fileOne'     => __( '1 file', 'anchor-theme' ),
+			'needInput'   => __( 'Add at least one file, a note, or the address of your current site.', 'anchor-theme' ),
+			'needEmail'   => __( 'Add an email so we can send you the preview.', 'anchor-theme' ),
+			'needCard'    => __( 'A card on file is required to submit.', 'anchor-theme' ),
+			'cardUnavailable' => __( 'The card form did not load. Refresh the page and try again.', 'anchor-theme' ),
+			'uploading'   => __( 'Uploading', 'anchor-theme' ),
+			'uploadFail'  => __( 'Upload failed', 'anchor-theme' ),
+			'tooLarge'    => __( 'Too large for one upload', 'anchor-theme' ),
+			'badType'     => __( 'File type not accepted', 'anchor-theme' ),
+			'waitUploads' => __( 'Hang on, files are still uploading.', 'anchor-theme' ),
+			'needBilling' => __( 'Fill in the billing address for the card.', 'anchor-theme' ),
+			'submitting'  => __( 'Sending…', 'anchor-theme' ),
+			'failed'      => __( 'Something went wrong. Try again, or email austin@anchor.host.', 'anchor-theme' ),
+			'weakPass'    => __( 'Use at least 10 characters with a letter and a number.', 'anchor-theme' ),
+		],
+	] );
+}
