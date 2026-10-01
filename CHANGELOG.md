@@ -5,6 +5,23 @@ All notable changes to Anchor Theme are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.9] — 2026-10-01
+
+### Added
+
+- AI Relay page layout (slug `ai-relay`, or "AI Relay" in the layout
+  picker): explainer, sign in or email signup, a large drag and drop
+  zone with per-file uploads, card on file through Stripe, and the
+  submission that starts a CaptainCore Manager AI Relay project. Needs
+  CaptainCore Manager with AI Relay; without it the page shows a
+  contact fallback.
+- Upload, file, globe, card and sparkle icons.
+
+### Changed
+
+- The command palette search skips pages set to noindex in Rank Math,
+  so unlisted pages stay unlisted.
+
 ## [1.0.8] — 2026-09-17
 
 ### Changed
