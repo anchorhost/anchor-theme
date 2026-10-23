@@ -50,7 +50,7 @@ add_action( 'after_setup_theme', function () {
 
 	// Blog card thumbnails match the design's 300x168 / 340px hero crops.
 	add_image_size( 'anchor-card', 720, 404, true );
-	add_image_size( 'anchor-featured', 1200, 675, true );
+	add_image_size( 'anchor-featured', 1800, 1013, true );
 } );
 
 /**
