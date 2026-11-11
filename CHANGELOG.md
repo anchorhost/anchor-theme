@@ -5,6 +5,21 @@ All notable changes to Anchor Theme are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.11] — 2026-11-11
+
+### Changed
+
+- Home hero is now "Layers", replacing the attention panel: an animated
+  stack of the layers between a site and the server (you, Anchor,
+  CaptainCore, Cloudflare, Kinsta, the server). Problems rise from the
+  server and stop at the layer whose job it is; each layer opens a card
+  saying who handles what. Copy lives in `anchor_layers()`. Pauses
+  offscreen, static with reduced motion.
+- Hero type is larger and plainer: the flag is a "Since 2014" pill and a
+  readable line, small caps labels are gone, and body text is 15–16px.
+- The arrangement section heading reads "Your clients never see a
+  hosting problem."
+
 ## [1.0.10] — 2026-10-23
 
 ### Changed
