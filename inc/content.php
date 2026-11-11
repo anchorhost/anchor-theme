@@ -136,7 +136,7 @@ function anchor_brand_kit() {
 function anchor_hero() {
 	return apply_filters( 'anchor_hero', [
 		'flag'  => 'Hassle-free hosting for WordPress professionals',
-		'since' => 'since 2014',
+		'since' => 'Since 2014',
 		'title' => 'You build it.<br />I keep it running.',
 		'lede'  => "I put as many layers as I can between your site and the server. Each one is someone, or now something, whose job is to deal with the server so you don't have to.",
 	] );
@@ -154,7 +154,6 @@ function anchor_layers() {
 	return apply_filters( 'anchor_layers', [
 		'post'    => home_url( '/the-layers-of-web-hosting/' ),
 		'label'  => 'The layers between you and the server',
-		'kicker' => 'Between you and the server',
 		'ask'    => 'Who gets the 3 AM page?',
 		// Top of the stack to the bottom.
 		'layers' => [
@@ -166,7 +165,6 @@ function anchor_layers() {
 				'name'   => 'You',
 				'meta'   => 'Build the site, or bring the idea',
 				'catch'  => 'Nothing reaches you',
-				'kicker' => 'Top layer',
 				'who'    => 'Builder',
 				'text'   => 'You build the site and work with your clients. Every layer under you exists so the server is never your problem.',
 				'list'   => [
@@ -182,7 +180,6 @@ function anchor_layers() {
 				'name'   => 'Austin + AI agents',
 				'meta'   => 'Anchor Hosting',
 				'catch'  => 'Catches crashes after updates',
-				'kicker' => 'Anchor Hosting',
 				'who'    => 'Person + AI agents',
 				'text'   => 'A person you can email, and AI agents on routines. They find problems, fix them and log what they did on your site’s timeline.',
 				'list'   => [
@@ -197,7 +194,6 @@ function anchor_layers() {
 				'name'   => 'CaptainCore',
 				'meta'   => 'The platform behind Anchor',
 				'catch'  => 'Catches backdoors, bad updates',
-				'kicker' => 'Fleet platform',
 				'who'    => 'Software I run',
 				'text'   => 'Runs updates on schedule with visual checks, takes nightly backups and compares plugin files across every site in the fleet.',
 				'list'   => [
@@ -212,7 +208,6 @@ function anchor_layers() {
 				'name'   => 'Cloudflare',
 				'meta'   => 'Firewall at the edge',
 				'catch'  => 'Catches PHP2Shell, bad bots',
-				'kicker' => 'The edge',
 				'who'    => 'Edge network',
 				'text'   => 'Every Anchor site is served through Cloudflare. Its firewall sees each request before it reaches PHP, and can stop it there.',
 				'list'   => [
@@ -227,7 +222,6 @@ function anchor_layers() {
 				'name'   => 'Kinsta',
 				'meta'   => 'Managed host',
 				'catch'  => 'Catches outages, unpatched PHP',
-				'kicker' => 'Managed host',
 				'who'    => 'Engineers on call',
 				'text'   => 'Kinsta runs the servers underneath, with engineers whose job is to keep them healthy around the clock.',
 				'list'   => [
@@ -242,7 +236,6 @@ function anchor_layers() {
 				'name'   => 'Server',
 				'meta'   => 'In a cloud data center',
 				'catch'  => 'Someone else’s problem',
-				'kicker' => 'Bottom layer',
 				'who'    => 'Data center',
 				'text'   => 'The actual hardware, in a cloud provider’s data center. With five layers above it, it’s someone else’s problem.',
 				'list'   => [

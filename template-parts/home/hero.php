@@ -50,12 +50,10 @@ $count    = count( $layers['layers'] );
 	<div class="hero__inner hero__inner--layers">
 
 		<div class="hero__copy lyr-copy">
-			<div class="hero__flag">
-				<span class="hero__dot" aria-hidden="true"></span>
+			<p class="hero__flag">
+				<span class="hero__since"><span class="hero__dot" aria-hidden="true"></span><?php echo esc_html( $hero['since'] ); ?></span>
 				<span class="hero__flag-label"><?php echo esc_html( $hero['flag'] ); ?></span>
-				<span class="hero__rule" aria-hidden="true"></span>
-				<span><?php echo esc_html( $hero['since'] ); ?></span>
-			</div>
+			</p>
 			<h1 class="hero__title"><?php echo wp_kses( $hero['title'], [ 'br' => [] ] ); ?></h1>
 			<p class="hero__lede"><?php echo esc_html( $hero['lede'] ); ?></p>
 			<div class="hero__actions">
@@ -74,7 +72,6 @@ $count    = count( $layers['layers'] );
 		>
 			<div class="lyr__head">
 				<div class="lyr__ask">
-					<span><?php echo esc_html( $layers['kicker'] ); ?></span>
 					<b><?php echo esc_html( $layers['ask'] ); ?></b>
 				</div>
 				<button type="button" class="lyr__pause" data-layers-pause aria-pressed="false" hidden>
@@ -162,7 +159,7 @@ $count    = count( $layers['layers'] );
 					<div class="lyr-detail__head">
 						<span class="lyr-detail__icon" aria-hidden="true"><?php echo anchor_icon( $layer['icon'], 18, 1.9 ); // phpcs:ignore WordPress.Security.EscapeOutput -- static SVG. ?></span>
 						<div>
-							<small><?php echo esc_html( sprintf( 'Layer %1$d of %2$d · %3$s', $i + 1, $count, $layer['kicker'] ) ); ?></small>
+							<small><?php echo esc_html( sprintf( 'Layer %1$d of %2$d', $i + 1, $count ) ); ?></small>
 							<b><?php echo esc_html( $layer['name'] ); ?></b>
 						</div>
 						<span class="lyr-detail__who"><?php echo esc_html( $layer['who'] ); ?></span>
