@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="section-head__narrow">
 		<div class="eyebrow"><?php esc_html_e( 'The arrangement', 'anchor-theme' ); ?></div>
-		<h2 class="section-title"><?php esc_html_e( 'You run the agency. I run the infrastructure.', 'anchor-theme' ); ?></h2>
+		<h2 class="section-title"><?php esc_html_e( 'Your clients never see a hosting problem.', 'anchor-theme' ); ?></h2>
 	</div>
 
 	<div class="arrangement__grid">

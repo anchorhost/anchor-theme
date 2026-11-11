@@ -135,14 +135,133 @@ function anchor_brand_kit() {
  */
 function anchor_hero() {
 	return apply_filters( 'anchor_hero', [
-		'flag'     => 'Hassle-free hosting for WordPress professionals',
-		'since'    => 'since 2014',
-		'title'    => 'Hand it off.<br />It gets done.',
-		'lede'     => "Managed hosting for the people who manage everyone else's WordPress sites. DNS, migrations, updates, security and backups, handled by a real person and surfaced in one dashboard.",
-		'facts'    => [
-			'3,000 sites under management',
-			'800+ customers',
-			'Free migrations',
+		'flag'  => 'Hassle-free hosting for WordPress professionals',
+		'since' => 'since 2014',
+		'title' => 'You build it.<br />I keep it running.',
+		'lede'  => "I put as many layers as I can between your site and the server. Each one is someone, or now something, whose job is to deal with the server so you don't have to.",
+	] );
+}
+
+/**
+ * The home hero's layer stack, from "The Layers of Web Hosting": the layers
+ * between a site and the server, top to bottom, and the problems that rise
+ * from the server until the layer whose job it is stops them. Each claim is
+ * from that post or "Cloudflare blocked PHP2Shell before PHP shipped a patch."
+ * `icon` names an anchor_icon(); a threat's `item` is the line in its
+ * layer's `list` that it lights up.
+ */
+function anchor_layers() {
+	return apply_filters( 'anchor_layers', [
+		'post'    => home_url( '/the-layers-of-web-hosting/' ),
+		'label'  => 'The layers between you and the server',
+		'kicker' => 'Between you and the server',
+		'ask'    => 'Who gets the 3 AM page?',
+		// Top of the stack to the bottom.
+		'layers' => [
+			[
+				'key'    => 'you',
+				'tone'   => 'ink',
+				'icon'   => 'site',
+				'side'   => 'Your site',
+				'name'   => 'You',
+				'meta'   => 'Build the site, or bring the idea',
+				'catch'  => 'Nothing reaches you',
+				'kicker' => 'Top layer',
+				'who'    => 'Builder',
+				'text'   => 'You build the site and work with your clients. Every layer under you exists so the server is never your problem.',
+				'list'   => [
+					[ 'Design, content, clients', 'yours' ],
+					[ 'Server problems', 'handled by the layers below' ],
+				],
+			],
+			[
+				'key'    => 'anchor',
+				'tone'   => 'violet',
+				'icon'   => 'bot',
+				'side'   => 'Anchor',
+				'name'   => 'Austin + AI agents',
+				'meta'   => 'Anchor Hosting',
+				'catch'  => 'Catches crashes after updates',
+				'kicker' => 'Anchor Hosting',
+				'who'    => 'Person + AI agents',
+				'text'   => 'A person you can email, and AI agents on routines. They find problems, fix them and log what they did on your site’s timeline.',
+				'list'   => [
+					[ 'A crash after a plugin update', 'updated, rolled back or patched, then logged' ],
+					[ 'Something no script saw coming', 'a person digs in' ],
+				],
+			],
+			[
+				'key'    => 'captaincore',
+				'tone'   => 'navy',
+				'icon'   => 'wheel',
+				'name'   => 'CaptainCore',
+				'meta'   => 'The platform behind Anchor',
+				'catch'  => 'Catches backdoors, bad updates',
+				'kicker' => 'Fleet platform',
+				'who'    => 'Software I run',
+				'text'   => 'Runs updates on schedule with visual checks, takes nightly backups and compares plugin files across every site in the fleet.',
+				'list'   => [
+					[ 'A backdoored plugin update', 'caught by comparing files across the fleet' ],
+					[ 'A layout broken by an update', 'flagged by visual checks' ],
+				],
+			],
+			[
+				'key'    => 'cloudflare',
+				'tone'   => 'warn',
+				'icon'   => 'cloud',
+				'name'   => 'Cloudflare',
+				'meta'   => 'Firewall at the edge',
+				'catch'  => 'Catches PHP2Shell, bad bots',
+				'kicker' => 'The edge',
+				'who'    => 'Edge network',
+				'text'   => 'Every Anchor site is served through Cloudflare. Its firewall sees each request before it reaches PHP, and can stop it there.',
+				'list'   => [
+					[ 'PHP2Shell', 'blocked before PHP shipped a patch' ],
+					[ 'Bad bot traffic', 'filtered at the edge' ],
+				],
+			],
+			[
+				'key'    => 'kinsta',
+				'tone'   => 'good',
+				'icon'   => 'host',
+				'name'   => 'Kinsta',
+				'meta'   => 'Managed host',
+				'catch'  => 'Catches outages, unpatched PHP',
+				'kicker' => 'Managed host',
+				'who'    => 'Engineers on call',
+				'text'   => 'Kinsta runs the servers underneath, with engineers whose job is to keep them healthy around the clock.',
+				'list'   => [
+					[ 'Unpatched PHP', 'patched builds rolled across the network' ],
+					[ 'Server trouble at 3 AM', 'their engineers are on call' ],
+				],
+			],
+			[
+				'key'    => 'server',
+				'tone'   => 'mute',
+				'icon'   => 'server',
+				'name'   => 'Server',
+				'meta'   => 'In a cloud data center',
+				'catch'  => 'Someone else’s problem',
+				'kicker' => 'Bottom layer',
+				'who'    => 'Data center',
+				'text'   => 'The actual hardware, in a cloud provider’s data center. With five layers above it, it’s someone else’s problem.',
+				'list'   => [
+					[ 'Hardware, power, network', 'the data center' ],
+					[ 'Everything else', 'the layers above' ],
+				],
+			],
+		],
+		// Problems that rise from the server until a layer stops them. `item` is
+		// the line in that layer's list it matches.
+		'threats' => [
+			[ 'label' => 'PHP2Shell', 'layer' => 'cloudflare', 'item' => 0, 'done' => 'Blocked', 'line' => 'PHP2Shell — blocked at Cloudflare before PHP shipped a patch.' ],
+			[ 'label' => 'Crash after an update', 'layer' => 'anchor', 'item' => 0, 'done' => 'Rolled back', 'line' => 'A crash after a plugin update — rolled back by an agent and logged on your timeline.' ],
+			[ 'label' => 'Backdoored plugin', 'layer' => 'captaincore', 'item' => 0, 'done' => 'Caught', 'line' => 'A backdoored plugin update — caught by comparing files across every site.' ],
+			[ 'label' => 'Unpatched PHP', 'layer' => 'kinsta', 'item' => 0, 'done' => 'Patched', 'line' => 'Unpatched PHP — Kinsta rolled patched builds across its network.' ],
+			[ 'label' => 'Bad bots', 'layer' => 'cloudflare', 'item' => 1, 'done' => 'Filtered', 'line' => 'Bad bot traffic — filtered at Cloudflare before it reaches PHP.' ],
+			[ 'label' => 'Broken layout', 'layer' => 'captaincore', 'item' => 1, 'done' => 'Flagged', 'line' => 'A layout broken by an update — flagged by visual checks.' ],
+			[ 'label' => 'Server fault, 3 AM', 'layer' => 'kinsta', 'item' => 1, 'done' => 'Handled', 'line' => 'A server fault at 3 AM — Kinsta’s engineers are on call.' ],
+			[ 'label' => 'Something odd', 'layer' => 'anchor', 'item' => 1, 'done' => 'Looked at', 'line' => 'Something no script saw coming — a person digs in.' ],
 		],
 	] );
 }

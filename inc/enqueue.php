@@ -53,6 +53,16 @@ add_action( 'wp_enqueue_scripts', function () {
 		);
 	}
 
+	if ( is_front_page() ) {
+		wp_enqueue_script(
+			'anchor-hero-layers',
+			ANCHOR_THEME_URI . '/assets/js/hero-layers.js',
+			[],
+			ANCHOR_THEME_VERSION,
+			true
+		);
+	}
+
 	if ( anchor_is_plans_page() ) {
 		wp_enqueue_script(
 			'anchor-calculator',

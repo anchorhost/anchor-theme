@@ -38,6 +38,7 @@
 	--good: #1C8A55;
 	--warn: #B0761B;
 	--bad: #BF3B2E;
+	--violet: #6A4BD6;
 	--shadow: rgba(18, 25, 40, .07);
 	--shadow-lg: rgba(18, 25, 40, .10);
 	--chip: #FFFFFF;
@@ -77,6 +78,7 @@
 		--good: #3FBE7F;
 		--warn: #E0A64A;
 		--bad: #EE7264;
+		--violet: #A48BFA;
 		--shadow: rgba(0, 0, 0, .5);
 		--shadow-lg: rgba(0, 0, 0, .6);
 		--chip: #EFF2F7;
@@ -102,6 +104,7 @@ html[data-theme="light"] {
 	--good: #1C8A55;
 	--warn: #B0761B;
 	--bad: #BF3B2E;
+	--violet: #6A4BD6;
 	--shadow: rgba(18, 25, 40, .07);
 	--shadow-lg: rgba(18, 25, 40, .10);
 	--chip: #FFFFFF;
@@ -125,6 +128,7 @@ html[data-theme="dark"] {
 	--good: #3FBE7F;
 	--warn: #E0A64A;
 	--bad: #EE7264;
+	--violet: #A48BFA;
 	--shadow: rgba(0, 0, 0, .5);
 	--shadow-lg: rgba(0, 0, 0, .6);
 	--chip: #EFF2F7;
@@ -921,6 +925,754 @@ html[data-theme-pref="dark"] [data-theme-toggle] [data-theme-icon="dark"] {
 	flex-direction: column;
 	gap: 14px;
 	min-width: 0;
+}
+
+/* ==========================================================================
+   Home hero: the layers between your site and the server
+   An exploded isometric stack of the layers between you and the server.
+   Face shading flips between schemes (light: sides darker than the top;
+   dark: the top catches the light), so the mix amounts are defined four
+   times like the tokens in theme.css.
+   ========================================================================== */
+
+:root,
+html[data-theme="light"] {
+	--lyr-top: 7%;
+	--lyr-left: 19%;
+	--lyr-right: 32%;
+	--lyr-top-base: var(--surface);
+	--lyr-side-base: var(--surface);
+	--lyr-side-mix: 78%;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--lyr-top: 19%;
+		--lyr-left: 12%;
+		--lyr-right: 6%;
+		--lyr-top-base: var(--surface-2);
+		--lyr-side-base: var(--bg);
+		--lyr-side-mix: 100%;
+	}
+}
+
+html[data-theme="dark"] {
+	--lyr-top: 19%;
+	--lyr-left: 12%;
+	--lyr-right: 6%;
+	--lyr-top-base: var(--surface-2);
+	--lyr-side-base: var(--bg);
+	--lyr-side-mix: 100%;
+}
+
+/* Tones. ink/mute are the neutral top and bottom of the stack. */
+.lyr--ink    { --st: var(--text-2); }
+.lyr--mute   { --st: var(--text-3); }
+.lyr--violet { --st: var(--violet); }
+.lyr--navy   { --st: var(--navy); }
+.lyr--warn   { --st: var(--warn); }
+.lyr--good   { --st: var(--good); }
+
+/* --- Layout --- */
+
+.hero__inner--layers {
+	grid-template-columns: minmax(0, .94fr) minmax(0, 1.1fr);
+	grid-template-areas:
+		"copy   stage"
+		"detail stage";
+	grid-template-rows: auto 1fr;
+	gap: 30px 56px;
+	align-items: start;
+	padding-top: 54px;
+	padding-bottom: 72px;
+}
+
+.lyr-copy {
+	grid-area: copy;
+}
+
+.hero--layers .hero__title {
+	font-size: clamp(2.5rem, 4.1vw, 3.55rem);
+}
+
+.hero--layers .hero__lede {
+	font-size: 18px;
+	max-width: 30em;
+}
+
+.hero--layers .hero__actions {
+	margin-top: 28px;
+}
+
+/* --- The stage card --- */
+
+.lyr {
+	grid-area: stage;
+	position: relative;
+	min-width: 0;
+	padding: 18px 20px 16px;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-xl);
+	background: var(--surface);
+	box-shadow: 0 30px 70px -40px var(--shadow-lg);
+	animation: riseIn .7s .12s ease both;
+	overflow: hidden;
+}
+
+/* Faint dot grid behind the stack, fading out at the edges. */
+.lyr::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image: radial-gradient(var(--border-strong) 1px, transparent 1.3px);
+	background-size: 18px 18px;
+	-webkit-mask-image: radial-gradient(70% 60% at 32% 52%, var(--text), transparent 100%);
+	mask-image: radial-gradient(70% 60% at 32% 52%, var(--text), transparent 100%);
+	opacity: .55;
+	pointer-events: none;
+}
+
+.lyr__head {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.lyr__ask {
+	display: grid;
+	gap: 3px;
+}
+
+.lyr__ask span {
+	font-family: var(--font-mono);
+	font-size: 11px;
+	letter-spacing: .07em;
+	text-transform: uppercase;
+	color: var(--text-3);
+}
+
+.lyr__ask b {
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: -.01em;
+}
+
+.lyr__pause {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 11px;
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	background: var(--surface);
+	color: var(--text-2);
+	font: 600 12.5px/1 var(--font-sans);
+	cursor: pointer;
+}
+
+.lyr__pause:hover {
+	color: var(--text);
+	border-color: var(--border-strong);
+}
+
+.lyr__pause .lyr__icon-play,
+.lyr__pause[aria-pressed="true"] .lyr__icon-pause {
+	display: none;
+}
+
+.lyr__pause[aria-pressed="true"] .lyr__icon-play {
+	display: block;
+}
+
+.lyr__stage {
+	position: relative;
+	width: 100%;
+	margin-top: 4px;
+}
+
+.lyr__svg {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* --- Slabs --- */
+
+.lyr__slab {
+	--shift: 0;
+	transform: translateY(calc(var(--shift) * 1px));
+	transition: transform .5s cubic-bezier(.2, .7, .2, 1);
+	cursor: pointer;
+}
+
+.lyr__face {
+	stroke: color-mix(in srgb, var(--st) 38%, transparent);
+	stroke-width: 1;
+	stroke-linejoin: round;
+	transition: fill .35s ease, stroke .35s ease;
+}
+
+.lyr__face--top {
+	fill: color-mix(in srgb, var(--st) var(--lyr-top), var(--lyr-top-base));
+}
+
+.lyr__face--left {
+	fill: color-mix(in srgb, var(--st) var(--lyr-left), var(--lyr-side-base));
+}
+
+.lyr__face--right {
+	fill: color-mix(in srgb, var(--st) var(--lyr-right), var(--lyr-side-base));
+}
+
+.lyr__inset {
+	fill: none;
+	stroke: color-mix(in srgb, var(--st) 26%, transparent);
+	stroke-width: 1;
+	stroke-dasharray: 2 4;
+}
+
+.lyr__decal {
+	color: var(--st);
+	opacity: .78;
+	transition: opacity .35s ease;
+}
+
+.lyr__side {
+	font-family: var(--font-mono);
+	font-size: 9px;
+	font-weight: 600;
+	letter-spacing: .12em;
+	fill: color-mix(in srgb, var(--st) var(--lyr-side-mix), var(--text));
+	opacity: .85;
+}
+
+.lyr__led {
+	fill: color-mix(in srgb, var(--st) 40%, transparent);
+	transition: fill .3s ease;
+}
+
+.lyr__leader {
+	fill: none;
+	stroke: var(--border-strong);
+	stroke-width: 1;
+	stroke-dasharray: 2 3;
+	transition: stroke .3s ease;
+}
+
+.lyr__leader-dot {
+	fill: var(--border-strong);
+	transition: fill .3s ease;
+}
+
+.lyr__pulse {
+	fill: none;
+	stroke: var(--st);
+	stroke-width: 2;
+	opacity: 0;
+	transform-box: fill-box;
+	transform-origin: center;
+}
+
+.lyr__floor {
+	fill: var(--shadow-lg);
+	filter: blur(10px);
+}
+
+.lyr__slab:hover .lyr__face,
+.lyr__slab.is-selected .lyr__face {
+	stroke: color-mix(in srgb, var(--st) 75%, transparent);
+}
+
+.lyr__slab.is-selected .lyr__face--top {
+	fill: color-mix(in srgb, var(--st) calc(var(--lyr-top) + 7%), var(--lyr-top-base));
+}
+
+.lyr__slab.is-selected .lyr__decal {
+	opacity: 1;
+}
+
+.lyr__slab.is-selected .lyr__leader {
+	stroke: var(--st);
+	stroke-dasharray: none;
+}
+
+.lyr__slab.is-selected .lyr__leader-dot,
+.lyr__slab.is-selected .lyr__led {
+	fill: var(--st);
+}
+
+.lyr__slab.is-catching .lyr__face--top {
+	fill: color-mix(in srgb, var(--st) calc(var(--lyr-top) + 16%), var(--lyr-top-base));
+}
+
+.lyr__slab.is-catching .lyr__led {
+	animation: lyrBlink .5s steps(2, start) 3;
+	fill: var(--st);
+}
+
+.lyr__slab.is-catching .lyr__pulse {
+	animation: lyrPulse 1.1s ease-out;
+}
+
+@keyframes lyrPulse {
+	from { transform: scale(.5); opacity: .9; }
+	to   { transform: scale(1.14); opacity: 0; }
+}
+
+@keyframes lyrBlink {
+	to { fill: color-mix(in srgb, var(--st) 30%, transparent); }
+}
+
+/* --- Labels (the tabs) --- */
+
+.lyr__labels {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+}
+
+.lyr__label {
+	--shift-px: 0px;
+	position: absolute;
+	right: 0;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 2px;
+	justify-items: start;
+	padding: 6px 10px;
+	border: 1px solid transparent;
+	border-radius: 10px;
+	background: none;
+	color: var(--text);
+	font: inherit;
+	text-align: left;
+	cursor: pointer;
+	pointer-events: auto;
+	transform: translateY(calc(-50% + var(--shift-px)));
+	transition: transform .5s cubic-bezier(.2, .7, .2, 1), background .25s ease, border-color .25s ease;
+}
+
+.lyr__label b {
+	font-size: 14.5px;
+	font-weight: 700;
+	letter-spacing: -.01em;
+	line-height: 1.25;
+}
+
+.lyr__label b,
+.lyr__meta,
+.lyr__catch {
+	max-width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.lyr__meta {
+	font-size: 12.5px;
+	line-height: 1.3;
+	color: var(--text-3);
+}
+
+.lyr__catch {
+	position: relative;
+	padding-left: 12px;
+	font-size: 12px;
+	line-height: 1.3;
+	color: color-mix(in srgb, var(--st) 70%, var(--text-2));
+	transition: color .25s ease;
+}
+
+.lyr__catch::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: calc(50% - 3px);
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--st);
+	opacity: .7;
+}
+
+.lyr__catch.is-new {
+	color: var(--st);
+	font-weight: 600;
+	animation: lyrCatch .5s ease;
+}
+
+.lyr__catch.is-new::before {
+	opacity: 1;
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--st) 22%, transparent);
+}
+
+@keyframes lyrCatch {
+	from { opacity: 0; transform: translateX(-4px); }
+	to   { opacity: 1; transform: none; }
+}
+
+.lyr__label:hover {
+	background: color-mix(in srgb, var(--st) 5%, var(--surface));
+}
+
+.lyr__label.is-selected {
+	background: color-mix(in srgb, var(--st) 8%, var(--surface));
+	border-color: color-mix(in srgb, var(--st) 30%, var(--border));
+}
+
+.lyr__label:focus-visible {
+	outline: 2px solid var(--st);
+	outline-offset: 2px;
+}
+
+/* --- The problem on its way up --- */
+
+.lyr__threat {
+	--ty: 0px;
+	--dur: 1s;
+	position: absolute;
+	top: 0;
+	left: 25.3%;
+	z-index: 3;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 5px 11px 5px 8px;
+	border: 1px solid color-mix(in srgb, var(--bad) 40%, transparent);
+	border-radius: 999px;
+	background: color-mix(in srgb, var(--bad) 11%, var(--surface));
+	color: var(--bad);
+	font-size: 12.5px;
+	font-weight: 650;
+	white-space: nowrap;
+	box-shadow: 0 10px 22px -12px var(--shadow-lg);
+	opacity: 0;
+	pointer-events: none;
+	transform: translate(-50%, -50%) translateY(var(--ty)) scale(1);
+	transition:
+		transform var(--dur) cubic-bezier(.5, .05, .25, 1),
+		opacity .3s ease,
+		background .25s ease,
+		color .25s ease,
+		border-color .25s ease;
+}
+
+.lyr__threat.no-anim {
+	transition: none;
+}
+
+.lyr__threat.is-live {
+	opacity: 1;
+}
+
+.lyr__threat-icon,
+.lyr__threat-done {
+	display: inline-flex;
+}
+
+.lyr__threat-done {
+	display: none;
+}
+
+.lyr__threat.is-caught {
+	--dur: .3s;
+	border-color: color-mix(in srgb, var(--st) 45%, transparent);
+	background: color-mix(in srgb, var(--st) 13%, var(--surface));
+	color: var(--st);
+	animation: lyrStop .4s ease;
+}
+
+.lyr__threat.is-caught .lyr__threat-icon {
+	display: none;
+}
+
+.lyr__threat.is-caught .lyr__threat-done {
+	display: inline-flex;
+}
+
+.lyr__threat.is-gone {
+	--dur: .4s;
+	opacity: 0;
+	transform: translate(-50%, -50%) translateY(var(--ty)) scale(.86);
+}
+
+@keyframes lyrStop {
+	0%   { scale: 1; }
+	40%  { scale: 1.08; }
+	100% { scale: 1; }
+}
+
+/* --- Ticker under the stack --- */
+
+.lyr__ticker {
+	position: relative;
+	display: flex;
+	align-items: baseline;
+	gap: 10px;
+	min-height: 2.9em;
+	margin-top: 6px;
+	padding-top: 12px;
+	border-top: 1px solid var(--border);
+	font-size: 13.5px;
+	line-height: 1.45;
+	color: var(--text-2);
+}
+
+.lyr__ticker i {
+	--st: var(--warn);
+	flex: none;
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--st);
+	transform: translateY(-1px);
+	transition: background .3s ease;
+}
+
+.lyr__ticker span {
+	transition: opacity .25s ease;
+}
+
+.lyr__ticker.is-out span {
+	opacity: 0;
+}
+
+/* --- Detail card (the tab panel) --- */
+
+.lyr-detail {
+	grid-area: detail;
+	display: grid;
+	min-width: 0;
+	animation: riseIn .7s .2s ease both;
+}
+
+.lyr-detail__panel {
+	grid-area: 1 / 1;
+	align-content: start;
+	padding: 18px 20px 16px;
+	border: 1px solid color-mix(in srgb, var(--st) 26%, var(--border));
+	border-radius: var(--radius-lg);
+	background: color-mix(in srgb, var(--st) 4%, var(--surface));
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity .3s ease, visibility .3s;
+}
+
+.lyr-detail__panel.is-active {
+	opacity: 1;
+	visibility: visible;
+}
+
+.lyr-detail__head {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.lyr-detail__icon {
+	display: grid;
+	place-items: center;
+	flex: none;
+	width: 38px;
+	height: 38px;
+	border-radius: 11px;
+	background: color-mix(in srgb, var(--st) 13%, var(--surface));
+	color: var(--st);
+}
+
+.lyr-detail__head small {
+	display: block;
+	font-family: var(--font-mono);
+	font-size: 11px;
+	letter-spacing: .06em;
+	text-transform: uppercase;
+	color: var(--text-3);
+}
+
+.lyr-detail__head b {
+	display: block;
+	margin-top: 2px;
+	font-size: 17px;
+	font-weight: 700;
+	letter-spacing: -.01em;
+}
+
+.lyr-detail__who {
+	margin-left: auto;
+	padding: 4px 9px;
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	background: var(--surface);
+	font-family: var(--font-mono);
+	font-size: 11px;
+	color: var(--text-2);
+	white-space: nowrap;
+}
+
+.lyr-detail__panel p {
+	margin-top: 12px;
+	font-size: 14.5px;
+	line-height: 1.55;
+	color: var(--text-2);
+}
+
+.lyr-detail__list {
+	display: grid;
+	gap: 4px;
+	margin: 12px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.lyr-detail__list li {
+	display: grid;
+	grid-template-columns: auto auto 1fr;
+	align-items: baseline;
+	gap: 8px;
+	margin: 0 -8px;
+	padding: 5px 8px;
+	border-radius: 8px;
+	font-size: 13.5px;
+	line-height: 1.4;
+	transition: background .3s ease;
+}
+
+.lyr-detail__list span {
+	font-weight: 600;
+	color: var(--text);
+}
+
+.lyr-detail__list i {
+	font-style: normal;
+	color: var(--st);
+}
+
+.lyr-detail__list em {
+	font-style: normal;
+	color: var(--text-2);
+}
+
+.lyr-detail__list li.is-live {
+	background: color-mix(in srgb, var(--st) 12%, transparent);
+}
+
+/* --- Responsive --- */
+
+@media (max-width: 1100px) {
+	.hero__inner--layers {
+		grid-template-columns: minmax(0, 1fr);
+		grid-template-areas:
+			"copy"
+			"stage"
+			"detail";
+		grid-template-rows: auto;
+		padding-top: 44px;
+	}
+
+	.lyr,
+	.lyr-detail {
+		width: 100%;
+		max-width: 680px;
+	}
+}
+
+@media (max-width: 640px) {
+	.hero__inner--layers {
+		gap: 22px;
+		padding-top: 34px;
+		padding-bottom: 56px;
+	}
+
+	.hero--layers .hero__lede {
+		font-size: 16.5px;
+	}
+
+	.hero--layers .hero__flag-label {
+		white-space: normal;
+	}
+
+	.lyr {
+		padding: 14px 12px 12px;
+	}
+
+	.lyr__ask b {
+		font-size: 14.5px;
+	}
+
+	.lyr__side,
+	.lyr__meta {
+		display: none;
+	}
+
+	.lyr__label {
+		padding: 4px 7px;
+	}
+
+	.lyr__label b {
+		font-size: 13px;
+	}
+
+	/* Only a fresh catch shows on a phone; the card below has the rest. */
+	.lyr__catch {
+		display: none;
+		font-size: 11px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.lyr__catch.is-new {
+		display: block;
+	}
+
+	.lyr__catch {
+		padding-left: 0;
+	}
+
+	.lyr__catch::before {
+		display: none;
+	}
+
+	.lyr__threat {
+		font-size: 11px;
+		padding: 4px 9px 4px 7px;
+	}
+
+	.lyr__ticker {
+		font-size: 13px;
+	}
+
+	.lyr-detail__panel {
+		padding: 16px;
+	}
+
+	.lyr-detail__who {
+		display: none;
+	}
+
+	.lyr-detail__list li {
+		grid-template-columns: 1fr;
+		gap: 0;
+	}
+
+	.lyr-detail__list i {
+		display: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.lyr,
+	.lyr-detail,
+	.lyr__slab,
+	.lyr__label,
+	.lyr-detail__panel {
+		animation: none;
+		transition: none;
+	}
 }
 
 /* --- Attention panel --- */
