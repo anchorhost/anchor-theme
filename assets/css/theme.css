@@ -5444,6 +5444,10 @@ a.info-card:hover {
 	color: inherit;
 }
 
+.pro-card[hidden] {
+	display: none;
+}
+
 .pro-card__logo {
 	flex: none;
 	width: 56px;
