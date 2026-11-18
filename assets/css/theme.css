@@ -7289,3 +7289,284 @@ a.tool-card__note:hover {
 		padding: 8vh 12px 12px;
 	}
 }
+
+/* ==========================================================================
+   Status page — CaptainCore Manager's /status/ rendered through
+   captaincore/status.php. Impact and status colours come from the shared
+   tokens (--good, --warn, --bad, --violet, --navy) so dark mode follows.
+   ========================================================================== */
+
+.status-wrap {
+	max-width: 820px;
+	margin: 0 auto;
+	padding: 48px var(--gutter) 96px;
+}
+
+.status-hero__alerts a,
+.status-hero a {
+	color: var(--navy);
+}
+
+.status-beacon .illus {
+	background-color: var(--ill-ink);
+}
+
+.status-beacon--minor .illus,
+.status-beacon--major .illus {
+	background-color: var(--warn);
+}
+
+.status-beacon--critical .illus {
+	background-color: var(--bad);
+}
+
+.status-beacon {
+	display: grid;
+	place-items: center;
+	width: 100%;
+}
+
+.status-eyebrow {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.status-eyebrow__dot {
+	--dot: var(--good);
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: var(--dot);
+	box-shadow: 0 0 0 4px color-mix(in srgb, var(--dot) 20%, transparent);
+	flex: none;
+}
+
+.status-eyebrow--maintenance .status-eyebrow__dot { --dot: var(--violet); }
+.status-eyebrow--minor .status-eyebrow__dot,
+.status-eyebrow--major .status-eyebrow__dot { --dot: var(--warn); }
+.status-eyebrow--critical .status-eyebrow__dot { --dot: var(--bad); }
+
+.status-heading {
+	margin: 44px 0 14px;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	color: var(--text-3);
+}
+
+.status-wrap > .status-heading:first-child {
+	margin-top: 0;
+}
+
+.status-month {
+	margin: 30px 0 12px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid var(--border);
+	font-weight: 700;
+	font-size: 15px;
+	color: var(--text-2);
+}
+
+.status-incident {
+	--impact: var(--border-strong);
+	position: relative;
+	margin-bottom: 12px;
+	padding: 18px 22px 18px 24px;
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	background: var(--surface);
+	overflow: hidden;
+}
+
+.status-incident::before {
+	content: "";
+	position: absolute;
+	inset: 0 auto 0 0;
+	width: 4px;
+	background: var(--impact);
+}
+
+.status-incident--minor,
+.status-incident--major { --impact: var(--warn); }
+.status-incident--critical { --impact: var(--bad); }
+.status-incident--maintenance { --impact: var(--violet); }
+
+.status-incident__head {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.status-incident__title {
+	margin: 0;
+	font-size: 17px;
+	line-height: 1.35;
+	font-weight: 700;
+	letter-spacing: -.01em;
+}
+
+.status-incident__title a {
+	color: var(--text);
+	text-decoration: none;
+}
+
+.status-incident__title a:hover {
+	color: var(--navy);
+}
+
+.status-incident__meta {
+	margin-top: 4px;
+	font-size: 13.5px;
+	color: var(--text-3);
+}
+
+.status-pill {
+	--pill: var(--text-3);
+	flex: none;
+	padding: 3px 10px;
+	border-radius: 999px;
+	font-size: 12px;
+	font-weight: 700;
+	color: var(--pill);
+	background: color-mix(in srgb, var(--pill) 13%, transparent);
+	white-space: nowrap;
+}
+
+.status-pill--resolved,
+.status-pill--completed { --pill: var(--good); }
+.status-pill--monitoring,
+.status-pill--verifying { --pill: var(--navy); }
+.status-pill--identified { --pill: var(--warn); }
+.status-pill--investigating { --pill: var(--bad); }
+.status-pill--scheduled,
+.status-pill--in_progress { --pill: var(--violet); }
+
+.status-updates {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.status-update,
+.status-postmortem {
+	margin-top: 14px;
+}
+
+.status-update + .status-update {
+	padding-top: 14px;
+	border-top: 1px solid var(--border);
+}
+
+.status-postmortem {
+	padding: 14px 16px;
+	border-radius: var(--radius-sm);
+	background: var(--surface-2);
+	border: 1px solid var(--border);
+}
+
+.status-update__label {
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--text);
+}
+
+.status-update__label time {
+	margin-left: 6px;
+	font-weight: 400;
+	color: var(--text-3);
+}
+
+.status-update__body.prose {
+	max-width: none;
+	margin: 0;
+	padding: 0;
+}
+
+.status-update__body.prose p,
+.status-update__body.prose li {
+	margin-top: 6px;
+	font-size: 15.5px;
+	line-height: 1.65;
+	color: var(--text-2);
+}
+
+.status-update__body.prose h2,
+.status-update__body.prose h3 {
+	margin-top: 16px;
+	font-size: 16px;
+}
+
+.status-update__body.prose a {
+	overflow-wrap: anywhere;
+}
+
+.status-incident__more {
+	display: inline-block;
+	margin-top: 12px;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--navy);
+	text-decoration: none;
+}
+
+.status-empty,
+.status-foot {
+	color: var(--text-3);
+	font-size: 14px;
+}
+
+.status-foot {
+	margin-top: 40px;
+}
+
+.status-foot a {
+	color: var(--text-3);
+}
+
+.status-pager {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	margin-top: 32px;
+}
+
+.status-pager__count {
+	font-size: 14px;
+	color: var(--text-3);
+}
+
+.status-box {
+	padding: 26px 28px;
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	background: var(--surface);
+	font-size: 16px;
+	color: var(--text-2);
+}
+
+.status-box form {
+	margin-top: 16px;
+}
+
+@media (max-width: 560px) {
+	.status-wrap {
+		padding-top: 32px;
+	}
+
+	.status-incident {
+		padding: 16px 16px 16px 18px;
+	}
+
+	.status-incident__head {
+		flex-direction: column;
+		gap: 6px;
+	}
+
+	.status-beacon {
+		display: none;
+	}
+}
