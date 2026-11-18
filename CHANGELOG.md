@@ -5,6 +5,17 @@ All notable changes to Anchor Theme are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.12] — 2026-11-18
+
+### Added
+
+- Status page design for CaptainCore's `/status/` (`captaincore/status.php`):
+  a "System status" hero with the lighthouse illustration, the current state
+  as the headline, past incidents grouped by month with impact colours,
+  incident pages with every update and the postmortem, and the unsubscribe
+  page. Uses the theme's tokens, so it follows light and dark, and works at
+  phone width. Without this file the Manager falls back to its plain template.
+
 ## [1.0.11] — 2026-11-11
 
 ### Changed
