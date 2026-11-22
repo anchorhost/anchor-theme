@@ -5,6 +5,15 @@ All notable changes to Anchor Theme are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.13] — 2026-11-22
+
+### Added
+
+- Free tools section on the home page, after the infrastructure band. Cards
+  for Cove (local development) and Disembark (moving WordPress), each with
+  its logo, three highlights, platform note and a link out, under "Free · No
+  license key · No account". Copy lives in `anchor_free_tools()`.
+
 ## [1.0.12] — 2026-11-18
 
 ### Added
