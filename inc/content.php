@@ -803,6 +803,49 @@ function anchor_infrastructure() {
 }
 
 /**
+ * Free tools section on the home page. Both are made by Anchor and free
+ * for anyone, Anchor customer or not. `icon` is a filename in assets/icons/.
+ */
+function anchor_free_tools() {
+	return apply_filters( 'anchor_free_tools', [
+		'eyebrow' => 'Free tools',
+		'title'   => 'Free for everyone. Hosted here or not.',
+		'lede'    => 'Two WordPress tools I build and give away. No license keys. No accounts. Download and go.',
+		'perks'   => [ 'Free', 'No license key', 'No account' ],
+		'items'   => [
+			[
+				'kind'   => 'Local development',
+				'name'   => 'Cove',
+				'icon'   => 'cove.svg',
+				'text'   => 'Run WordPress on your own computer. One command adds a site, ready to work on.',
+				'points' => [
+					'HTTPS on every local site',
+					'A database made for each site',
+					'Outgoing email caught, never sent',
+				],
+				'meta'   => "macOS\u{00A0}·\u{00A0}Linux\u{00A0}·\u{00A0}WSL2",
+				'label'  => 'Get Cove',
+				'url'    => 'https://cove.run',
+			],
+			[
+				'kind'   => 'Moving WordPress',
+				'name'   => 'Disembark',
+				'icon'   => 'disembark.svg',
+				'text'   => 'Move a site to a new host, push staging live or pack a backup zip. Free, with no size cap.',
+				'points' => [
+					'Server to server, nothing in the middle',
+					'Every old URL rewritten, even serialized',
+					'A restore point before every change',
+				],
+				'meta'   => "WordPress plugin\u{00A0}·\u{00A0}Open source",
+				'label'  => 'Get Disembark',
+				'url'    => 'https://disembark.host',
+			],
+		],
+	] );
+}
+
+/**
  * Customer quotes — verbatim excerpts from public Google reviews and
  * LinkedIn recommendations of Anchor Hosting. Trim by dropping whole
  * sentences, never by rewording. `url` (optional) links the name.

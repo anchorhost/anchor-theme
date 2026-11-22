@@ -17,6 +17,7 @@ get_header();
 <?php get_template_part( 'template-parts/home/arrangement' ); ?>
 <?php get_template_part( 'template-parts/home/console' ); ?>
 <?php get_template_part( 'template-parts/home/infrastructure' ); ?>
+<?php get_template_part( 'template-parts/home/tools' ); ?>
 <?php get_template_part( 'template-parts/home/quotes' ); ?>
 <?php get_template_part( 'template-parts/home/faq' ); ?>
 <?php get_template_part( 'template-parts/home/cta' ); ?>
