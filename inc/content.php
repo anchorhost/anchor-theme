@@ -803,14 +803,14 @@ function anchor_infrastructure() {
 }
 
 /**
- * Free tools section on the home page. Both are made by Anchor and free
+ * Free tools section on the home page. All are made by Anchor and free
  * for anyone, Anchor customer or not. `icon` is a filename in assets/icons/.
  */
 function anchor_free_tools() {
 	return apply_filters( 'anchor_free_tools', [
 		'eyebrow' => 'Free tools',
 		'title'   => 'Free for everyone. Hosted here or not.',
-		'lede'    => 'Two WordPress tools I build and give away. No license keys. No accounts. Download and go.',
+		'lede'    => 'Three WordPress tools I build and give away. No license keys. No accounts. Download and go.',
 		'perks'   => [ 'Free', 'No license key', 'No account' ],
 		'items'   => [
 			[
@@ -840,6 +840,20 @@ function anchor_free_tools() {
 				'meta'   => "WordPress plugin\u{00A0}·\u{00A0}Open source",
 				'label'  => 'Get Disembark',
 				'url'    => 'https://disembark.host',
+			],
+			[
+				'kind'   => 'Spam protection',
+				'name'   => 'Breakwater',
+				'icon'   => 'breakwater.svg',
+				'text'   => 'Stops spam on the forms you already use. Comes with every Anchor plan, and anyone can download it.',
+				'points' => [
+					'Gravity Forms, WPForms and more',
+					'Runs entirely on your own site',
+					'Nothing it holds is ever lost',
+				],
+				'meta'   => "WordPress plugin\u{00A0}·\u{00A0}Open source",
+				'label'  => 'Get Breakwater',
+				'url'    => 'https://breakwater.run',
 			],
 		],
 	] );

@@ -3024,8 +3024,14 @@ a.fleet__name:hover {
 .tools__grid {
 	margin-top: 40px;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+	grid-template-columns: repeat(3, minmax(0, 1fr));
 	gap: 20px;
+}
+
+@media (max-width: 1080px) {
+	.tools__grid {
+		grid-template-columns: 1fr;
+	}
 }
 
 .free-tool {
@@ -3095,14 +3101,12 @@ a.fleet__name:hover {
 	padding-top: 20px;
 	border-top: 1px solid var(--border);
 	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: space-between;
-	gap: 12px;
 }
 
 .free-tool__meta {
+	margin-top: 4px;
 	font-size: 13px;
+	line-height: 1.45;
 	font-weight: 600;
 	color: var(--text-3);
 }

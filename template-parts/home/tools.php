@@ -40,6 +40,7 @@ if ( empty( $tools['items'] ) ) {
 					<div>
 						<div class="free-tool__kind"><?php echo esc_html( $tool['kind'] ); ?></div>
 						<h3 class="free-tool__name"><?php echo esc_html( $tool['name'] ); ?></h3>
+						<div class="free-tool__meta"><?php echo esc_html( $tool['meta'] ); ?></div>
 					</div>
 				</div>
 				<p class="free-tool__text"><?php echo esc_html( $tool['text'] ); ?></p>
@@ -51,7 +52,6 @@ if ( empty( $tools['items'] ) ) {
 					</ul>
 				<?php endif; ?>
 				<div class="free-tool__foot">
-					<span class="free-tool__meta"><?php echo esc_html( $tool['meta'] ); ?></span>
 					<a class="btn btn--ghost btn--sm" href="<?php echo esc_url( $tool['url'] ); ?>" rel="noopener"><?php echo esc_html( $tool['label'] ); ?> <?php echo anchor_icon( 'external', 14 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
 				</div>
 			</article>
