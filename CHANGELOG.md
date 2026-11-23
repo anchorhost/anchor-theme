@@ -5,6 +5,14 @@ All notable changes to Anchor Theme are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.14] — 2026-11-23
+
+### Added
+
+- Breakwater (spam protection) joins Cove and Disembark in the home page
+  free tools section. The cards sit three across on wide screens and stack
+  below 1080px, and each card's platform line moved up under its name.
+
 ## [1.0.13] — 2026-11-22
 
 ### Added
