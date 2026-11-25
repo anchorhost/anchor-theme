@@ -15,7 +15,16 @@ if ( empty( $quotes ) ) {
 	return;
 }
 ?>
-<section class="wrap section">
+<section class="wrap section section--quotes">
+
+	<?php $head = anchor_quotes_head(); ?>
+	<?php if ( ! empty( $head['title'] ) ) : ?>
+		<div class="section-head__narrow">
+			<div class="eyebrow"><?php echo esc_html( $head['eyebrow'] ); ?></div>
+			<h2 class="section-title"><?php echo esc_html( $head['title'] ); ?></h2>
+		</div>
+	<?php endif; ?>
+
 	<div class="quotes__grid">
 		<?php foreach ( $quotes as $quote ) : ?>
 			<figure class="card quote">

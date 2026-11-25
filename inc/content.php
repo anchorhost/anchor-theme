@@ -805,6 +805,9 @@ function anchor_infrastructure() {
 /**
  * Free tools section on the home page. All are made by Anchor and free
  * for anyone, Anchor customer or not. `icon` is a filename in assets/icons/.
+ * An item with `terminal` lines takes the full row, with the terminal beside
+ * its copy; the rest sit two across. Terminal lines are what the tool really
+ * prints, trimmed. `type` is cmd, ok or empty.
  */
 function anchor_free_tools() {
 	return apply_filters( 'anchor_free_tools', [
@@ -826,6 +829,14 @@ function anchor_free_tools() {
 				'meta'   => "macOS\u{00A0}·\u{00A0}Linux\u{00A0}·\u{00A0}WSL2",
 				'label'  => 'Get Cove',
 				'url'    => 'https://cove.run',
+				'terminal' => [
+					[ 'type' => 'cmd', 'text' => 'cove add myblog' ],
+					[ 'type' => '', 'text' => 'Creating wordpress site: myblog.localhost' ],
+					[ 'type' => '', 'text' => 'Creating database: cove_myblog' ],
+					[ 'type' => '', 'text' => 'Installing WordPress...' ],
+					[ 'type' => 'ok', 'text' => "Site 'myblog.localhost' created successfully!" ],
+					[ 'type' => '', 'text' => 'URL: https://myblog.localhost/wp-admin' ],
+				],
 			],
 			[
 				'kind'   => 'Moving WordPress',
@@ -898,6 +909,16 @@ function anchor_quotes() {
 			'role'   => '★★★★★ · Google review',
 			'avatar' => get_theme_file_uri( 'assets/img/quotes/michael-leone.jpg' ),
 		],
+	] );
+}
+
+/**
+ * Heading above the customer quotes.
+ */
+function anchor_quotes_head() {
+	return apply_filters( 'anchor_quotes_head', [
+		'eyebrow' => 'Customers',
+		'title'   => 'From people who host here.',
 	] );
 }
 

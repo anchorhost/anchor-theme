@@ -3024,20 +3024,92 @@ a.fleet__name:hover {
 .tools__grid {
 	margin-top: 40px;
 	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
+	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: 20px;
-}
-
-@media (max-width: 1080px) {
-	.tools__grid {
-		grid-template-columns: 1fr;
-	}
 }
 
 .free-tool {
 	display: flex;
 	flex-direction: column;
 	padding: 28px 28px 24px;
+}
+
+.free-tool__main {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+/* Full row: copy on the left, a terminal on the right. */
+
+.free-tool--wide {
+	grid-column: 1 / -1;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 20px;
+}
+
+/* Lines both halves up with the two cards below. */
+
+.free-tool--wide .free-tool__main {
+	padding-right: 28px;
+}
+
+.free-tool__term {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	background: var(--surface-2);
+	overflow: hidden;
+}
+
+.free-tool__term-bar {
+	flex: none;
+	display: flex;
+	gap: 6px;
+	padding: 13px 16px;
+	border-bottom: 1px solid var(--border);
+}
+
+.free-tool__term-bar i {
+	width: 9px;
+	height: 9px;
+	border-radius: 50%;
+	background: var(--border-strong);
+}
+
+.free-tool__term-body {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 4px;
+	padding: 18px 20px;
+	font-family: var(--font-mono);
+	font-size: 13px;
+	line-height: 1.8;
+}
+
+.free-tool__term-body span {
+	color: var(--navy);
+}
+
+@media (max-width: 820px) {
+	.tools__grid,
+	.free-tool--wide {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.free-tool--wide .free-tool__main {
+		padding-right: 0;
+	}
+
+	.free-tool__term-body {
+		font-size: 12px;
+	}
 }
 
 .free-tool__head {
@@ -3113,6 +3185,16 @@ a.fleet__name:hover {
 
 /* --- Quotes --- */
 
+/* The tools section below brings its own top padding. */
+
+.section--quotes {
+	padding-bottom: 20px;
+}
+
+.section-head__narrow + .quotes__grid {
+	margin-top: 40px;
+}
+
 .quotes__grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -3120,6 +3202,8 @@ a.fleet__name:hover {
 }
 
 .quote {
+	display: flex;
+	flex-direction: column;
 	padding: 30px 28px;
 }
 
@@ -3138,7 +3222,8 @@ a.fleet__name:hover {
 }
 
 .quote__cite {
-	margin-top: 20px;
+	margin-top: auto;
+	padding-top: 20px;
 	display: flex;
 	align-items: center;
 	gap: 11px;
@@ -7224,6 +7309,11 @@ a.tool-card__note:hover {
 	.section {
 		padding-top: 68px;
 		padding-bottom: 68px;
+	}
+
+	.section--quotes,
+	.section--tools {
+		padding-bottom: 20px;
 	}
 
 	.fleet__head,
