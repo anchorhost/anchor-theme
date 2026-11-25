@@ -5,6 +5,27 @@ All notable changes to Anchor Theme are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.15] — 2026-11-25
+
+### Added
+
+- A heading over the home page reviews ("From people who host here."). Copy
+  lives in `anchor_quotes_head()`.
+- A free tool can carry `terminal` lines, which gives it the full row with a
+  terminal beside its copy. Cove uses it; Disembark and Breakwater sit two
+  across below.
+
+### Changed
+
+- The home page reviews now come before the free tools, so they follow the
+  hosting sections they talk about.
+- Review authors line up along the bottom of each row.
+
+### Fixed
+
+- The gap after the free tools was wider on phones and tablets than on
+  desktop.
+
 ## [1.0.14] — 2026-11-23
 
 ### Added
